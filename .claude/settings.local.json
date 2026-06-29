@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc *)",
+      "Bash(echo \"===EXIT:$?===\")",
+      "PowerShell(claude mcp add --scope user --transport http higgsfield https://mcp.higgsfield.ai/mcp 2>&1)"
+    ]
+  }
+}
