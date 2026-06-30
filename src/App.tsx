@@ -118,8 +118,10 @@ function App() {
           style={{ y: heroWatermarkY, scale: heroWatermarkScale }}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex justify-center items-center pointer-events-none z-0 px-4"
         >
-          <h1 className="font-cinzel text-[10vw] md:text-[8vw] font-black opacity-[0.05] md:opacity-[0.20] bg-clip-text text-transparent bg-gradient-to-r from-white via-gold to-white tracking-tighter select-none text-center whitespace-nowrap">
-            HABIB CONSULTANCY
+          <h1 className="font-cinzel text-[11vw] md:text-[7vw] font-black opacity-[0.12] md:opacity-[0.20] bg-clip-text text-transparent bg-gradient-to-r from-white via-gold to-white tracking-wider select-none text-center leading-[0.95]">
+            HABIB
+            <br />
+            CONSULTANCY
           </h1>
         </motion.div>
 
