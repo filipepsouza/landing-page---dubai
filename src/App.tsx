@@ -7,6 +7,17 @@ import { OrbitalArchitecture } from './components/OrbitalArchitecture';
 import { MetricTabs } from './components/MetricTabs';
 import { ScrollText } from './components/ScrollText';
 
+// Importando novos componentes para atender as diretrizes da imagem
+import { Scenario } from './components/Scenario';
+import { WhyDubai } from './components/WhyDubai';
+import { StrategyToExecution } from './components/StrategyToExecution';
+import { FreeZoneMainland } from './components/FreeZoneMainland';
+import { Solutions } from './components/Solutions';
+import { Differentiators } from './components/Differentiators';
+import { AboutHabib } from './components/AboutHabib';
+import { Faq } from './components/Faq';
+import { StrategicMeeting } from './components/StrategicMeeting';
+
 const CTAButton = ({ className = "", onClick, isNavbar = false }: { className?: string; onClick?: () => void; isNavbar?: boolean }) => (
   <button 
     onClick={onClick}
@@ -56,8 +67,6 @@ function App() {
 
   const videoRef = useRef<HTMLVideoElement>(null);
 
-
-
   return (
     <div ref={containerRef} className="bg-deepBlack text-white min-h-screen font-inter selection:bg-gold/30 selection:text-gold">
       
@@ -68,7 +77,7 @@ function App() {
         transition={{ type: "spring", stiffness: 100, delay: 0.5 }}
         className="fixed top-0 left-0 w-full z-50 py-6 bg-gradient-to-b from-black/80 via-black/30 to-transparent pointer-events-none"
       >
-        <div className="w-full flex items-center justify-between px-8 md:px-16 pointer-events-auto">
+        <div className="w-full flex items-center justify-between px-4 sm:px-8 md:px-16 pointer-events-auto">
           {/* Left Column: Logo */}
           <div className="bg-black/40 backdrop-blur-md h-11 px-6 rounded-full border border-white/10 flex items-center justify-center">
             {/* Logo Pill */}
@@ -85,7 +94,7 @@ function App() {
       </motion.nav>
 
       {/* SEÇÃO 1: Hero — `isolate` cria um stacking context próprio para o vídeo em -z-10 */}
-      <section className="relative isolate h-screen flex flex-col justify-end pb-24 px-8 md:px-16 overflow-hidden">
+      <section className="relative isolate h-screen flex flex-col justify-end pb-24 px-4 sm:px-8 md:px-16 overflow-hidden">
         {/* Camada de segurança: gradiente sólido atrás do vídeo */}
         <div className="absolute inset-0 -z-20 bg-gradient-to-b from-black via-[#0a0a0a] to-black" />
 
@@ -117,9 +126,9 @@ function App() {
         {/* Bottom Line Content */}
         <motion.div 
           style={{ opacity: heroTextOpacity, y: heroTextY }}
-          className="relative z-10 flex flex-col md:flex-row items-end justify-between w-full max-w-7xl mx-auto border-t border-white/10 pt-8"
+          className="relative z-10 flex flex-col md:flex-row items-center md:items-end justify-between w-full max-w-7xl mx-auto border-t border-white/10 pt-8 text-center md:text-left"
         >
-          <div className="flex flex-col mb-8 md:mb-0 shrink-0">
+          <div className="flex flex-col items-center md:items-start mb-6 md:mb-0 shrink-0">
             <h1 className="font-cinzel text-[10vw] md:text-[6vw] font-light tracking-tighter leading-[0.85] text-white whitespace-nowrap">
               <LuxReveal delay={0.2}>Zero</LuxReveal>
               <br />
@@ -127,13 +136,13 @@ function App() {
             </h1>
           </div>
           
-          <div className="w-full max-w-[280px] md:max-w-xl lg:max-w-2xl mb-8 md:mb-2 md:mx-8 text-center md:text-left">
+          <div className="w-full max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl mb-8 md:mb-2 md:mx-8 text-center md:text-left">
             <p className="text-white/60 text-sm md:text-base leading-relaxed">
               A engenharia definitiva do patrimônio. Estruturas paramétricas em Dubai que destravam acesso irrestrito a capital em moeda forte. Deixe o mercado comum para trás.
             </p>
           </div>
 
-          <div className="flex justify-center md:justify-end">
+          <div className="flex justify-center md:justify-end text-center md:text-right shrink-0">
             <h1 className="font-cinzel text-[10vw] md:text-[6vw] font-light tracking-tighter leading-[0.85] text-white whitespace-nowrap">
               <LuxReveal delay={0.6}>Moeda</LuxReveal>
               <br />
@@ -150,8 +159,14 @@ function App() {
         </LampContainer>
       </section>
 
-      {/* SEÇÃO 3: As Métricas da Operação */}
-      <section id="metricas" ref={metricsSectionRef} className="min-h-screen flex items-center px-8 md:px-16 py-24 relative z-30">
+      {/* SEÇÃO 3: O Cenário Atual (NOVO) */}
+      <Scenario />
+
+      {/* SEÇÃO 4: Por que os Emirados Árabes (NOVO) */}
+      <WhyDubai />
+
+      {/* SEÇÃO 5: As Métricas da Operação */}
+      <section id="metricas" ref={metricsSectionRef} className="min-h-screen flex items-center px-4 sm:px-8 md:px-16 py-16 md:py-24 relative z-30">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gold/[0.03] via-transparent to-transparent pointer-events-none" />
         
         <div className="max-w-5xl mx-auto w-full relative z-10" style={{ perspective: '2000px' }}>
@@ -189,8 +204,11 @@ function App() {
         </div>
       </section>
 
-      {/* SEÇÃO 4: A Arquitetura da Máquina */}
-      <section id="arquitetura" className="min-h-screen py-24 px-8 md:px-16 relative overflow-hidden z-20 bg-black flex flex-col items-center justify-center">
+      {/* SEÇÃO 6: Da Estratégia à Execução (NOVO) */}
+      <StrategyToExecution />
+
+      {/* SEÇÃO 7: Como Trabalhamos (A Arquitetura da Máquina) */}
+      <section id="arquitetura" className="min-h-screen py-16 md:py-24 px-4 sm:px-8 md:px-16 relative overflow-hidden z-20 bg-black flex flex-col items-center justify-center">
         
         {/* 1. GRID PARAMÉTRICO (Textura de Fundo) */}
         <div 
@@ -216,9 +234,14 @@ function App() {
         </motion.div>
 
         <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col gap-12 md:gap-16">
-          <h2 className="font-cinzel text-4xl md:text-6xl font-light text-white leading-tight tracking-tighter text-center">
-            A Arquitetura
-          </h2>
+          <div className="flex flex-col items-center gap-4">
+            <h2 className="font-cinzel text-4xl md:text-6xl font-light text-white leading-tight tracking-tighter text-center">
+              Como Trabalhamos
+            </h2>
+            <p className="text-white/60 text-xs md:text-sm text-center max-w-xl mx-auto font-light leading-relaxed">
+              Nossa metodologia de trabalho segue um processo estruturado e transparente, garantindo excelência técnica desde o diagnóstico até o acompanhamento pós-entrega.
+            </p>
+          </div>
 
           <div className="flex justify-center w-full mt-4">
             <OrbitalArchitecture />
@@ -226,7 +249,25 @@ function App() {
         </div>
       </section>
 
-      {/* FOOTER (Seção 5) — `isolate` mantém o vídeo -z-10 dentro do próprio contexto */}
+      {/* SEÇÃO 8: Free Zone ou Mainland (NOVO) */}
+      <FreeZoneMainland />
+
+      {/* SEÇÃO 9: Soluções (NOVO) */}
+      <Solutions />
+
+      {/* SEÇÃO 10: Diferenciais da HABIB (NOVO) */}
+      <Differentiators />
+
+      {/* SEÇÃO 11: Sobre a HABIB (NOVO) */}
+      <AboutHabib />
+
+      {/* SEÇÃO 12: Perguntas Frequentes (NOVO) */}
+      <Faq />
+
+      {/* SEÇÃO 13: Reunião Estratégica (NOVO) */}
+      <StrategicMeeting onCtaClick={() => setIsModalOpen(true)} />
+
+      {/* FOOTER — `isolate` mantém o vídeo -z-10 dentro do próprio contexto */}
       <footer className="relative isolate bg-black py-24 px-8 md:px-16 border-t border-white/10 z-20 overflow-hidden">
         {/* Camada de segurança: gradiente sólido atrás do vídeo */}
         <div className="absolute inset-0 -z-20 bg-gradient-to-b from-black via-[#0a0a0a] to-black" />
@@ -274,9 +315,5 @@ function App() {
     </div>
   );
 }
-
-
-
-
 
 export default App;

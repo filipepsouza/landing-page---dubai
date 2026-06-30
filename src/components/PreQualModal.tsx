@@ -97,7 +97,7 @@ export const PreQualModal: React.FC<PreQualModalProps> = ({ isOpen, onClose }) =
       />
 
       {/* Modal Container */}
-      <div className="relative w-full max-w-xl bg-[#080808]/90 border border-gold/20 rounded-2xl p-8 shadow-[0_0_50px_rgba(212,175,55,0.15)] max-h-[90vh] overflow-y-auto z-10 flex flex-col gap-6 animate-fade-in scrollbar-thin">
+      <div className="relative w-full max-w-xl bg-[#080808]/90 border border-gold/20 rounded-2xl p-6 sm:p-8 shadow-[0_0_50px_rgba(212,175,55,0.15)] max-h-[90vh] overflow-y-auto z-10 flex flex-col gap-6 animate-fade-in scrollbar-thin">
         
         {/* Top Glow Accent */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-gold to-transparent" />
