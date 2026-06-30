@@ -118,7 +118,7 @@ function App() {
           style={{ y: heroWatermarkY, scale: heroWatermarkScale }}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex justify-center items-center pointer-events-none z-0 px-4"
         >
-          <h1 className="font-cinzel text-[13vw] md:text-[8vw] font-black opacity-[0.20] bg-clip-text text-transparent bg-gradient-to-r from-white via-gold to-white tracking-tighter select-none text-center whitespace-nowrap">
+          <h1 className="font-cinzel text-[10vw] md:text-[8vw] font-black opacity-[0.05] md:opacity-[0.20] bg-clip-text text-transparent bg-gradient-to-r from-white via-gold to-white tracking-tighter select-none text-center whitespace-nowrap">
             HABIB CONSULTANCY
           </h1>
         </motion.div>
@@ -126,24 +126,24 @@ function App() {
         {/* Bottom Line Content */}
         <motion.div 
           style={{ opacity: heroTextOpacity, y: heroTextY }}
-          className="relative z-10 flex flex-col md:flex-row items-center md:items-end justify-between w-full max-w-7xl mx-auto border-t border-white/10 pt-8 text-center md:text-left"
+          className="relative z-10 grid grid-cols-2 md:flex md:flex-row items-center md:items-end justify-between w-full max-w-7xl mx-auto border-t border-white/10 pt-8 gap-y-6"
         >
-          <div className="flex flex-col items-center md:items-start mb-6 md:mb-0 shrink-0">
-            <h1 className="font-cinzel text-[10vw] md:text-[6vw] font-light tracking-tighter leading-[0.85] text-white whitespace-nowrap">
+          <div className="order-1 md:order-1 col-span-1 flex flex-col items-start text-left shrink-0">
+            <h1 className="font-cinzel text-[7vw] sm:text-[5vw] md:text-[6vw] font-light tracking-tighter leading-[0.85] text-white whitespace-nowrap">
               <LuxReveal delay={0.2}>Zero</LuxReveal>
               <br />
               <LuxReveal delay={0.4}>Imposto</LuxReveal>
             </h1>
           </div>
           
-          <div className="w-full max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl mb-8 md:mb-2 md:mx-8 text-center md:text-left">
-            <p className="text-white/60 text-sm md:text-base leading-relaxed">
+          <div className="order-3 md:order-2 col-span-2 md:col-auto w-full max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl md:mb-2 md:mx-8 text-center md:text-left mx-auto">
+            <p className="text-white/60 text-xs sm:text-sm md:text-base leading-relaxed">
               A engenharia definitiva do patrimônio. Estruturas paramétricas em Dubai que destravam acesso irrestrito a capital em moeda forte. Deixe o mercado comum para trás.
             </p>
           </div>
 
-          <div className="flex justify-center md:justify-end text-center md:text-right shrink-0">
-            <h1 className="font-cinzel text-[10vw] md:text-[6vw] font-light tracking-tighter leading-[0.85] text-white whitespace-nowrap">
+          <div className="order-2 md:order-3 col-span-1 flex flex-col items-end text-right shrink-0">
+            <h1 className="font-cinzel text-[7vw] sm:text-[5vw] md:text-[6vw] font-light tracking-tighter leading-[0.85] text-white whitespace-nowrap">
               <LuxReveal delay={0.6}>Moeda</LuxReveal>
               <br />
               <LuxReveal delay={0.8}>Forte</LuxReveal>
