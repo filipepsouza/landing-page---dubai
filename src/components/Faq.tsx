@@ -46,7 +46,7 @@ export const Faq: React.FC = () => {
         {/* Title Group */}
         <div className="flex flex-col items-center text-center gap-4">
           <span className="text-[10px] font-bold text-gold/60 uppercase tracking-[0.2em] font-mono">
-            08. Perguntas Frequentes
+            Perguntas Frequentes
           </span>
           <h2 className="font-cinzel text-3xl md:text-5xl font-light text-white tracking-wider leading-tight">
             Esclareça Suas Dúvidas

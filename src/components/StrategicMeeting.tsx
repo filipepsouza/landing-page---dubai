@@ -38,7 +38,7 @@ export const StrategicMeeting: React.FC<StrategicMeetingProps> = ({ onCtaClick }
           {/* Agenda/Subjects Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl text-left border-t border-b border-white/5 py-8 my-2">
             <div className="flex flex-col gap-2">
-              <span className="text-[9px] font-bold text-gold uppercase tracking-widest font-mono">Tópico 01</span>
+              <span className="text-[9px] font-bold text-gold uppercase tracking-widest font-mono">Tópico</span>
               <h4 className="font-cinzel text-xs font-semibold text-white tracking-wider">Perfil Societário Ideal</h4>
               <p className="text-white/40 text-[11px] font-light leading-relaxed">
                 Análise se a melhor estrutura para sua operação é uma Free Zone de custo otimizado ou um Mainland ilimitado.
@@ -46,7 +46,7 @@ export const StrategicMeeting: React.FC<StrategicMeetingProps> = ({ onCtaClick }
             </div>
             
             <div className="flex flex-col gap-2">
-              <span className="text-[9px] font-bold text-gold uppercase tracking-widest font-mono">Tópico 02</span>
+              <span className="text-[9px] font-bold text-gold uppercase tracking-widest font-mono">Tópico</span>
               <h4 className="font-cinzel text-xs font-semibold text-white tracking-wider">Viabilidade de Bancabilidade</h4>
               <p className="text-white/40 text-[11px] font-light leading-relaxed">
                 Projeção do potencial de crédito corporativo local imobiliário com base na sua renda e investimentos previstos.
@@ -54,7 +54,7 @@ export const StrategicMeeting: React.FC<StrategicMeetingProps> = ({ onCtaClick }
             </div>
 
             <div className="flex flex-col gap-2">
-              <span className="text-[9px] font-bold text-gold uppercase tracking-widest font-mono">Tópico 03</span>
+              <span className="text-[9px] font-bold text-gold uppercase tracking-widest font-mono">Tópico</span>
               <h4 className="font-cinzel text-xs font-semibold text-white tracking-wider">Prazos e Custos Iniciais</h4>
               <p className="text-white/40 text-[11px] font-light leading-relaxed">
                 Apresentação transparente do orçamento regulatório completo e o cronograma para obtenção de vistos de residência.

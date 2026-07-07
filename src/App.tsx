@@ -1,17 +1,16 @@
 import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { LuxReveal } from './components/LuxReveal';
 import { LampContainer } from './components/Lamp';
 import { PreQualModal } from './components/PreQualModal';
 import { OrbitalArchitecture } from './components/OrbitalArchitecture';
 import { MetricTabs } from './components/MetricTabs';
 import { ScrollText } from './components/ScrollText';
+import { Hero } from './components/Hero';
 
 // Importando novos componentes para atender as diretrizes da imagem
 import { Scenario } from './components/Scenario';
 import { WhyDubai } from './components/WhyDubai';
 import { StrategyToExecution } from './components/StrategyToExecution';
-import { FreeZoneMainland } from './components/FreeZoneMainland';
 import { Solutions } from './components/Solutions';
 import { Differentiators } from './components/Differentiators';
 import { AboutHabib } from './components/AboutHabib';
@@ -31,11 +30,11 @@ const CTAButton = ({ className = "", onClick, isNavbar = false }: { className?: 
     <span className="relative z-10">
       {isNavbar ? (
         <>
-          <span className="hidden sm:inline">SOLICITAR ACESSO CONFIDENCIAL</span>
-          <span className="sm:hidden">SOLICITAR ACESSO</span>
+          <span className="hidden sm:inline">SOLICITAR DIAGNÓSTICO PATRIMONIAL</span>
+          <span className="sm:hidden">SOLICITAR DIAGNÓSTICO</span>
         </>
       ) : (
-        "SOLICITAR ACESSO CONFIDENCIAL"
+        "SOLICITAR DIAGNÓSTICO PATRIMONIAL"
       )}
     </span>
   </button>
@@ -57,16 +56,6 @@ function App() {
   const metricsScale = useTransform(metricsScroll, [0, 1], [0.3, 1]);
   const metricsOpacity = useTransform(metricsScroll, [0, 1], [0, 1]);
 
-  const { scrollY } = useScroll();
-  const heroVideoY = useTransform(scrollY, [0, 1000], [0, 400]);
-  const heroVideoOpacity = useTransform(scrollY, [0, 600], [0.3, 0]);
-  const heroTextOpacity = useTransform(scrollY, [0, 400], [1, 0]);
-  const heroTextY = useTransform(scrollY, [0, 400], [0, 100]);
-  const heroWatermarkY = useTransform(scrollY, [0, 800], [0, -200]);
-  const heroWatermarkScale = useTransform(scrollY, [0, 800], [1, 0.8]);
-
-  const videoRef = useRef<HTMLVideoElement>(null);
-
   return (
     <div ref={containerRef} className="bg-deepBlack text-white min-h-screen font-inter selection:bg-gold/30 selection:text-gold">
       
@@ -79,11 +68,8 @@ function App() {
       >
         <div className="w-full flex items-center justify-between px-4 sm:px-8 md:px-16 pointer-events-auto">
           {/* Left Column: Logo */}
-          <div className="bg-black/40 backdrop-blur-md h-11 px-6 rounded-full border border-white/10 flex items-center justify-center">
-            {/* Logo Pill */}
-            <div className="w-5 h-5 border-2 border-gold rotate-45 transform flex items-center justify-center">
-              <div className="w-1.5 h-1.5 bg-gold"></div>
-            </div>
+          <div className="bg-black/40 backdrop-blur-md h-11 px-3 rounded-full border border-white/10 flex items-center justify-center">
+            <img src="/logo.png?v=5" alt="Habib Consultancy" className="h-9 w-9 object-cover rounded-full" />
           </div>
 
           {/* Right Column: CTA Button */}
@@ -93,66 +79,8 @@ function App() {
         </div>
       </motion.nav>
 
-      {/* SEÇÃO 1: Hero — `isolate` cria um stacking context próprio para o vídeo em -z-10 */}
-      <section className="relative isolate h-screen flex flex-col justify-end pb-24 px-4 sm:px-8 md:px-16 overflow-hidden">
-        {/* Camada de segurança: gradiente sólido atrás do vídeo */}
-        <div className="absolute inset-0 -z-20 bg-gradient-to-b from-black via-[#0a0a0a] to-black" />
-
-        {/* Vídeo de fundo */}
-        <motion.video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
-          style={{ y: heroVideoY, opacity: heroVideoOpacity }}
-          className="absolute inset-0 w-full h-[120%] object-cover -z-10 -top-[10%]"
-          src="https://ubnkmtttmvmpminkkasu.supabase.co/storage/v1/object/public/vidd/55.mp4"
-        />
-
-        {/* Vinheta de leitura */}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-deepBlack/50 to-deepBlack pointer-events-none" />
-
-        {/* Giant Watermark Text */}
-        <motion.div 
-          style={{ y: heroWatermarkY, scale: heroWatermarkScale }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex justify-center items-center pointer-events-none z-0 px-4"
-        >
-          <h1 className="font-cinzel text-[11vw] md:text-[7vw] font-black opacity-[0.12] md:opacity-[0.20] bg-clip-text text-transparent bg-gradient-to-r from-white via-gold to-white tracking-wider select-none text-center leading-[0.95]">
-            HABIB
-            <br />
-            CONSULTANCY
-          </h1>
-        </motion.div>
-
-        {/* Bottom Line Content */}
-        <motion.div 
-          style={{ opacity: heroTextOpacity, y: heroTextY }}
-          className="relative z-10 grid grid-cols-2 md:flex md:flex-row items-center md:items-end justify-between w-full max-w-7xl mx-auto border-t border-white/10 pt-8 gap-y-6"
-        >
-          <div className="order-1 md:order-1 col-span-1 flex flex-col items-start text-left shrink-0">
-            <h1 className="font-cinzel text-[7vw] sm:text-[5vw] md:text-[6vw] font-light tracking-tighter leading-[0.85] text-white whitespace-nowrap">
-              <LuxReveal delay={0.2}>Zero</LuxReveal>
-              <br />
-              <LuxReveal delay={0.4}>Imposto</LuxReveal>
-            </h1>
-          </div>
-          
-          <div className="order-3 md:order-2 col-span-2 md:col-auto w-full max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl md:mb-2 md:mx-8 text-center md:text-left mx-auto">
-            <p className="text-white/60 text-xs sm:text-sm md:text-base leading-relaxed">
-              A engenharia definitiva do patrimônio. Estruturas paramétricas em Dubai que destravam acesso irrestrito a capital em moeda forte. Deixe o mercado comum para trás.
-            </p>
-          </div>
-
-          <div className="order-2 md:order-3 col-span-1 flex flex-col items-end text-right shrink-0">
-            <h1 className="font-cinzel text-[7vw] sm:text-[5vw] md:text-[6vw] font-light tracking-tighter leading-[0.85] text-white whitespace-nowrap">
-              <LuxReveal delay={0.6}>Moeda</LuxReveal>
-              <br />
-              <LuxReveal delay={0.8}>Forte</LuxReveal>
-            </h1>
-          </div>
-        </motion.div>
-      </section>
+      {/* SEÇÃO 1: Hero — Video Scrubbing controlado por scroll (ver Hero.tsx) */}
+      <Hero onCtaClick={() => setIsModalOpen(true)} />
 
       {/* SEÇÃO 2: Texto Cinematográfico */}
       <section id="maquina" className="relative min-h-screen flex items-start justify-center -mt-24 md:-mt-48 z-10 overflow-hidden">
@@ -250,9 +178,6 @@ function App() {
           </div>
         </div>
       </section>
-
-      {/* SEÇÃO 8: Free Zone ou Mainland (NOVO) */}
-      <FreeZoneMainland />
 
       {/* SEÇÃO 9: Soluções (NOVO) */}
       <Solutions />

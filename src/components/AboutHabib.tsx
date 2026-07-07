@@ -12,7 +12,7 @@ export const AboutHabib: React.FC = () => {
         {/* Left text column */}
         <div className="lg:col-span-7 flex flex-col items-start gap-6 text-left">
           <span className="text-[10px] font-bold text-gold/60 uppercase tracking-[0.2em] font-mono">
-            07. Sobre a HABIB
+            Sobre a HABIB
           </span>
           
           <h2 className="font-cinzel text-3xl md:text-5xl font-light text-white tracking-wider leading-tight">

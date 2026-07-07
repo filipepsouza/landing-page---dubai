@@ -256,7 +256,7 @@ export const PreQualModal: React.FC<PreQualModalProps> = ({ isOpen, onClose }) =
                 className="relative group w-full py-4 mt-2 bg-gradient-to-r from-[#8A7322] via-[#D4AF37] to-[#8A7322] text-black font-cinzel text-sm font-black tracking-[0.15em] rounded-xl transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_20px_rgba(212,175,55,0.15)] hover:shadow-[0_0_30px_rgba(212,175,55,0.3)] disabled:opacity-50 disabled:scale-100 disabled:shadow-none overflow-hidden cursor-pointer"
               >
                 <div className="absolute inset-0 bg-white/40 translate-x-[-150%] skew-x-[-45deg] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out" />
-                <span className="relative z-10">{isLoading ? 'ESTRUTURANDO DADOS...' : 'SOLICITAR ACESSO PATRIMONIAL'}</span>
+                <span className="relative z-10">{isLoading ? 'ESTRUTURANDO DADOS...' : 'SOLICITAR DIAGNÓSTICO PATRIMONIAL'}</span>
               </button>
             </form>
           </>
