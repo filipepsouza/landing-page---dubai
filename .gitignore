@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 
 .vercel
+
+# Unused large video assets
+public/55-scrub.mp4
+public/55.mp4
+public/hero-src.mp4
