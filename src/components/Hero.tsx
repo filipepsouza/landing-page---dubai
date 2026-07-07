@@ -26,7 +26,7 @@ import { LuxReveal } from './LuxReveal';
  * Botões de ajuste: SCROLL_HEIGHT_VH (ritmo) e LERP (suavidade).
  */
 
-const VIDEO_SRC = '/hero-scrub.mp4?v=2';
+const VIDEO_SRC = '/hero-scrub.mp4?v=6';
 
 // ~31,4s de vídeo -> ~750vh (≈24vh/s). Sobe = mais lento/contemplativo.
 const SCROLL_HEIGHT_VH = 750;
@@ -139,6 +139,14 @@ export function Hero({ onCtaClick }: HeroProps) {
     const onReady = () => {
       setLoadPct(100);
       setIsLoading(false);
+      // Unlock iOS Safari video decoder by playing and pausing immediately
+      if (v) {
+        v.play().then(() => {
+          v.pause();
+        }).catch(err => {
+          console.log("Video autoplay/play blocked or failed:", err);
+        });
+      }
     };
 
     v.addEventListener('loadedmetadata', onMeta);
@@ -192,6 +200,7 @@ export function Hero({ onCtaClick }: HeroProps) {
           x5-playsinline="true"
           className="absolute inset-0 h-full w-full object-cover -z-10"
           src={VIDEO_SRC}
+          poster="/hero-poster.jpg?v=6"
         />
 
         {/* Vinheta de leitura — leve, controlada por scroll (não "abafa" a imagem no fim) */}
@@ -216,7 +225,7 @@ export function Hero({ onCtaClick }: HeroProps) {
         {/* ABERTURA: palavras-âncora + parágrafo (copy existente, reposicionada) */}
         <div
           ref={wordsRef}
-          className="absolute bottom-[10vh] left-0 right-0 px-6 sm:px-10 md:px-16 z-10 pointer-events-none"
+          className="absolute bottom-[14vh] md:bottom-[10vh] left-0 right-0 px-6 sm:px-10 md:px-16 z-10 pointer-events-none"
           style={{ opacity: 1, transform: 'translateY(0px)' }}
         >
           <div className="grid grid-cols-2 md:flex md:flex-row items-end justify-between w-full max-w-7xl mx-auto gap-y-8">
@@ -229,7 +238,7 @@ export function Hero({ onCtaClick }: HeroProps) {
             </div>
 
             <div className="order-3 md:order-2 col-span-2 md:col-auto w-full max-w-xs sm:max-w-md md:max-w-lg md:mb-3 md:mx-10 text-center md:text-left mx-auto">
-              <p className="font-inter text-white/70 text-xs sm:text-sm md:text-[15px] font-light leading-relaxed tracking-wide">
+              <p className="font-inter text-white/70 text-[11px] sm:text-sm md:text-[15px] font-light leading-relaxed tracking-wide">
                 A engenharia definitiva do patrimônio. Estruturas paramétricas em
                 Dubai que destravam acesso irrestrito a capital em moeda forte.
               </p>
