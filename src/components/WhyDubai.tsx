@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShieldCheck, Coins, Compass, Activity, Landmark, Sparkles } from 'lucide-react';
 
@@ -35,6 +35,85 @@ const factors = [
   }
 ];
 
+interface FactorCardProps {
+  item: typeof factors[0];
+  idx: number;
+}
+
+const FactorCard: React.FC<FactorCardProps> = ({ item, idx }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const Icon = item.icon;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, margin: "-50px" }}
+      transition={{ duration: 0.5, delay: idx * 0.1 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="relative bg-[#080808]/75 backdrop-blur-xl border border-white/5 rounded-2xl p-5 sm:p-7 flex flex-col gap-6 shadow-[0_4px_30px_rgba(0,0,0,0.4)] transition-all duration-500 hover:scale-[1.02] overflow-hidden group cursor-default"
+    >
+      {/* SVG Animated Gold Border */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none rounded-2xl z-10" fill="none">
+        <defs>
+          <linearGradient id={`gold-grad-dubai-${idx}`} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#8A7322" />
+            <stop offset="50%" stopColor="#D4AF37" />
+            <stop offset="100%" stopColor="#8A7322" />
+          </linearGradient>
+        </defs>
+        
+        {/* Glow effect rect */}
+        <motion.rect
+          x="1"
+          y="1"
+          style={{ width: "calc(100% - 2px)", height: "calc(100% - 2px)" }}
+          rx="16"
+          ry="16"
+          pathLength="100"
+          stroke={`url(#gold-grad-dubai-${idx})`}
+          strokeWidth="3"
+          className="opacity-0 blur-[4px]"
+          animate={isHovered ? { strokeDasharray: "100 0", strokeDashoffset: 0, opacity: 0.45 } : { strokeDasharray: "0 100", strokeDashoffset: 100, opacity: 0 }}
+          initial={{ strokeDasharray: "0 100", strokeDashoffset: 100 }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+        />
+
+        {/* Sharp border rect */}
+        <motion.rect
+          x="1"
+          y="1"
+          style={{ width: "calc(100% - 2px)", height: "calc(100% - 2px)" }}
+          rx="16"
+          ry="16"
+          pathLength="100"
+          stroke={`url(#gold-grad-dubai-${idx})`}
+          strokeWidth="1.5"
+          animate={isHovered ? { strokeDasharray: ["30 70", "100 0"], strokeDashoffset: [100, 0] } : { strokeDasharray: "0 100", strokeDashoffset: 100 }}
+          initial={{ strokeDasharray: "0 100", strokeDashoffset: 100 }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+        />
+      </svg>
+
+      {/* Icon Circle */}
+      <div className="w-10 h-10 rounded-lg bg-gold/5 flex items-center justify-center border border-gold/10 text-gold transition-colors duration-500 group-hover:bg-gold/15 group-hover:border-gold/30">
+        <Icon className="w-5 h-5" />
+      </div>
+
+      {/* Content */}
+      <div className="flex flex-col gap-2 relative z-20">
+        <h3 className="font-cinzel text-base font-semibold text-white tracking-wider transition-colors duration-500 group-hover:text-gold">
+          {item.title}
+        </h3>
+        <p className="text-white/45 text-xs font-light leading-relaxed transition-colors duration-500 group-hover:text-white/60">
+          {item.description}
+        </p>
+      </div>
+    </motion.div>
+  );
+};
+
 export const WhyDubai: React.FC = () => {
   return (
     <section id="por-que-dubai" className="relative py-16 md:py-24 px-4 sm:px-8 md:px-16 z-20 bg-deepBlack">
@@ -68,34 +147,9 @@ export const WhyDubai: React.FC = () => {
 
         {/* Factors Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {factors.map((item, idx) => {
-            const Icon = item.icon;
-            return (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-[#080808]/75 backdrop-blur-xl border border-white/5 hover:border-gold/20 rounded-2xl p-5 sm:p-7 flex flex-col gap-6 shadow-[0_4px_30px_rgba(0,0,0,0.4)] transition-all duration-500 hover:scale-[1.02]"
-              >
-                {/* Icon Circle */}
-                <div className="w-10 h-10 rounded-lg bg-gold/5 flex items-center justify-center border border-gold/10 text-gold">
-                  <Icon className="w-5 h-5" />
-                </div>
-
-                {/* Content */}
-                <div className="flex flex-col gap-2">
-                  <h3 className="font-cinzel text-base font-semibold text-white tracking-wider">
-                    {item.title}
-                  </h3>
-                  <p className="text-white/40 text-xs font-light leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-              </motion.div>
-            );
-          })}
+          {factors.map((item, idx) => (
+            <FactorCard key={idx} item={item} idx={idx} />
+          ))}
         </div>
 
       </div>
