@@ -66,7 +66,7 @@ const MouseGlow = () => {
         x: glowX,
         y: glowY,
       }}
-      className="pointer-events-none fixed top-0 left-0 w-[300px] h-[300px] rounded-full bg-[radial-gradient(circle,_rgba(16, 124, 88,0.08)_0%,_rgba(16, 124, 88,0.02)_45%,_transparent_70%)] z-30 hidden md:block"
+      className="pointer-events-none fixed top-0 left-0 w-[300px] h-[300px] rounded-full bg-[radial-gradient(circle,_rgba(16,124,88,0.15)_0%,_rgba(16,124,88,0.04)_45%,_transparent_70%)] z-40 hidden md:block"
     />
   );
 };
