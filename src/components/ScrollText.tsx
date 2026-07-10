@@ -36,7 +36,7 @@ export const ScrollText = () => {
       {/* Phrase 1: Pure white elegant statement */}
       <motion.h2 
         style={{ opacity: opacity1, y: y1, filter: blur1 }}
-        className="font-cinzel text-xl md:text-3xl lg:text-4xl font-extralight text-white tracking-wide uppercase"
+        className="font-cinzel text-xl md:text-3xl lg:text-4xl font-normal text-white tracking-tight uppercase"
       >
         Não vendemos empresas.
       </motion.h2>
@@ -44,18 +44,17 @@ export const ScrollText = () => {
       {/* Phrase 2: Gold metallic gradient emphasis */}
       <motion.h2 
         style={{ opacity: opacity2, y: y2, filter: blur2 }}
-        className="font-cinzel text-2xl md:text-4xl lg:text-5xl font-black bg-clip-text text-transparent bg-gradient-to-r from-white via-gold to-white tracking-widest uppercase leading-tight py-1"
+        className="font-cinzel text-2xl md:text-4xl lg:text-5xl font-normal bg-clip-text text-transparent bg-gradient-to-r from-white via-gold to-white tracking-tight uppercase leading-tight py-1"
       >
         Construímos máquinas de bancabilidade em Dubai.
       </motion.h2>
 
-      {/* Phrase 3: Structured statement with underlined leverage focus */}
       <motion.h2 
         style={{ opacity: opacity3, y: y3, filter: blur3 }}
-        className="font-cinzel text-xl md:text-3xl lg:text-4xl font-light text-white/90 tracking-wide leading-relaxed uppercase"
+        className="font-cinzel text-[22px] md:text-[clamp(27px,3.2vw,42px)] font-normal text-white/90 tracking-[-0.01em] leading-[1.12] uppercase"
       >
         Transformamos seu aporte em acesso a{" "}
-        <span className="text-gold font-bold underline decoration-gold/45 underline-offset-8">
+        <span className="text-gold font-semibold underline decoration-gold/45 underline-offset-8">
           milhões em crédito
         </span>.
       </motion.h2>

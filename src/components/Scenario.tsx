@@ -93,10 +93,10 @@ const ChallengeCard: React.FC<ChallengeCardProps> = ({ item, idx }) => {
 
       {/* Content */}
       <div className="flex flex-col gap-2 relative z-20">
-        <h3 className="font-cinzel text-base font-semibold text-white tracking-wider transition-colors duration-500 group-hover:text-gold">
+        <h3 className="font-inter text-[15px] md:text-[18px] font-bold text-white tracking-[-0.005em] uppercase transition-colors duration-500 group-hover:text-gold leading-[1.2]">
           {item.title}
         </h3>
-        <p className="text-white/45 text-xs font-light leading-relaxed transition-colors duration-500 group-hover:text-white/60">
+        <p className="text-white/45 text-[13px] md:text-[15px] font-normal leading-[1.6] transition-colors duration-500 group-hover:text-white/60">
           {item.description}
         </p>
       </div>
@@ -114,14 +114,14 @@ export const Scenario: React.FC = () => {
         
         {/* Title Group */}
         <div className="flex flex-col items-center text-center gap-4">
-          <span className="text-[10px] font-bold text-gold/60 uppercase tracking-[0.2em] font-mono">
+          <span className="text-[11px] md:text-[13px] font-semibold text-gold/60 uppercase tracking-[0.3em] font-inter">
             O Cenário Atual
           </span>
-          <h2 className="font-cinzel text-3xl md:text-5xl font-light text-white tracking-wider max-w-3xl leading-tight">
+          <h2 className="font-cinzel text-[32px] md:text-[clamp(42px,4.8vw,64px)] font-normal text-white tracking-[-0.02em] max-w-3xl leading-[1.05]">
             Os Desafios do Empresário Brasileiro
           </h2>
           <div className="w-16 h-[1px] bg-gold/30 mt-2" />
-          <p className="text-white/60 text-xs md:text-sm max-w-xl font-light leading-relaxed">
+          <p className="text-white/60 text-[14px] md:text-[clamp(15px,1.2vw,18px)] font-normal leading-[1.6] max-w-xl">
             Preservar e expandir patrimônio em um mercado de alta fricção exige novas estratégias. Entenda os fatores que impulsionam a necessidade de internacionalização.
           </p>
         </div>

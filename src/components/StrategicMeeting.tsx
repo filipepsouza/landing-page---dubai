@@ -23,10 +23,10 @@ export const StrategicMeeting: React.FC<StrategicMeetingProps> = ({ onCtaClick }
 
           {/* Text content */}
           <div className="flex flex-col gap-4 max-w-2xl">
-            <span className="text-[10px] font-bold text-gold/60 uppercase tracking-[0.25em] font-mono">
+            <span className="text-[10px] font-semibold text-gold/60 uppercase tracking-[0.25em] font-inter">
               Próximo Passo
             </span>
-            <h2 className="font-cinzel text-3xl md:text-5xl font-light text-white tracking-wider leading-tight">
+            <h2 className="font-cinzel text-3xl md:text-5xl font-normal text-white tracking-tight leading-tight">
               Agende Sua Reunião Estratégica
             </h2>
             <div className="w-16 h-[1px] bg-gold/30 mx-auto mt-1" />
@@ -38,24 +38,24 @@ export const StrategicMeeting: React.FC<StrategicMeetingProps> = ({ onCtaClick }
           {/* Agenda/Subjects Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl text-left border-t border-b border-white/5 py-8 my-2">
             <div className="flex flex-col gap-2">
-              <span className="text-[9px] font-bold text-gold uppercase tracking-widest font-mono">Tópico</span>
-              <h4 className="font-cinzel text-xs font-semibold text-white tracking-wider">Perfil Societário Ideal</h4>
+              <span className="text-[9px] font-semibold text-gold uppercase tracking-widest font-inter">Tópico</span>
+              <h4 className="font-inter text-[11px] font-bold text-white tracking-wide uppercase">Perfil Societário Ideal</h4>
               <p className="text-white/40 text-[11px] font-light leading-relaxed">
                 Análise se a melhor estrutura para sua operação é uma Free Zone de custo otimizado ou um Mainland ilimitado.
               </p>
             </div>
             
             <div className="flex flex-col gap-2">
-              <span className="text-[9px] font-bold text-gold uppercase tracking-widest font-mono">Tópico</span>
-              <h4 className="font-cinzel text-xs font-semibold text-white tracking-wider">Viabilidade de Bancabilidade</h4>
+              <span className="text-[9px] font-semibold text-gold uppercase tracking-widest font-inter">Tópico</span>
+              <h4 className="font-inter text-[11px] font-bold text-white tracking-wide uppercase">Viabilidade de Bancabilidade</h4>
               <p className="text-white/40 text-[11px] font-light leading-relaxed">
                 Projeção do potencial de crédito corporativo local imobiliário com base na sua renda e investimentos previstos.
               </p>
             </div>
 
             <div className="flex flex-col gap-2">
-              <span className="text-[9px] font-bold text-gold uppercase tracking-widest font-mono">Tópico</span>
-              <h4 className="font-cinzel text-xs font-semibold text-white tracking-wider">Prazos e Custos Iniciais</h4>
+              <span className="text-[9px] font-semibold text-gold uppercase tracking-widest font-inter">Tópico</span>
+              <h4 className="font-inter text-[11px] font-bold text-white tracking-wide uppercase">Prazos e Custos Iniciais</h4>
               <p className="text-white/40 text-[11px] font-light leading-relaxed">
                 Apresentação transparente do orçamento regulatório completo e o cronograma para obtenção de vistos de residência.
               </p>
@@ -73,7 +73,7 @@ export const StrategicMeeting: React.FC<StrategicMeetingProps> = ({ onCtaClick }
                 SOLICITAR REUNIÃO CONFIDENCIAL <ArrowRight className="w-4 h-4" />
               </span>
             </button>
-            <span className="text-[9px] text-white/30 uppercase tracking-widest font-mono">
+            <span className="text-[9px] text-white/30 uppercase tracking-widest font-inter font-semibold">
               Sem obrigações • Vagas semanais limitadas para triagem
             </span>
           </div>

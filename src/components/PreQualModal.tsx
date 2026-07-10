@@ -116,9 +116,9 @@ export const PreQualModal: React.FC<PreQualModalProps> = ({ isOpen, onClose }) =
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2 text-gold">
                 <Sparkles className="w-4 h-4" />
-                <span className="font-cinzel text-xs font-bold tracking-[0.2em] uppercase">Solicitação Confidencial</span>
+                <span className="font-inter text-xs font-semibold tracking-[0.2em] uppercase">Solicitação Confidencial</span>
               </div>
-              <h3 className="font-cinzel text-2xl md:text-3xl font-light text-white tracking-wide leading-tight">
+              <h3 className="font-cinzel text-2xl md:text-3xl font-normal text-white tracking-tight leading-tight">
                 MÁQUINA DE BANCABILIDADE
               </h3>
               <p className="text-white/60 text-xs md:text-sm leading-relaxed font-light">
@@ -137,7 +137,7 @@ export const PreQualModal: React.FC<PreQualModalProps> = ({ isOpen, onClose }) =
               
               {/* Seção 1: Identificação */}
               <div className="flex flex-col gap-3">
-                <span className="text-[10px] font-bold text-gold/60 uppercase tracking-[0.15em] border-b border-gold/10 pb-1">01. Identificação Pessoal</span>
+                <span className="text-[10px] font-semibold text-gold/60 uppercase tracking-[0.15em] border-b border-gold/10 pb-1 font-inter">01. Identificação Pessoal</span>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
@@ -168,7 +168,7 @@ export const PreQualModal: React.FC<PreQualModalProps> = ({ isOpen, onClose }) =
 
               {/* Seção 2: Perfil Financeiro */}
               <div className="flex flex-col gap-3">
-                <span className="text-[10px] font-bold text-gold/60 uppercase tracking-[0.15em] border-b border-gold/10 pb-1">02. Parametrização Patrimonial</span>
+                <span className="text-[10px] font-semibold text-gold/60 uppercase tracking-[0.15em] border-b border-gold/10 pb-1 font-inter">02. Parametrização Patrimonial</span>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
@@ -253,7 +253,7 @@ export const PreQualModal: React.FC<PreQualModalProps> = ({ isOpen, onClose }) =
               <button 
                 type="submit"
                 disabled={isLoading}
-                className="relative group w-full py-4 mt-2 bg-gradient-to-r from-[#084732] via-[#107C58] to-[#084732] text-black font-cinzel text-sm font-black tracking-[0.15em] rounded-xl transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_20px_rgba(16, 124, 88,0.15)] hover:shadow-[0_0_30px_rgba(16, 124, 88,0.3)] disabled:opacity-50 disabled:scale-100 disabled:shadow-none overflow-hidden cursor-pointer"
+                className="relative group w-full py-4 mt-2 bg-gradient-to-r from-[#084732] via-[#107C58] to-[#084732] text-black font-inter text-sm font-bold tracking-[0.15em] rounded-xl transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_20px_rgba(16, 124, 88,0.15)] hover:shadow-[0_0_30px_rgba(16, 124, 88,0.3)] disabled:opacity-50 disabled:scale-100 disabled:shadow-none overflow-hidden cursor-pointer"
               >
                 <div className="absolute inset-0 bg-white/40 translate-x-[-150%] skew-x-[-45deg] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out" />
                 <span className="relative z-10">{isLoading ? 'ESTRUTURANDO DADOS...' : 'SOLICITAR DIAGNÓSTICO PATRIMONIAL'}</span>
@@ -265,7 +265,7 @@ export const PreQualModal: React.FC<PreQualModalProps> = ({ isOpen, onClose }) =
           <div className="flex flex-col items-center justify-center py-10 text-center gap-5 animate-fade-in">
             <CheckCircle className="w-16 h-16 text-gold animate-pulse" />
             <div className="flex flex-col gap-2">
-              <h3 className="font-cinzel text-2xl text-white tracking-wide uppercase">Solicitação Transmitida</h3>
+              <h3 className="font-cinzel text-2xl font-normal text-white tracking-tight uppercase">Solicitação Transmitida</h3>
               <p className="text-white/60 text-xs md:text-sm leading-relaxed max-w-sm font-light">
                 Seus dados foram integrados com sucesso. Nossa banca confidencial fará a triagem patrimonial e entrará em contato via WhatsApp nas próximas 2 horas.
               </p>
@@ -273,7 +273,7 @@ export const PreQualModal: React.FC<PreQualModalProps> = ({ isOpen, onClose }) =
             
             <button 
               onClick={onClose}
-              className="mt-4 px-8 py-3 border border-gold/30 hover:border-gold text-gold hover:text-white hover:bg-gold/10 rounded-xl font-cinzel text-xs tracking-widest uppercase transition-all duration-300 font-bold"
+              className="mt-4 px-8 py-3 border border-gold/30 hover:border-gold text-gold hover:text-white hover:bg-gold/10 rounded-xl font-inter text-xs tracking-widest uppercase transition-all duration-300 font-semibold"
             >
               FECHAR PAINEL
             </button>

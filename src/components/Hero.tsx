@@ -215,7 +215,7 @@ export function Hero({ onCtaClick }: HeroProps) {
           className="absolute top-1/2 left-1/2 w-full flex justify-center items-center pointer-events-none z-0 px-4"
           style={{ opacity: 0.9, transform: 'translate(-50%, -50%) scale(1)' }}
         >
-          <h1 className="font-cinzel text-[12vw] md:text-[8vw] font-medium bg-clip-text text-transparent bg-gradient-to-r from-white via-gold to-white tracking-[0.15em] select-none text-center leading-[1]">
+          <h1 className="font-cinzel text-[12vw] md:text-[8vw] font-normal bg-clip-text text-transparent bg-gradient-to-r from-white via-gold to-white tracking-[0.15em] select-none text-center leading-[1]">
             HABIB
             <br />
             CONSULTANCY
@@ -238,7 +238,7 @@ export function Hero({ onCtaClick }: HeroProps) {
             </div>
 
             <div className="order-3 md:order-2 col-span-2 md:col-auto w-full max-w-xs sm:max-w-md md:max-w-lg md:mb-3 md:mx-10 text-center md:text-left mx-auto">
-              <p className="font-inter text-white/70 text-[11px] sm:text-sm md:text-[15px] font-light leading-relaxed tracking-wide">
+              <p className="font-inter text-white/70 text-[11px] sm:text-sm md:text-[15px] font-normal leading-relaxed tracking-wide">
                 A engenharia definitiva do patrimônio. Estruturas paramétricas em
                 Dubai que destravam acesso irrestrito a capital em moeda forte.
               </p>
@@ -261,7 +261,7 @@ export function Hero({ onCtaClick }: HeroProps) {
         >
           <button
             onClick={onCtaClick}
-            className="pointer-events-auto relative group font-inter tracking-[0.25em] text-[11px] md:text-xs uppercase rounded-full transition-all duration-500 cursor-pointer overflow-hidden text-black bg-gradient-to-r from-[#C6A02E] via-[#F0D67A] to-[#C6A02E] font-semibold px-10 py-4 shadow-[0_0_40px_rgba(16, 124, 88,0.35)] hover:shadow-[0_0_60px_rgba(16, 124, 88,0.6)] hover:scale-[1.04]"
+            className="pointer-events-auto relative group font-inter tracking-[0.15em] text-[11px] md:text-[13px] uppercase rounded-full transition-all duration-500 cursor-pointer overflow-hidden text-black bg-gradient-to-r from-[#C6A02E] via-[#F0D67A] to-[#C6A02E] font-bold px-10 py-4 shadow-[0_0_40px_rgba(16, 124, 88,0.35)] hover:shadow-[0_0_60px_rgba(16, 124, 88,0.6)] hover:scale-[1.04]"
           >
             <div className="absolute inset-0 bg-white/50 translate-x-[-150%] skew-x-[-45deg] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out" />
             <span className="relative z-10">Solicitar Diagnóstico Patrimonial</span>
@@ -275,12 +275,12 @@ export function Hero({ onCtaClick }: HeroProps) {
         >
           {/* scrim localizado só atrás do texto (radial) — dá contraste sem abafar a cena */}
           <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_50%_45%_at_center,_rgba(0,0,0,0.55),_transparent_70%)]" />
-          <div className="max-w-3xl mx-auto flex flex-col gap-6 md:gap-8">
-            <h2 className="font-cinzel text-2xl md:text-3xl lg:text-4xl font-normal italic text-white/90 leading-[1.2] tracking-tight drop-shadow-[0_2px_30px_rgba(0,0,0,0.5)]">
+          <div className="max-w-4xl mx-auto flex flex-col gap-6 md:gap-8">
+            <h2 className="font-inter font-semibold uppercase text-xl md:text-[32px] leading-[1.15] tracking-[0.03em] text-white/90 drop-shadow-[0_2px_30px_rgba(0,0,0,0.5)]">
               Não vendemos empresas.
             </h2>
-            <h2 className="font-cinzel text-3xl md:text-4xl lg:text-5xl font-semibold leading-[1.15] tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#6EE7B7] via-[#10B981] to-[#34D399] drop-shadow-[0_2px_45px_rgba(16,185,129,0.45)]">
-              Construímos máquinas de bancabilidade em Dubai.
+            <h2 className="font-cinzel text-[36px] md:text-[clamp(48px,6.2vw,82px)] font-normal text-white tracking-[-0.02em] leading-[0.98] bg-clip-text text-transparent bg-gradient-to-r from-[#6EE7B7] via-[#10B981] to-[#34D399] drop-shadow-[0_2px_45px_rgba(16,185,129,0.45)] max-w-4xl mx-auto">
+              Construímos máquinas de <br className="hidden md:inline" /> bancabilidade em Dubai.
             </h2>
           </div>
         </motion.div>
@@ -291,12 +291,12 @@ export function Hero({ onCtaClick }: HeroProps) {
           className="absolute inset-0 flex flex-col items-center justify-center text-center px-8 z-10 pointer-events-none"
         >
           <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_55%_50%_at_center,_rgba(0,0,0,0.6),_transparent_70%)]" />
-          <p className="font-inter text-white/60 text-[11px] md:text-xs tracking-[0.35em] uppercase mb-6">
+          <p className="font-inter font-semibold text-white/60 text-[11px] md:text-xs tracking-[0.35em] uppercase mb-6">
             O acesso começa aqui
           </p>
           <button
             onClick={onCtaClick}
-            className="pointer-events-auto relative group font-inter tracking-[0.25em] text-[11px] md:text-xs uppercase rounded-full transition-all duration-500 cursor-pointer overflow-hidden text-black bg-gradient-to-r from-[#C6A02E] via-[#F0D67A] to-[#C6A02E] font-semibold px-10 py-4 shadow-[0_0_40px_rgba(16, 124, 88,0.35)] hover:shadow-[0_0_60px_rgba(16, 124, 88,0.6)] hover:scale-[1.04]"
+            className="pointer-events-auto relative group font-inter tracking-[0.15em] text-[11px] md:text-[13px] uppercase rounded-full transition-all duration-500 cursor-pointer overflow-hidden text-black bg-gradient-to-r from-[#C6A02E] via-[#F0D67A] to-[#C6A02E] font-bold px-10 py-4 shadow-[0_0_40px_rgba(16, 124, 88,0.35)] hover:shadow-[0_0_60px_rgba(16, 124, 88,0.6)] hover:scale-[1.04]"
           >
             <div className="absolute inset-0 bg-white/50 translate-x-[-150%] skew-x-[-45deg] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out" />
             <span className="relative z-10">Solicitar Diagnóstico Patrimonial</span>
@@ -309,7 +309,7 @@ export function Hero({ onCtaClick }: HeroProps) {
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center z-20 pointer-events-none"
           style={{ opacity: 1 }}
         >
-          <span className="font-inter text-white/40 text-[10px] tracking-[0.35em] uppercase mb-2">
+          <span className="font-inter font-semibold text-white/40 text-[10px] tracking-[0.35em] uppercase mb-2">
             Role para entrar
           </span>
           <div className="w-[1px] h-10 bg-gradient-to-b from-gold to-transparent" />
@@ -326,7 +326,7 @@ export function Hero({ onCtaClick }: HeroProps) {
               style={{ width: `${loadPct}%` }}
             />
           </div>
-          <span className="mt-4 font-inter text-white/40 text-[10px] tracking-[0.3em] uppercase">
+          <span className="mt-4 font-inter font-semibold text-white/40 text-[10px] tracking-[0.35em] uppercase">
             Preparando a experiência {loadPct}%
           </span>
         </div>

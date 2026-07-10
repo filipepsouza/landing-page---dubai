@@ -79,109 +79,115 @@ export const OrbitalArchitecture = () => {
         {/* Column 1: Orbital Wheel */}
         <div className="relative w-[500px] h-[500px] flex items-center justify-center select-none mx-auto">
           {/* Concentric Golden Tracks */}
-          <motion.div 
-            animate={{ rotate: 360 }}
-            transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
-            className="absolute w-[80%] h-[80%] rounded-full border border-gold/15 pointer-events-none z-0 shadow-[0_0_40px_rgba(16, 124, 88,0.05),_inset_0_0_20px_rgba(16, 124, 88,0.02)] flex items-center justify-center"
-          >
-            <div className="absolute inset-2 rounded-full border border-dashed border-gold/5" />
-            <div className="absolute inset-8 rounded-full border border-white/5" />
-          </motion.div>
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] pointer-events-none z-0">
+            <motion.div 
+              animate={{ rotate: 360 }}
+              transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
+              className="w-full h-full rounded-full border border-gold/15 shadow-[0_0_40px_rgba(16, 124, 88,0.05),_inset_0_0_20px_rgba(16, 124, 88,0.02)] flex items-center justify-center relative"
+            >
+              <div className="absolute inset-2 rounded-full border border-dashed border-gold/5" />
+              <div className="absolute inset-8 rounded-full border border-white/5" />
+            </motion.div>
+          </div>
 
           {/* Watch-style Bezel ticks (Mechanical luxury watch face feel) */}
-          <div className="absolute w-28 h-28 rounded-full border border-gold/10 flex items-center justify-center animate-[spin_120s_linear_infinite] pointer-events-none">
-            {[...Array(12)].map((_, i) => (
-              <div 
-                key={i} 
-                className="absolute w-[1px] h-1.5 bg-gold/30" 
-                style={{ transform: `rotate(${i * 30}deg) translateY(-52px)` }} 
-              />
-            ))}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 pointer-events-none z-0">
+            <div className="w-full h-full rounded-full border border-gold/10 flex items-center justify-center animate-[spin_120s_linear_infinite] relative">
+              {[...Array(12)].map((_, i) => (
+                <div 
+                  key={i} 
+                  className="absolute w-[1px] h-1.5 bg-gold/30" 
+                  style={{ transform: `rotate(${i * 30}deg) translateY(-52px)` }} 
+                />
+              ))}
+            </div>
           </div>
 
           {/* Central Glowing Core: Logo Oficial da Consultoria */}
-          <div className="absolute w-16 h-16 rounded-full bg-gradient-to-br from-[#121212] to-black border border-gold/30 flex items-center justify-center shadow-[0_0_35px_rgba(16, 124, 88,0.25)] z-10 overflow-hidden">
-            <img src="/logo.png?v=5" alt="Habib Consultancy Logo" className="w-10 h-10 object-contain rounded-full shadow-[0_0_15px_rgba(16, 124, 88,0.2)]" />
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-gradient-to-br from-[#121212] to-black border border-gold/30 flex items-center justify-center shadow-[0_0_35px_rgba(16, 124, 88,0.25)] z-10 overflow-hidden">
+            <img src="/logo.png?v=5" alt="Habib Consultancy Logo" className="w-10 h-10 object-contain translate-x-[2.5px] translate-y-[2.5px] rounded-full shadow-[0_0_15px_rgba(16, 124, 88,0.2)]" />
           </div>
 
           {/* Rotating Wrapper for Orbiting Nodes */}
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
-            className="absolute w-[80%] h-[80%] pointer-events-none z-20"
-          >
-            {/* Active Connector Ray (laser pointer line) */}
-            {activeStep !== null && (
-              <div 
-                className="absolute w-[50%] h-[1px] bg-gradient-to-r from-gold/0 via-gold/40 to-gold left-1/2 top-1/2 origin-left z-0 shadow-[0_0_8px_rgba(16, 124, 88,0.4)]"
-                style={{ 
-                  transform: `rotate(${angles[activeStep]}deg)`,
-                  transformOrigin: '0 0'
-                }}
-              />
-            )}
-
-            {/* Orbiting Nodes */}
-            {steps.map((step, idx) => {
-              const Icon = step.icon;
-              const angle = angles[idx];
-              const angleRad = (angle * Math.PI) / 180;
-              const x = Math.cos(angleRad) * 50; // 50% é a borda do contêiner pai
-              const y = Math.sin(angleRad) * 50;
-              const isActive = activeStep === idx;
-
-              return (
-                <div
-                  key={idx}
-                  className="absolute"
-                  style={{
-                    left: `calc(50% + ${x}% - 24px)`, // 24px metade da largura do nó (w-12)
-                    top: `calc(50% + ${y}% - 24px)`,
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] pointer-events-none z-20">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
+              className="w-full h-full relative"
+            >
+              {/* Active Connector Ray (laser pointer line) */}
+              {activeStep !== null && (
+                <div 
+                  className="absolute w-[50%] h-[1px] bg-gradient-to-r from-gold/0 via-gold/40 to-gold left-1/2 top-1/2 origin-left z-0 shadow-[0_0_8px_rgba(16, 124, 88,0.4)]"
+                  style={{ 
+                    transform: `rotate(${angles[activeStep]}deg)`,
+                    transformOrigin: '0 0'
                   }}
-                >
-                  {/* Inverse-Rotation container to keep buttons/text upright */}
-                  <motion.div
-                    animate={{ rotate: -360 }}
-                    transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
-                    className="flex flex-col items-center justify-center pointer-events-auto"
+                />
+              )}
+
+              {/* Orbiting Nodes */}
+              {steps.map((step, idx) => {
+                const Icon = step.icon;
+                const angle = angles[idx];
+                const angleRad = (angle * Math.PI) / 180;
+                const x = Math.cos(angleRad) * 50; // 50% é a borda do contêiner pai
+                const y = Math.sin(angleRad) * 50;
+                const isActive = activeStep === idx;
+
+                return (
+                  <div
+                    key={idx}
+                    className="absolute"
+                    style={{
+                      left: `calc(50% + ${x}% - 24px)`, // 24px metade da largura do nó (w-12)
+                      top: `calc(50% + ${y}% - 24px)`,
+                    }}
                   >
-                    {/* Botão do Nó */}
-                    <button
-                      onClick={() => setActiveStep(idx)}
-                      className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-500 cursor-pointer shadow-lg relative
-                        ${isActive
-                          ? "bg-gradient-to-br from-[#084732] via-[#107C58] to-[#084732] border-gold text-black scale-110 shadow-[0_0_30px_rgba(16, 124, 88,0.6)]"
-                          : "bg-black/90 border-white/10 text-white/55 hover:text-white hover:border-gold/50 hover:scale-105"
-                        }`}
+                    {/* Inverse-Rotation container to keep buttons/text upright */}
+                    <motion.div
+                      animate={{ rotate: -360 }}
+                      transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
+                      className="flex flex-col items-center justify-center pointer-events-auto"
                     >
-                      {/* Inner Ring when Active */}
-                      {isActive && (
-                        <div className="absolute inset-0.5 rounded-full border border-black/10 pointer-events-none" />
-                      )}
-                      
-                      <Icon className="w-5 h-5" />
+                      {/* Botão do Nó */}
+                      <button
+                        onClick={() => setActiveStep(idx)}
+                        className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-500 cursor-pointer shadow-lg relative
+                          ${isActive
+                            ? "bg-gradient-to-br from-[#084732] via-[#107C58] to-[#084732] border-gold text-black scale-110 shadow-[0_0_30px_rgba(16, 124, 88,0.6)]"
+                            : "bg-black/90 border-white/10 text-white/55 hover:text-white hover:border-gold/50 hover:scale-105"
+                          }`}
+                      >
+                        {/* Inner Ring when Active */}
+                        {isActive && (
+                          <div className="absolute inset-0.5 rounded-full border border-black/10 pointer-events-none" />
+                        )}
+                        
+                        <Icon className="w-5 h-5" />
 
-                      {/* Active Pulse Halos */}
-                      {isActive && (
-                        <div className="absolute inset-0 -z-10">
-                          <span className="absolute inset-[-8px] rounded-full bg-gold/20 animate-[ping_1.8s_cubic-bezier(0,0,0.2,1)_infinite]" />
-                          <span className="absolute inset-[-14px] rounded-full bg-gold/10 animate-[ping_2.6s_cubic-bezier(0,0,0.2,1)_infinite]" />
-                        </div>
-                      )}
-                    </button>
+                        {/* Active Pulse Halos */}
+                        {isActive && (
+                          <div className="absolute inset-0 -z-10">
+                            <span className="absolute inset-[-8px] rounded-full bg-gold/20 animate-[ping_1.8s_cubic-bezier(0,0,0.2,1)_infinite]" />
+                            <span className="absolute inset-[-14px] rounded-full bg-gold/10 animate-[ping_2.6s_cubic-bezier(0,0,0.2,1)_infinite]" />
+                          </div>
+                        )}
+                      </button>
 
-                    {/* Rótulo do Nó */}
-                    <span
-                      className={`absolute top-14 text-[9px] font-cinzel uppercase tracking-[0.2em] transition-all duration-300 whitespace-nowrap
-                        ${isActive ? "text-gold font-black scale-105 drop-shadow-[0_0_8px_rgba(16, 124, 88,0.4)]" : "text-white/40"}`}
-                    >
-                      {step.title}
-                    </span>
-                  </motion.div>
-                </div>
-              );
-            })}
-          </motion.div>
+                      {/* Rótulo do Nó */}
+                      <span
+                        className={`absolute top-14 text-[9px] font-inter font-semibold uppercase tracking-[0.2em] transition-all duration-300 whitespace-nowrap
+                          ${isActive ? "text-gold font-bold scale-105 drop-shadow-[0_0_8px_rgba(16, 124, 88,0.4)]" : "text-white/40"}`}
+                      >
+                        {step.title}
+                      </span>
+                    </motion.div>
+                  </div>
+                );
+              })}
+            </motion.div>
+          </div>
         </div>
 
         {/* Column 2: Detailed Info Card */}
@@ -214,16 +220,16 @@ export const OrbitalArchitecture = () => {
                           {ActiveIcon && <ActiveIcon className="w-4 h-4 text-gold" />}
                         </div>
                         <div>
-                          <span className="text-[9px] font-bold text-gold/60 uppercase tracking-widest">{activeData.status}</span>
-                          <h4 className="font-cinzel text-xs font-semibold text-white tracking-wider">{activeData.title}</h4>
+                          <span className="text-[9px] font-semibold text-gold/60 uppercase tracking-widest font-inter">{activeData.status}</span>
+                          <h4 className="font-inter text-xs font-semibold text-white tracking-wider uppercase">{activeData.title}</h4>
                         </div>
                       </div>
-                      <span className="text-[9px] font-mono text-white/30 tracking-widest uppercase">Dubai Setup</span>
+                      <span className="text-[9px] font-inter font-semibold text-white/30 tracking-widest uppercase">Dubai Setup</span>
                     </div>
 
                     {/* Card Body */}
                     <div className="flex-1 flex flex-col justify-center py-4">
-                      <h3 className="font-cinzel text-base text-white mb-2 leading-snug font-medium">
+                      <h3 className="font-inter text-xs sm:text-sm text-white mb-2 leading-snug font-bold uppercase tracking-wide">
                         {activeData.subtitle}
                       </h3>
                       <p className="text-white/60 text-[11.5px] leading-relaxed font-light">
@@ -251,7 +257,7 @@ export const OrbitalArchitecture = () => {
                       {/* Next Step trigger */}
                       <button
                         onClick={handleNext}
-                        className="mt-1 flex items-center justify-center gap-1.5 text-[10px] font-cinzel text-white/50 hover:text-gold transition-colors duration-300 self-end cursor-pointer font-bold tracking-wider"
+                        className="mt-1 flex items-center justify-center gap-1.5 text-[10px] font-inter text-white/50 hover:text-gold transition-colors duration-300 self-end cursor-pointer font-bold tracking-wider uppercase"
                       >
                         PRÓXIMA FASE <ArrowRight className="w-3 h-3" />
                       </button>
@@ -262,20 +268,22 @@ export const OrbitalArchitecture = () => {
                     {/* Default Welcome Header */}
                     <div className="flex items-center justify-between border-b border-gold/10 pb-4">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-gold/5 flex items-center justify-center border border-gold/20 shadow-[0_0_10px_rgba(16, 124, 88,0.05)] overflow-hidden">
-                          <img src="/logo.png?v=5" alt="Habib Consultancy Logo" className="w-8 h-8 object-cover rounded-full" />
+                        <div className="w-8 h-8 rounded-lg bg-gold/5 flex items-center justify-center border border-gold/20 shadow-[0_0_10px_rgba(16, 124, 88,0.05)]">
+                          <div className="w-3 h-3 border border-gold rotate-45 flex items-center justify-center">
+                            <div className="w-0.5 h-0.5 bg-gold" />
+                          </div>
                         </div>
                         <div>
-                          <span className="text-[9px] font-bold text-gold/40 uppercase tracking-widest">START</span>
-                          <h4 className="font-cinzel text-xs font-semibold text-white/80 tracking-wider">A Arquitetura</h4>
+                          <span className="text-[9px] font-semibold text-gold/40 uppercase tracking-widest font-inter">START</span>
+                          <h4 className="font-inter text-xs font-semibold text-white/80 tracking-wider uppercase">A Arquitetura</h4>
                         </div>
                       </div>
-                      <span className="text-[9px] font-mono text-white/20 tracking-widest uppercase">Dubai Setup</span>
+                      <span className="text-[9px] font-inter font-semibold text-white/20 tracking-widest uppercase">Dubai Setup</span>
                     </div>
 
                     {/* Default Welcome Body */}
                     <div className="flex-1 flex flex-col justify-center py-4">
-                      <h3 className="font-cinzel text-base text-white mb-2 leading-snug">
+                      <h3 className="font-inter text-xs sm:text-sm text-white mb-2 leading-snug font-bold uppercase tracking-wide">
                         Selecione uma fase da máquina
                       </h3>
                       <p className="text-white/60 text-[11.5px] leading-relaxed font-light">
@@ -294,7 +302,7 @@ export const OrbitalArchitecture = () => {
                       </div>
                       <button
                         onClick={handleNext}
-                        className="mt-1 flex items-center justify-center gap-1.5 text-[10px] font-cinzel text-white/50 hover:text-gold transition-colors duration-300 self-end cursor-pointer font-bold tracking-wider"
+                        className="mt-1 flex items-center justify-center gap-1.5 text-[10px] font-inter text-white/50 hover:text-gold transition-colors duration-300 self-end cursor-pointer font-bold tracking-wider uppercase"
                       >
                         INICIAR PASSO A PASSO <ArrowRight className="w-3 h-3" />
                       </button>
@@ -326,7 +334,7 @@ export const OrbitalArchitecture = () => {
                   }`}
               >
                 <Icon className="w-4 h-4" />
-                <span className="font-cinzel text-[10px] uppercase tracking-wider">{step.title}</span>
+                <span className="font-inter text-[10px] font-semibold uppercase tracking-wider">{step.title}</span>
               </button>
             );
           })}
@@ -358,14 +366,14 @@ export const OrbitalArchitecture = () => {
                       {ActiveIcon && <ActiveIcon className="w-4 h-4 text-gold" />}
                     </div>
                     <div>
-                      <span className="text-[9px] font-bold text-gold/60 uppercase tracking-widest">{activeData.status}</span>
-                      <h4 className="font-cinzel text-xs font-semibold text-white tracking-wider">{activeData.title}</h4>
+                      <span className="text-[9px] font-semibold text-gold/60 uppercase tracking-widest font-inter">{activeData.status}</span>
+                      <h4 className="font-inter text-xs font-semibold text-white tracking-wider uppercase">{activeData.title}</h4>
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="font-cinzel text-base text-white mb-2 leading-snug font-medium">
+                  <h3 className="font-inter text-xs sm:text-sm text-white mb-2 leading-snug font-bold uppercase tracking-wide">
                     {activeData.subtitle}
                   </h3>
                   <p className="text-white/60 text-xs leading-relaxed font-light">
@@ -383,7 +391,7 @@ export const OrbitalArchitecture = () => {
                   </div>
                   <button
                     onClick={handleNext}
-                    className="mt-2 flex items-center justify-center gap-1.5 text-[10px] font-cinzel text-white/50 hover:text-gold transition-colors duration-300 self-end cursor-pointer font-bold tracking-wider"
+                    className="mt-2 flex items-center justify-center gap-1.5 text-[10px] font-inter text-white/50 hover:text-gold transition-colors duration-300 self-end cursor-pointer font-bold tracking-wider uppercase"
                   >
                     PRÓXIMA FASE <ArrowRight className="w-3 h-3" />
                   </button>
@@ -393,8 +401,10 @@ export const OrbitalArchitecture = () => {
               <>
                 <div className="flex items-center justify-between border-b border-gold/10 pb-3">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-gold/5 flex items-center justify-center border border-gold/20 shadow-[0_0_10px_rgba(16, 124, 88,0.05)] overflow-hidden">
-                      <img src="/logo.png?v=5" alt="Habib Consultancy Logo" className="w-8 h-8 object-cover rounded-full" />
+                    <div className="w-8 h-8 rounded-lg bg-gold/5 flex items-center justify-center border border-gold/20 shadow-[0_0_10px_rgba(16, 124, 88,0.05)]">
+                      <div className="w-3 h-3 border border-gold rotate-45 flex items-center justify-center">
+                        <div className="w-0.5 h-0.5 bg-gold" />
+                      </div>
                     </div>
                     <div>
                       <span className="text-[9px] font-bold text-gold/40 uppercase tracking-widest">START</span>
@@ -404,7 +414,7 @@ export const OrbitalArchitecture = () => {
                 </div>
 
                 <div>
-                  <h3 className="font-cinzel text-base text-white mb-2 leading-snug">
+                  <h3 className="font-inter text-xs sm:text-sm text-white mb-2 leading-snug font-bold uppercase tracking-wide">
                     Selecione uma fase acima
                   </h3>
                   <p className="text-white/60 text-xs leading-relaxed font-light">
@@ -414,15 +424,15 @@ export const OrbitalArchitecture = () => {
 
                 <div className="border-t border-gold/10 pt-4 flex flex-col gap-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono text-white/30">Status do Motor</span>
-                    <span className="text-[10px] font-mono text-gold/60 font-bold">Pronto para Iniciar</span>
+                    <span className="text-[10px] font-inter font-semibold text-white/30">Status do Motor</span>
+                    <span className="text-[10px] font-inter font-semibold text-gold/60">Pronto para Iniciar</span>
                   </div>
                   <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden shadow-[inset_0_1px_2px_rgba(0,0,0,0.6)]">
                     <div className="h-full w-0 bg-gold" />
                   </div>
                   <button
                     onClick={handleNext}
-                    className="mt-2 flex items-center justify-center gap-1.5 text-[10px] font-cinzel text-white/50 hover:text-gold transition-colors duration-300 self-end cursor-pointer font-bold tracking-wider"
+                    className="mt-2 flex items-center justify-center gap-1.5 text-[10px] font-inter text-white/50 hover:text-gold transition-colors duration-300 self-end cursor-pointer font-bold tracking-wider uppercase"
                   >
                     INICIAR PASSO A PASSO <ArrowRight className="w-3 h-3" />
                   </button>

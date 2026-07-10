@@ -115,9 +115,9 @@ export const AboutHabib: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-[10px] font-bold text-gold/60 uppercase tracking-[0.2em] font-mono"
+            className="text-[11px] md:text-[13px] font-semibold text-gold/60 uppercase tracking-[0.3em] font-inter"
           >
-            Sobre a HABIB
+            SOBRE A HABIB
           </motion.span>
           
           <motion.h2 
@@ -125,7 +125,7 @@ export const AboutHabib: React.FC = () => {
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: false, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-cinzel text-3xl md:text-5xl font-light text-white tracking-wider leading-tight"
+            className="font-cinzel text-[34px] md:text-[clamp(46px,5vw,72px)] font-normal text-white tracking-[-0.02em] leading-[1.02]"
           >
             Credibilidade e Atuação <br />Institucional em Dubai
           </motion.h2>
@@ -143,7 +143,7 @@ export const AboutHabib: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-white/60 text-xs md:text-sm font-light leading-relaxed max-w-2xl"
+            className="text-white/60 text-[14px] md:text-[clamp(15px,1.2vw,18px)] font-normal leading-[1.65] max-w-2xl"
           >
             Nascida para responder à crescente necessidade de internacionalização de empresários e grandes investidores brasileiros, a <strong>HABIB Consultancy</strong> consolidou sua marca nos Emirados Árabes como uma referência de segurança jurídica e solidez operacional.
           </motion.p>
@@ -153,9 +153,9 @@ export const AboutHabib: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-white/60 text-xs md:text-sm font-light leading-relaxed max-w-2xl"
+            className="text-white/60 text-[14px] md:text-[clamp(15px,1.2vw,18px)] font-normal leading-[1.65] max-w-2xl"
           >
-            Com equipe pluridisciplinar atuando diretamente in-loco em Dubai, oferecemos uma consultoria especializada abrangendo desde o setup societário à atração de capital nos maiores bancos dos EAU. Apoiamos nossos clientes em todas as etapas presenciais e corporativas, garantindo tranquilidade jurídica absoluta.
+            Com equipe pluridisciplinar atuando diretamente in-loco em Dubai, oferecemos uma consultoria especializada abrangendo desde o setup societário à atração de capital nos maiores bancos dos EAU. Apoiamos nossos clientes em todas as etapas presençais e corporativas, garantindo tranquilidade jurídica absoluta.
           </motion.p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mt-4">
@@ -174,7 +174,7 @@ export const AboutHabib: React.FC = () => {
                 className="flex items-start gap-2.5"
               >
                 <CheckCircle className="w-4 h-4 text-gold shrink-0 mt-0.5" />
-                <span className="text-white/70 text-xs font-light">{text}</span>
+                <span className="text-white/80 text-[14px] md:text-[16px] font-medium font-inter leading-[1.4]">{text}</span>
               </motion.div>
             ))}
           </div>
@@ -237,30 +237,30 @@ export const AboutHabib: React.FC = () => {
             
             {/* Stat Item 1 */}
             <div className="flex flex-col border-b border-white/5 pb-6 relative z-20">
-              <span className="font-cinzel text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-gold to-[#084732] drop-shadow-[0_0_15px_rgba(16, 124, 88,0.2)]">
+              <span className="font-cinzel text-[36px] md:text-[48px] font-normal leading-none bg-clip-text text-transparent bg-gradient-to-r from-gold to-[#084732] drop-shadow-[0_0_15px_rgba(16, 124, 88,0.2)]">
                 <Counter from={1} to={100} prefix="+" suffix="M" />
               </span>
-              <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-mono mt-1">
+              <span className="text-[11px] md:text-[12px] text-white/40 uppercase tracking-[0.2em] font-inter font-semibold mt-1 leading-[1.3]">
                 Patrimônio Assessorado
               </span>
             </div>
 
             {/* Stat Item 2 */}
             <div className="flex flex-col border-b border-white/5 pb-6 relative z-20">
-              <span className="font-cinzel text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-gold to-[#084732] drop-shadow-[0_0_15px_rgba(16, 124, 88,0.2)]">
+              <span className="font-cinzel text-[36px] md:text-[48px] font-normal leading-none bg-clip-text text-transparent bg-gradient-to-r from-gold to-[#084732] drop-shadow-[0_0_15px_rgba(16, 124, 88,0.2)]">
                 <Counter from={0} to={100} suffix="%" />
               </span>
-              <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-mono mt-1">
+              <span className="text-[11px] md:text-[12px] text-white/40 uppercase tracking-[0.2em] font-inter font-semibold mt-1 leading-[1.3]">
                 Conformidade Legal EAU/BR
               </span>
             </div>
 
             {/* Stat Item 3 */}
             <div className="flex flex-col relative z-20">
-              <span className="font-cinzel text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-gold to-[#084732] drop-shadow-[0_0_15px_rgba(16, 124, 88,0.2)]">
+              <span className="font-cinzel text-[36px] md:text-[48px] font-normal leading-none bg-clip-text text-transparent bg-gradient-to-r from-gold to-[#084732] drop-shadow-[0_0_15px_rgba(16, 124, 88,0.2)]">
                 <DoubleCounter fromA={0} toA={24} fromB={0} toB={7} separator="/" />
               </span>
-              <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-mono mt-1">
+              <span className="text-[11px] md:text-[12px] text-white/40 uppercase tracking-[0.2em] font-inter font-semibold mt-1 leading-[1.3]">
                 Presença e Suporte In-Loco
               </span>
             </div>

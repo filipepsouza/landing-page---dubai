@@ -45,14 +45,14 @@ export const Faq: React.FC = () => {
         
         {/* Title Group */}
         <div className="flex flex-col items-center text-center gap-4">
-          <span className="text-[10px] font-bold text-gold/60 uppercase tracking-[0.2em] font-mono">
+          <span className="text-[11px] md:text-[13px] font-semibold text-gold/60 uppercase tracking-[0.3em] font-inter">
             Perguntas Frequentes
           </span>
-          <h2 className="font-cinzel text-3xl md:text-5xl font-light text-white tracking-wider leading-tight">
+          <h2 className="font-cinzel text-[32px] md:text-[clamp(44px,4.8vw,68px)] font-normal text-white tracking-[-0.02em] leading-[1.03]">
             Esclareça Suas Dúvidas
           </h2>
           <div className="w-16 h-[1px] bg-gold/30 mt-2" />
-          <p className="text-white/60 text-xs md:text-sm max-w-xl font-light leading-relaxed">
+          <p className="text-white/60 text-[14px] md:text-[clamp(15px,1.2vw,18px)] font-normal leading-[1.6] max-w-xl">
             Antes de iniciar a estruturação do seu patrimônio nos Emirados, compreenda as questões fiscais e operacionais essenciais do processo.
           </p>
         </div>
@@ -70,7 +70,7 @@ export const Faq: React.FC = () => {
                   onClick={() => toggle(idx)}
                   className="w-full flex items-center justify-between p-5 sm:p-6 md:p-8 text-left cursor-pointer select-none"
                 >
-                  <h3 className="font-cinzel text-xs md:text-sm font-semibold text-white tracking-wider max-w-[85%]">
+                  <h3 className="font-inter text-sm md:text-[clamp(16px,1.4vw,20px)] font-semibold text-white tracking-normal leading-[1.38] max-w-[85%]">
                     {item.question}
                   </h3>
                   <div className="w-6 h-6 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gold shrink-0 transition-transform duration-300">
@@ -87,7 +87,7 @@ export const Faq: React.FC = () => {
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                     >
                       <div className="px-5 pb-5 sm:px-6 sm:pb-6 md:px-8 md:pb-8 border-t border-white/[0.02] pt-4">
-                        <p className="text-white/50 text-xs md:text-sm font-light leading-relaxed">
+                        <p className="text-white/50 text-[14px] md:text-[16px] font-normal leading-[1.68]">
                           {item.answer}
                         </p>
                       </div>

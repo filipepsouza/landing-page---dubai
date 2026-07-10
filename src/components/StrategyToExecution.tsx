@@ -82,7 +82,7 @@ const StepCard: React.FC<StepCardProps> = ({ item, idx }) => {
 
       {/* Step Header */}
       <div className="flex items-center justify-between relative z-20">
-        <span className="text-[9px] font-bold text-gold uppercase tracking-widest font-mono transition-colors duration-500 group-hover:text-white">
+        <span className="text-[9px] font-semibold text-gold uppercase tracking-widest font-inter transition-colors duration-500 group-hover:text-white">
           {item.phase}
         </span>
         <div className="w-6 h-6 rounded-full bg-gold/10 flex items-center justify-center border border-gold/20 transition-colors duration-500 group-hover:bg-gold/20 group-hover:border-gold/45">
@@ -92,7 +92,7 @@ const StepCard: React.FC<StepCardProps> = ({ item, idx }) => {
 
       {/* Content */}
       <div className="flex flex-col gap-2 relative z-20">
-        <h3 className="font-cinzel text-base font-semibold text-white tracking-wider transition-colors duration-500 group-hover:text-gold">
+        <h3 className="font-inter text-sm font-bold text-white tracking-wider uppercase transition-colors duration-500 group-hover:text-gold">
           {item.title}
         </h3>
         <p className="text-white/40 text-xs font-light leading-relaxed transition-colors duration-500 group-hover:text-white/60">
@@ -118,7 +118,7 @@ export const StrategyToExecution: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-[10px] font-bold text-gold/60 uppercase tracking-[0.2em] font-mono"
+            className="text-[10px] font-semibold text-gold/60 uppercase tracking-[0.2em] font-inter"
           >
             Da Estratégia à Execução
           </motion.span>
@@ -128,7 +128,7 @@ export const StrategyToExecution: React.FC = () => {
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: false, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-cinzel text-3xl md:text-5xl font-light text-white tracking-wider max-w-3xl leading-tight"
+            className="font-cinzel text-3xl md:text-5xl font-normal text-white tracking-tight max-w-3xl leading-tight"
           >
             Nenhuma Operação de Sucesso Começa Pelo Fim
           </motion.h2>

@@ -103,7 +103,7 @@ const FactorCard: React.FC<FactorCardProps> = ({ item, idx }) => {
 
       {/* Content */}
       <div className="flex flex-col gap-2 relative z-20">
-        <h3 className="font-cinzel text-base font-semibold text-white tracking-wider transition-colors duration-500 group-hover:text-gold">
+        <h3 className="font-inter text-sm font-bold text-white tracking-wider uppercase transition-colors duration-500 group-hover:text-gold">
           {item.title}
         </h3>
         <p className="text-white/45 text-xs font-light leading-relaxed transition-colors duration-500 group-hover:text-white/60">
@@ -133,10 +133,10 @@ export const WhyDubai: React.FC = () => {
         
         {/* Title Group */}
         <div className="flex flex-col items-center text-center gap-4">
-          <span className="text-[10px] font-bold text-gold/60 uppercase tracking-[0.2em] font-mono">
+          <span className="text-[10px] font-semibold text-gold/60 uppercase tracking-[0.2em] font-inter">
             Por que os Emirados Árabes
           </span>
-          <h2 className="font-cinzel text-3xl md:text-5xl font-light text-white tracking-wider max-w-3xl leading-tight">
+          <h2 className="font-cinzel text-3xl md:text-5xl font-normal text-white tracking-tight max-w-3xl leading-tight">
             O Principal Destino de Capital do Mundo
           </h2>
           <div className="w-16 h-[1px] bg-gold/30 mt-2" />

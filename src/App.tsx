@@ -20,10 +20,10 @@ import { StrategicMeeting } from './components/StrategicMeeting';
 const CTAButton = ({ className = "", onClick, isNavbar = false }: { className?: string; onClick?: () => void; isNavbar?: boolean }) => (
   <button 
     onClick={onClick}
-    className={`relative group font-cinzel tracking-[0.15em] rounded-full transition-all duration-500 cursor-pointer overflow-hidden text-black bg-gradient-to-r from-[#084732] via-[#107C58] to-[#084732] font-black
+    className={`relative group font-inter tracking-[0.15em] rounded-full transition-all duration-500 cursor-pointer overflow-hidden text-black bg-gradient-to-r from-[#084732] via-[#107C58] to-[#084732] font-bold
       ${isNavbar 
-        ? "h-11 px-4 md:px-6 flex items-center justify-center text-[9px] md:text-[10px] shadow-[0_0_15px_rgba(16, 124, 88,0.2)] hover:shadow-[0_0_25px_rgba(16, 124, 88,0.4)]" 
-        : "px-8 py-4 text-sm md:text-base shadow-[0_0_20px_rgba(16, 124, 88,0.3)] hover:shadow-[0_0_40px_rgba(16, 124, 88,0.6)] hover:scale-105"
+        ? "h-11 px-4 md:px-6 flex items-center justify-center text-[10px] md:text-[12px] shadow-[0_0_15px_rgba(16, 124, 88,0.2)] hover:shadow-[0_0_25px_rgba(16, 124, 88,0.4)]" 
+        : "px-8 py-4 text-xs md:text-[14px] shadow-[0_0_20px_rgba(16, 124, 88,0.3)] hover:shadow-[0_0_40px_rgba(16, 124, 88,0.6)] hover:scale-105"
       } ${className}`}
   >
     <div className="absolute inset-0 bg-white/40 translate-x-[-150%] skew-x-[-45deg] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out" />
@@ -198,7 +198,7 @@ function App() {
 
         <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col gap-12 md:gap-16">
           <div className="flex flex-col items-center gap-4">
-            <h2 className="font-cinzel text-4xl md:text-6xl font-light text-white leading-tight tracking-tighter text-center">
+            <h2 className="font-cinzel text-4xl md:text-6xl font-normal text-white leading-tight tracking-tight text-center">
               Como Trabalhamos
             </h2>
             <p className="text-white/60 text-xs md:text-sm text-center max-w-xl mx-auto font-light leading-relaxed">
@@ -256,7 +256,7 @@ function App() {
           </div>
           
           <div className="flex flex-col items-start md:items-end text-left md:text-right">
-            <h3 className="font-cinzel text-xl md:text-2xl text-white mb-4">HABIB CONSULTANCY.</h3>
+            <h3 className="font-cinzel text-xl md:text-2xl font-normal text-white mb-4">HABIB CONSULTANCY.</h3>
             <p className="text-white/40 font-inter text-sm md:text-base max-w-sm mb-12">
               Operação confidencial. Estruturação, blindagem e escala.
             </p>

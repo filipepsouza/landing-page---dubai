@@ -58,7 +58,7 @@ export const MetricTabs = ({ onCtaClick }: { onCtaClick: () => void }) => {
             <button
               key={idx}
               onClick={() => setActiveTab(idx)}
-              className={`relative flex items-center gap-2 px-5 py-2.5 rounded-full transition-all duration-300 cursor-pointer text-xs font-cinzel tracking-wider font-semibold uppercase z-10 select-none
+              className={`relative flex items-center gap-2 px-5 py-2.5 rounded-full transition-all duration-300 cursor-pointer text-[10px] font-inter tracking-wider font-semibold uppercase z-10 select-none
                 ${isActive 
                   ? "text-white" 
                   : "text-white/40 hover:text-white/80"
@@ -95,12 +95,12 @@ export const MetricTabs = ({ onCtaClick }: { onCtaClick: () => void }) => {
             {/* Left Content Column */}
             <div className="md:col-span-7 flex flex-col items-start text-left">
               {/* Badge */}
-              <span className="inline-block bg-white/5 border border-white/10 rounded-full px-4 py-1.5 text-[9px] font-mono text-gold uppercase tracking-widest mb-6">
+              <span className="inline-block bg-white/5 border border-white/10 rounded-full px-4 py-1.5 text-[9px] font-inter font-semibold text-gold uppercase tracking-widest mb-6">
                 {activeData.badge}
               </span>
 
               {/* Title */}
-              <h3 className="font-cinzel text-2xl md:text-3xl font-light text-white leading-tight mb-4">
+              <h3 className="font-cinzel text-2xl md:text-3xl font-normal text-white tracking-tight leading-tight mb-4">
                 {activeData.title}
               </h3>
 
@@ -123,8 +123,8 @@ export const MetricTabs = ({ onCtaClick }: { onCtaClick: () => void }) => {
             <div className="md:col-span-5 flex justify-center items-center w-full">
               <div className="relative aspect-square w-full max-w-[280px] md:max-w-none rounded-2xl bg-black/40 border border-white/5 overflow-hidden flex flex-col items-center justify-center shadow-[0_0_40px_rgba(0,0,0,0.5)] py-12 px-6">
                 {/* Blueprint overlays */}
-                <div className="absolute top-3 left-4 font-mono text-[8px] text-white/20 uppercase tracking-widest pointer-events-none">METRIC SHOWCASE</div>
-                <div className="absolute bottom-3 right-4 font-mono text-[8px] text-gold/30 uppercase tracking-widest pointer-events-none">SYSTEM STATUS: READY</div>
+                <div className="absolute top-3 left-4 font-inter font-semibold text-[8px] text-white/20 uppercase tracking-widest pointer-events-none">METRIC SHOWCASE</div>
+                <div className="absolute bottom-3 right-4 font-inter font-semibold text-[8px] text-gold/30 uppercase tracking-widest pointer-events-none">SYSTEM STATUS: READY</div>
                 <div className="absolute inset-4 border border-white/[0.02] pointer-events-none rounded-xl" />
                 <div className="absolute inset-8 border border-gold/5 pointer-events-none rounded-lg border-dashed" />
 
@@ -134,7 +134,7 @@ export const MetricTabs = ({ onCtaClick }: { onCtaClick: () => void }) => {
                 </h1>
 
                 {/* Stat Label */}
-                <span className="font-cinzel text-[9px] uppercase tracking-[0.25em] text-white/40 mt-4 text-center">
+                <span className="font-inter text-[9px] font-semibold uppercase tracking-[0.25em] text-white/40 mt-4 text-center">
                   {activeData.statLabel}
                 </span>
               </div>

@@ -47,10 +47,10 @@ export const FreeZoneMainland: React.FC = () => {
         
         {/* Title Group */}
         <div className="flex flex-col items-center text-center gap-4">
-          <span className="text-[10px] font-bold text-gold/60 uppercase tracking-[0.2em] font-mono">
+          <span className="text-[10px] font-semibold text-gold/60 uppercase tracking-[0.2em] font-inter">
             04. Estruturação Física
           </span>
-          <h2 className="font-cinzel text-3xl md:text-5xl font-light text-white tracking-wider max-w-3xl leading-tight">
+          <h2 className="font-cinzel text-3xl md:text-5xl font-normal text-white tracking-tight max-w-3xl leading-tight">
             Free Zone ou Mainland?
           </h2>
           <div className="w-16 h-[1px] bg-gold/30 mt-2" />
@@ -64,14 +64,14 @@ export const FreeZoneMainland: React.FC = () => {
           <div className="flex justify-center border-b border-white/10 pb-2">
             <button
               onClick={() => setActiveTab('freezone')}
-              className={`flex-1 py-3 text-xs font-cinzel font-bold tracking-widest uppercase transition-all duration-300
+              className={`flex-1 py-3 text-xs font-inter font-semibold tracking-widest uppercase transition-all duration-300
                 ${activeTab === 'freezone' ? 'text-gold border-b border-gold' : 'text-white/40'}`}
             >
               Free Zone
             </button>
             <button
               onClick={() => setActiveTab('mainland')}
-              className={`flex-1 py-3 text-xs font-cinzel font-bold tracking-widest uppercase transition-all duration-300
+              className={`flex-1 py-3 text-xs font-inter font-semibold tracking-widest uppercase transition-all duration-300
                 ${activeTab === 'mainland' ? 'text-gold border-b border-gold' : 'text-white/40'}`}
             >
               Mainland
@@ -88,7 +88,7 @@ export const FreeZoneMainland: React.FC = () => {
               className="bg-[#080808]/75 backdrop-blur-xl border border-white/5 rounded-2xl p-5 sm:p-6 flex flex-col gap-6 shadow-2xl"
             >
               <div>
-                <h3 className="font-cinzel text-lg text-white mb-2">
+                <h3 className="font-inter text-sm font-bold text-white mb-2 uppercase tracking-wide">
                   {activeTab === 'freezone' ? "Zona Franca (Free Zone)" : "Território Nacional (Mainland)"}
                 </h3>
                 <p className="text-white/50 text-xs font-light leading-relaxed">
@@ -101,7 +101,7 @@ export const FreeZoneMainland: React.FC = () => {
               <div className="flex flex-col gap-4 border-t border-white/5 pt-4">
                 {comparisonData.map((item, idx) => (
                   <div key={idx} className="flex flex-col gap-1 border-b border-white/[0.03] pb-2">
-                    <span className="text-[10px] text-white/30 uppercase font-mono">{item.feature}</span>
+                    <span className="text-[10px] text-white/30 uppercase font-inter font-semibold">{item.feature}</span>
                     <span className="text-xs text-gold/90 font-medium">
                       {activeTab === 'freezone' ? item.freezone : item.mainland}
                     </span>
@@ -117,9 +117,9 @@ export const FreeZoneMainland: React.FC = () => {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-white/10 bg-white/[0.01]">
-                <th className="p-6 font-cinzel text-xs font-bold text-white/50 uppercase tracking-widest">Critério de Análise</th>
-                <th className="p-6 font-cinzel text-sm font-bold text-gold uppercase tracking-widest">Free Zone (Zona Franca)</th>
-                <th className="p-6 font-cinzel text-sm font-bold text-white uppercase tracking-widest">Mainland (Território Nacional)</th>
+                <th className="p-6 font-inter text-xs font-bold text-white/50 uppercase tracking-widest">Critério de Análise</th>
+                <th className="p-6 font-inter text-xs font-bold text-gold uppercase tracking-widest">Free Zone (Zona Franca)</th>
+                <th className="p-6 font-inter text-xs font-bold text-white uppercase tracking-widest">Mainland (Território Nacional)</th>
               </tr>
             </thead>
             <tbody>
@@ -128,7 +128,7 @@ export const FreeZoneMainland: React.FC = () => {
                   key={idx} 
                   className="border-b border-white/5 hover:bg-white/[0.01] transition-colors duration-300"
                 >
-                  <td className="p-6 text-xs text-white/60 font-mono uppercase tracking-wider">{item.feature}</td>
+                  <td className="p-6 text-xs text-white/60 font-inter font-semibold uppercase tracking-wider">{item.feature}</td>
                   <td className="p-6 text-sm text-gold/90 font-light font-inter">{item.freezone}</td>
                   <td className="p-6 text-sm text-white/70 font-light font-inter">{item.mainland}</td>
                 </tr>
@@ -143,7 +143,7 @@ export const FreeZoneMainland: React.FC = () => {
             <Award className="w-6 h-6" />
           </div>
           <div className="flex-1 text-center md:text-left">
-            <h4 className="font-cinzel text-base text-white mb-2">Recomendação Consultiva HABIB</h4>
+            <h4 className="font-inter text-sm font-bold text-white mb-2 uppercase tracking-wide">Recomendação Consultiva HABIB</h4>
             <p className="text-white/50 text-xs font-light leading-relaxed">
               Estruturas em <strong>Free Zone</strong> cobrem mais de 90% das demandas de prestadores de serviços internacionais, exportadores e investidores que procuram blindagem e zero imposto corporativo. No entanto, se o seu foco é a exploração do mercado doméstico local de varejo em Dubai, o <strong>Mainland</strong> será a indicação ideal. Nós cuidamos do desenho customizado.
             </p>

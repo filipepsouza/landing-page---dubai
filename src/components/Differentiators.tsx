@@ -103,7 +103,7 @@ const DifferentiatorCard: React.FC<DifferentiatorCardProps> = ({ item, idx }) =>
 
       {/* Content */}
       <div className="flex flex-col gap-2 relative z-20">
-        <h3 className="font-cinzel text-base font-semibold text-white tracking-wider transition-colors duration-500 group-hover:text-gold">
+        <h3 className="font-inter text-sm font-bold text-white tracking-wider uppercase transition-colors duration-500 group-hover:text-gold">
           {item.title}
         </h3>
         <p className="text-white/40 text-xs font-light leading-relaxed transition-colors duration-500 group-hover:text-white/60">
@@ -129,7 +129,7 @@ export const Differentiators: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-[10px] font-bold text-gold/60 uppercase tracking-[0.2em] font-mono"
+            className="text-[10px] font-semibold text-gold/60 uppercase tracking-[0.2em] font-inter"
           >
             Nossos Diferenciais
           </motion.span>
@@ -139,7 +139,7 @@ export const Differentiators: React.FC = () => {
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: false, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-cinzel text-3xl md:text-5xl font-light text-white tracking-wider max-w-3xl leading-tight"
+            className="font-cinzel text-3xl md:text-5xl font-normal text-white tracking-tight max-w-3xl leading-tight"
           >
             Por Que Escolher a HABIB Consultancy?
           </motion.h2>
