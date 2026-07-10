@@ -24,7 +24,7 @@ export function ParticleSphere() {
 
   const particles = useMemo(() => {
     const particles = []
-    const colorGold = new THREE.Color("#D4AF37")
+    const colorGold = new THREE.Color("#107C58")
     const colorDarkGold = new THREE.Color("#A88A2B")
     const colorWhite = new THREE.Color("#FFFFFF")
 
@@ -98,7 +98,7 @@ export function ParticleSphere() {
           position={tag.position}
           rotation={tag.rotation}
           fontSize={0.4}
-          color="#D4AF37"
+          color="#107C58"
           fillOpacity={0.6}
           letterSpacing={0.15}
           outlineWidth={0.01}

@@ -97,7 +97,7 @@ export const PreQualModal: React.FC<PreQualModalProps> = ({ isOpen, onClose }) =
       />
 
       {/* Modal Container */}
-      <div className="relative w-full max-w-xl bg-[#080808]/90 border border-gold/20 rounded-2xl p-6 sm:p-8 shadow-[0_0_50px_rgba(212,175,55,0.15)] max-h-[90vh] overflow-y-auto z-10 flex flex-col gap-6 animate-fade-in scrollbar-thin">
+      <div className="relative w-full max-w-xl bg-[#080808]/90 border border-gold/20 rounded-2xl p-6 sm:p-8 shadow-[0_0_50px_rgba(16, 124, 88,0.15)] max-h-[90vh] overflow-y-auto z-10 flex flex-col gap-6 animate-fade-in scrollbar-thin">
         
         {/* Top Glow Accent */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-gold to-transparent" />
@@ -148,7 +148,7 @@ export const PreQualModal: React.FC<PreQualModalProps> = ({ isOpen, onClose }) =
                       placeholder="Ex: Alexander Vance"
                       value={nome}
                       onChange={e => setNome(e.target.value)}
-                      className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-gold/50 focus:shadow-[0_0_10px_rgba(212,175,55,0.1)] transition-all duration-300 font-light"
+                      className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-gold/50 focus:shadow-[0_0_10px_rgba(16, 124, 88,0.1)] transition-all duration-300 font-light"
                     />
                   </div>
 
@@ -160,7 +160,7 @@ export const PreQualModal: React.FC<PreQualModalProps> = ({ isOpen, onClose }) =
                       placeholder="Ex: (11) 99999-8888"
                       value={telefone}
                       onChange={handlePhoneChange}
-                      className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-gold/50 focus:shadow-[0_0_10px_rgba(212,175,55,0.1)] transition-all duration-300 font-light"
+                      className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-gold/50 focus:shadow-[0_0_10px_rgba(16, 124, 88,0.1)] transition-all duration-300 font-light"
                     />
                   </div>
                 </div>
@@ -178,7 +178,7 @@ export const PreQualModal: React.FC<PreQualModalProps> = ({ isOpen, onClose }) =
                       placeholder="Ex: 25000"
                       value={renda}
                       onChange={e => setRenda(e.target.value)}
-                      className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-gold/50 focus:shadow-[0_0_10px_rgba(212,175,55,0.1)] transition-all duration-300 font-light"
+                      className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-gold/50 focus:shadow-[0_0_10px_rgba(16, 124, 88,0.1)] transition-all duration-300 font-light"
                     />
                   </div>
 
@@ -189,7 +189,7 @@ export const PreQualModal: React.FC<PreQualModalProps> = ({ isOpen, onClose }) =
                       placeholder="Ex: 5000"
                       value={parcela}
                       onChange={e => setParcela(e.target.value)}
-                      className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-gold/50 focus:shadow-[0_0_10px_rgba(212,175,55,0.1)] transition-all duration-300 font-light"
+                      className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-gold/50 focus:shadow-[0_0_10px_rgba(16, 124, 88,0.1)] transition-all duration-300 font-light"
                     />
                   </div>
                 </div>
@@ -253,7 +253,7 @@ export const PreQualModal: React.FC<PreQualModalProps> = ({ isOpen, onClose }) =
               <button 
                 type="submit"
                 disabled={isLoading}
-                className="relative group w-full py-4 mt-2 bg-gradient-to-r from-[#8A7322] via-[#D4AF37] to-[#8A7322] text-black font-cinzel text-sm font-black tracking-[0.15em] rounded-xl transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_20px_rgba(212,175,55,0.15)] hover:shadow-[0_0_30px_rgba(212,175,55,0.3)] disabled:opacity-50 disabled:scale-100 disabled:shadow-none overflow-hidden cursor-pointer"
+                className="relative group w-full py-4 mt-2 bg-gradient-to-r from-[#084732] via-[#107C58] to-[#084732] text-black font-cinzel text-sm font-black tracking-[0.15em] rounded-xl transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_20px_rgba(16, 124, 88,0.15)] hover:shadow-[0_0_30px_rgba(16, 124, 88,0.3)] disabled:opacity-50 disabled:scale-100 disabled:shadow-none overflow-hidden cursor-pointer"
               >
                 <div className="absolute inset-0 bg-white/40 translate-x-[-150%] skew-x-[-45deg] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out" />
                 <span className="relative z-10">{isLoading ? 'ESTRUTURANDO DADOS...' : 'SOLICITAR DIAGNÓSTICO PATRIMONIAL'}</span>

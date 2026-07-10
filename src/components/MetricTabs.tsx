@@ -112,7 +112,7 @@ export const MetricTabs = ({ onCtaClick }: { onCtaClick: () => void }) => {
               {/* CTA Button */}
               <button 
                 onClick={onCtaClick}
-                className="relative group px-6 py-3.5 bg-gradient-to-r from-[#8A7322] via-[#D4AF37] to-[#8A7322] text-black font-cinzel text-[10px] font-black tracking-widest rounded-full transition-all duration-300 hover:scale-105 overflow-hidden cursor-pointer shadow-[0_0_20px_rgba(212,175,55,0.25)] hover:shadow-[0_0_35px_rgba(212,175,55,0.55)]"
+                className="relative group px-6 py-3.5 bg-gradient-to-r from-[#084732] via-[#107C58] to-[#084732] text-black font-cinzel text-[10px] font-black tracking-widest rounded-full transition-all duration-300 hover:scale-105 overflow-hidden cursor-pointer shadow-[0_0_20px_rgba(16, 124, 88,0.25)] hover:shadow-[0_0_35px_rgba(16, 124, 88,0.55)]"
               >
                 <div className="absolute inset-0 bg-white/40 translate-x-[-150%] skew-x-[-45deg] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out" />
                 <span className="relative z-10">SOLICITAR ANÁLISE DE CRÉDITO</span>
@@ -129,7 +129,7 @@ export const MetricTabs = ({ onCtaClick }: { onCtaClick: () => void }) => {
                 <div className="absolute inset-8 border border-gold/5 pointer-events-none rounded-lg border-dashed" />
 
                 {/* Big Stat Value */}
-                <h1 className="text-6xl md:text-7xl font-black bg-clip-text text-transparent bg-gradient-to-b from-gold via-[#D4AF37] to-[#8A7322] drop-shadow-[0_0_35px_rgba(212,175,55,0.4)] tracking-tighter">
+                <h1 className="text-6xl md:text-7xl font-black bg-clip-text text-transparent bg-gradient-to-b from-gold via-[#107C58] to-[#084732] drop-shadow-[0_0_35px_rgba(16, 124, 88,0.4)] tracking-tighter">
                   {activeData.statValue}
                 </h1>
 

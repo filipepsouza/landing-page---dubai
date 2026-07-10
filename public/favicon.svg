@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none">
-  <!-- Outer Diamond: border stroke is gold (#D4AF37) -->
-  <path d="M16 3 L29 16 L16 29 L3 16 Z" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linejoin="miter"/>
-  <!-- Inner Diamond: filled with gold (#D4AF37) -->
-  <path d="M16 11.5 L20.5 16 L16 20.5 L11.5 16 Z" fill="#D4AF37"/>
+  <!-- Outer Diamond: border stroke is gold (#107C58) -->
+  <path d="M16 3 L29 16 L16 29 L3 16 Z" fill="none" stroke="#107C58" stroke-width="2.5" stroke-linejoin="miter"/>
+  <!-- Inner Diamond: filled with gold (#107C58) -->
+  <path d="M16 11.5 L20.5 16 L16 20.5 L11.5 16 Z" fill="#107C58"/>
 </svg>

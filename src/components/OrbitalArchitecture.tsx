@@ -82,7 +82,7 @@ export const OrbitalArchitecture = () => {
           <motion.div 
             animate={{ rotate: 360 }}
             transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
-            className="absolute w-[80%] h-[80%] rounded-full border border-gold/15 pointer-events-none z-0 shadow-[0_0_40px_rgba(212,175,55,0.05),_inset_0_0_20px_rgba(212,175,55,0.02)] flex items-center justify-center"
+            className="absolute w-[80%] h-[80%] rounded-full border border-gold/15 pointer-events-none z-0 shadow-[0_0_40px_rgba(16, 124, 88,0.05),_inset_0_0_20px_rgba(16, 124, 88,0.02)] flex items-center justify-center"
           >
             <div className="absolute inset-2 rounded-full border border-dashed border-gold/5" />
             <div className="absolute inset-8 rounded-full border border-white/5" />
@@ -100,8 +100,8 @@ export const OrbitalArchitecture = () => {
           </div>
 
           {/* Central Glowing Core: Logo Oficial da Consultoria */}
-          <div className="absolute w-16 h-16 rounded-full bg-gradient-to-br from-[#121212] to-black border border-gold/30 flex items-center justify-center shadow-[0_0_35px_rgba(212,175,55,0.25)] z-10 overflow-hidden">
-            <img src="/logo.png?v=5" alt="Habib Consultancy Logo" className="w-10 h-10 object-contain rounded-full shadow-[0_0_15px_rgba(212,175,55,0.2)]" />
+          <div className="absolute w-16 h-16 rounded-full bg-gradient-to-br from-[#121212] to-black border border-gold/30 flex items-center justify-center shadow-[0_0_35px_rgba(16, 124, 88,0.25)] z-10 overflow-hidden">
+            <img src="/logo.png?v=5" alt="Habib Consultancy Logo" className="w-10 h-10 object-contain rounded-full shadow-[0_0_15px_rgba(16, 124, 88,0.2)]" />
           </div>
 
           {/* Rotating Wrapper for Orbiting Nodes */}
@@ -113,7 +113,7 @@ export const OrbitalArchitecture = () => {
             {/* Active Connector Ray (laser pointer line) */}
             {activeStep !== null && (
               <div 
-                className="absolute w-[50%] h-[1px] bg-gradient-to-r from-gold/0 via-gold/40 to-gold left-1/2 top-1/2 origin-left z-0 shadow-[0_0_8px_rgba(212,175,55,0.4)]"
+                className="absolute w-[50%] h-[1px] bg-gradient-to-r from-gold/0 via-gold/40 to-gold left-1/2 top-1/2 origin-left z-0 shadow-[0_0_8px_rgba(16, 124, 88,0.4)]"
                 style={{ 
                   transform: `rotate(${angles[activeStep]}deg)`,
                   transformOrigin: '0 0'
@@ -150,7 +150,7 @@ export const OrbitalArchitecture = () => {
                       onClick={() => setActiveStep(idx)}
                       className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-500 cursor-pointer shadow-lg relative
                         ${isActive
-                          ? "bg-gradient-to-br from-[#8A7322] via-[#D4AF37] to-[#8A7322] border-gold text-black scale-110 shadow-[0_0_30px_rgba(212,175,55,0.6)]"
+                          ? "bg-gradient-to-br from-[#084732] via-[#107C58] to-[#084732] border-gold text-black scale-110 shadow-[0_0_30px_rgba(16, 124, 88,0.6)]"
                           : "bg-black/90 border-white/10 text-white/55 hover:text-white hover:border-gold/50 hover:scale-105"
                         }`}
                     >
@@ -173,7 +173,7 @@ export const OrbitalArchitecture = () => {
                     {/* Rótulo do Nó */}
                     <span
                       className={`absolute top-14 text-[9px] font-cinzel uppercase tracking-[0.2em] transition-all duration-300 whitespace-nowrap
-                        ${isActive ? "text-gold font-black scale-105 drop-shadow-[0_0_8px_rgba(212,175,55,0.4)]" : "text-white/40"}`}
+                        ${isActive ? "text-gold font-black scale-105 drop-shadow-[0_0_8px_rgba(16, 124, 88,0.4)]" : "text-white/40"}`}
                     >
                       {step.title}
                     </span>
@@ -210,7 +210,7 @@ export const OrbitalArchitecture = () => {
                     {/* Card Header */}
                     <div className="flex items-center justify-between border-b border-gold/10 pb-4">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-gold/10 flex items-center justify-center border border-gold/20 shadow-[0_0_15px_rgba(212,175,55,0.15)]">
+                        <div className="w-8 h-8 rounded-lg bg-gold/10 flex items-center justify-center border border-gold/20 shadow-[0_0_15px_rgba(16, 124, 88,0.15)]">
                           {ActiveIcon && <ActiveIcon className="w-4 h-4 text-gold" />}
                         </div>
                         <div>
@@ -244,7 +244,7 @@ export const OrbitalArchitecture = () => {
                           initial={{ width: 0 }}
                           animate={{ width: `${activeData.progress}%` }}
                           transition={{ duration: 0.8, ease: "easeOut" }}
-                          className="h-full bg-gradient-to-r from-gold to-[#8A7322] rounded-full shadow-[0_0_8px_rgba(212,175,55,0.6)]"
+                          className="h-full bg-gradient-to-r from-gold to-[#084732] rounded-full shadow-[0_0_8px_rgba(16, 124, 88,0.6)]"
                         />
                       </div>
 
@@ -262,7 +262,7 @@ export const OrbitalArchitecture = () => {
                     {/* Default Welcome Header */}
                     <div className="flex items-center justify-between border-b border-gold/10 pb-4">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-gold/5 flex items-center justify-center border border-gold/20 shadow-[0_0_10px_rgba(212,175,55,0.05)] overflow-hidden">
+                        <div className="w-8 h-8 rounded-full bg-gold/5 flex items-center justify-center border border-gold/20 shadow-[0_0_10px_rgba(16, 124, 88,0.05)] overflow-hidden">
                           <img src="/logo.png?v=5" alt="Habib Consultancy Logo" className="w-8 h-8 object-cover rounded-full" />
                         </div>
                         <div>
@@ -321,7 +321,7 @@ export const OrbitalArchitecture = () => {
                 onClick={() => setActiveStep(idx)}
                 className={`flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full border transition-all duration-300 cursor-pointer
                   ${isActive
-                    ? "bg-gold text-black border-gold font-bold shadow-[0_0_15px_rgba(212,175,55,0.3)]"
+                    ? "bg-gold text-black border-gold font-bold shadow-[0_0_15px_rgba(16, 124, 88,0.3)]"
                     : "bg-black/50 text-white/60 border-white/10 hover:text-white"
                   }`}
               >
@@ -354,7 +354,7 @@ export const OrbitalArchitecture = () => {
               <>
                 <div className="flex items-center justify-between border-b border-gold/10 pb-3">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-lg bg-gold/10 flex items-center justify-center border border-gold/20 shadow-[0_0_12px_rgba(212,175,55,0.15)]">
+                    <div className="w-8 h-8 rounded-lg bg-gold/10 flex items-center justify-center border border-gold/20 shadow-[0_0_12px_rgba(16, 124, 88,0.15)]">
                       {ActiveIcon && <ActiveIcon className="w-4 h-4 text-gold" />}
                     </div>
                     <div>
@@ -379,7 +379,7 @@ export const OrbitalArchitecture = () => {
                     <span className="text-[10px] font-mono text-gold font-bold">{activeData.metricValue}</span>
                   </div>
                   <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden shadow-[inset_0_1px_2px_rgba(0,0,0,0.6)]">
-                    <div className="h-full bg-gradient-to-r from-gold to-[#8A7322] rounded-full shadow-[0_0_8px_rgba(212,175,55,0.6)]" style={{ width: `${activeData.progress}%` }} />
+                    <div className="h-full bg-gradient-to-r from-gold to-[#084732] rounded-full shadow-[0_0_8px_rgba(16, 124, 88,0.6)]" style={{ width: `${activeData.progress}%` }} />
                   </div>
                   <button
                     onClick={handleNext}
@@ -393,7 +393,7 @@ export const OrbitalArchitecture = () => {
               <>
                 <div className="flex items-center justify-between border-b border-gold/10 pb-3">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-gold/5 flex items-center justify-center border border-gold/20 shadow-[0_0_10px_rgba(212,175,55,0.05)] overflow-hidden">
+                    <div className="w-8 h-8 rounded-full bg-gold/5 flex items-center justify-center border border-gold/20 shadow-[0_0_10px_rgba(16, 124, 88,0.05)] overflow-hidden">
                       <img src="/logo.png?v=5" alt="Habib Consultancy Logo" className="w-8 h-8 object-cover rounded-full" />
                     </div>
                     <div>

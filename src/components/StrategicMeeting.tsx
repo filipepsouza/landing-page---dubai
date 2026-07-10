@@ -12,7 +12,7 @@ export const StrategicMeeting: React.FC<StrategicMeetingProps> = ({ onCtaClick }
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gold/[0.04] via-transparent to-transparent pointer-events-none" />
 
       <div className="max-w-5xl mx-auto w-full relative z-10">
-        <div className="bg-[#080808]/80 backdrop-blur-2xl border border-gold/15 rounded-3xl p-6 sm:p-8 md:p-16 flex flex-col items-center text-center gap-8 md:gap-10 shadow-[0_0_60px_rgba(212,175,55,0.06)] relative overflow-hidden">
+        <div className="bg-[#080808]/80 backdrop-blur-2xl border border-gold/15 rounded-3xl p-6 sm:p-8 md:p-16 flex flex-col items-center text-center gap-8 md:gap-10 shadow-[0_0_60px_rgba(16, 124, 88,0.06)] relative overflow-hidden">
           {/* Top subtle highlight */}
           <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
 
@@ -66,7 +66,7 @@ export const StrategicMeeting: React.FC<StrategicMeetingProps> = ({ onCtaClick }
           <div className="flex flex-col items-center gap-4">
             <button
               onClick={onCtaClick}
-              className="relative group px-10 py-5 bg-gradient-to-r from-[#8A7322] via-[#D4AF37] to-[#8A7322] text-black font-cinzel text-xs md:text-sm font-black tracking-[0.15em] rounded-full transition-all duration-500 hover:scale-105 overflow-hidden cursor-pointer shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_40px_rgba(212,175,55,0.6)]"
+              className="relative group px-10 py-5 bg-gradient-to-r from-[#084732] via-[#107C58] to-[#084732] text-black font-cinzel text-xs md:text-sm font-black tracking-[0.15em] rounded-full transition-all duration-500 hover:scale-105 overflow-hidden cursor-pointer shadow-[0_0_20px_rgba(16, 124, 88,0.3)] hover:shadow-[0_0_40px_rgba(16, 124, 88,0.6)]"
             >
               <div className="absolute inset-0 bg-white/40 translate-x-[-150%] skew-x-[-45deg] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out" />
               <span className="relative z-10 flex items-center gap-2">

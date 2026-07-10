@@ -261,7 +261,7 @@ export function Hero({ onCtaClick }: HeroProps) {
         >
           <button
             onClick={onCtaClick}
-            className="pointer-events-auto relative group font-inter tracking-[0.25em] text-[11px] md:text-xs uppercase rounded-full transition-all duration-500 cursor-pointer overflow-hidden text-black bg-gradient-to-r from-[#C6A02E] via-[#F0D67A] to-[#C6A02E] font-semibold px-10 py-4 shadow-[0_0_40px_rgba(212,175,55,0.35)] hover:shadow-[0_0_60px_rgba(212,175,55,0.6)] hover:scale-[1.04]"
+            className="pointer-events-auto relative group font-inter tracking-[0.25em] text-[11px] md:text-xs uppercase rounded-full transition-all duration-500 cursor-pointer overflow-hidden text-black bg-gradient-to-r from-[#C6A02E] via-[#F0D67A] to-[#C6A02E] font-semibold px-10 py-4 shadow-[0_0_40px_rgba(16, 124, 88,0.35)] hover:shadow-[0_0_60px_rgba(16, 124, 88,0.6)] hover:scale-[1.04]"
           >
             <div className="absolute inset-0 bg-white/50 translate-x-[-150%] skew-x-[-45deg] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out" />
             <span className="relative z-10">Solicitar Diagnóstico Patrimonial</span>
@@ -296,7 +296,7 @@ export function Hero({ onCtaClick }: HeroProps) {
           </p>
           <button
             onClick={onCtaClick}
-            className="pointer-events-auto relative group font-inter tracking-[0.25em] text-[11px] md:text-xs uppercase rounded-full transition-all duration-500 cursor-pointer overflow-hidden text-black bg-gradient-to-r from-[#C6A02E] via-[#F0D67A] to-[#C6A02E] font-semibold px-10 py-4 shadow-[0_0_40px_rgba(212,175,55,0.35)] hover:shadow-[0_0_60px_rgba(212,175,55,0.6)] hover:scale-[1.04]"
+            className="pointer-events-auto relative group font-inter tracking-[0.25em] text-[11px] md:text-xs uppercase rounded-full transition-all duration-500 cursor-pointer overflow-hidden text-black bg-gradient-to-r from-[#C6A02E] via-[#F0D67A] to-[#C6A02E] font-semibold px-10 py-4 shadow-[0_0_40px_rgba(16, 124, 88,0.35)] hover:shadow-[0_0_60px_rgba(16, 124, 88,0.6)] hover:scale-[1.04]"
           >
             <div className="absolute inset-0 bg-white/50 translate-x-[-150%] skew-x-[-45deg] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out" />
             <span className="relative z-10">Solicitar Diagnóstico Patrimonial</span>
@@ -319,7 +319,7 @@ export function Hero({ onCtaClick }: HeroProps) {
       {/* LOADING SCREEN */}
       {isLoading && (
         <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-deepBlack">
-          <img src="/logo.png?v=5" alt="Habib Consultancy Logo" className="w-12 h-12 object-contain rounded-full mb-8 animate-pulse shadow-[0_0_20px_rgba(212,175,55,0.3)]" />
+          <img src="/logo.png?v=5" alt="Habib Consultancy Logo" className="w-12 h-12 object-contain rounded-full mb-8 animate-pulse shadow-[0_0_20px_rgba(16, 124, 88,0.3)]" />
           <div className="w-40 h-[2px] bg-white/10 overflow-hidden rounded-full">
             <div
               className="h-full bg-gradient-to-r from-darkGold to-gold transition-[width] duration-300"

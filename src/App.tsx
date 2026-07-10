@@ -20,10 +20,10 @@ import { StrategicMeeting } from './components/StrategicMeeting';
 const CTAButton = ({ className = "", onClick, isNavbar = false }: { className?: string; onClick?: () => void; isNavbar?: boolean }) => (
   <button 
     onClick={onClick}
-    className={`relative group font-cinzel tracking-[0.15em] rounded-full transition-all duration-500 cursor-pointer overflow-hidden text-black bg-gradient-to-r from-[#8A7322] via-[#D4AF37] to-[#8A7322] font-black
+    className={`relative group font-cinzel tracking-[0.15em] rounded-full transition-all duration-500 cursor-pointer overflow-hidden text-black bg-gradient-to-r from-[#084732] via-[#107C58] to-[#084732] font-black
       ${isNavbar 
-        ? "h-11 px-4 md:px-6 flex items-center justify-center text-[9px] md:text-[10px] shadow-[0_0_15px_rgba(212,175,55,0.2)] hover:shadow-[0_0_25px_rgba(212,175,55,0.4)]" 
-        : "px-8 py-4 text-sm md:text-base shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_40px_rgba(212,175,55,0.6)] hover:scale-105"
+        ? "h-11 px-4 md:px-6 flex items-center justify-center text-[9px] md:text-[10px] shadow-[0_0_15px_rgba(16, 124, 88,0.2)] hover:shadow-[0_0_25px_rgba(16, 124, 88,0.4)]" 
+        : "px-8 py-4 text-sm md:text-base shadow-[0_0_20px_rgba(16, 124, 88,0.3)] hover:shadow-[0_0_40px_rgba(16, 124, 88,0.6)] hover:scale-105"
       } ${className}`}
   >
     <div className="absolute inset-0 bg-white/40 translate-x-[-150%] skew-x-[-45deg] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out" />
@@ -66,7 +66,7 @@ const MouseGlow = () => {
         x: glowX,
         y: glowY,
       }}
-      className="pointer-events-none fixed top-0 left-0 w-[300px] h-[300px] rounded-full bg-[radial-gradient(circle,_rgba(212,175,55,0.08)_0%,_rgba(212,175,55,0.02)_45%,_transparent_70%)] z-30 hidden md:block"
+      className="pointer-events-none fixed top-0 left-0 w-[300px] h-[300px] rounded-full bg-[radial-gradient(circle,_rgba(16, 124, 88,0.08)_0%,_rgba(16, 124, 88,0.02)_45%,_transparent_70%)] z-30 hidden md:block"
     />
   );
 };
@@ -158,8 +158,8 @@ function App() {
               transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
               className="flex flex-col items-center"
             >
-              <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent"></div>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="mt-2">
+              <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-[#107C58] to-transparent"></div>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#107C58" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="mt-2">
                 <path d="M6 9l6 6 6-6" />
               </svg>
             </motion.div>
@@ -193,7 +193,7 @@ function App() {
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           className="absolute inset-0 z-0 pointer-events-none"
         >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#D4AF37]/10 via-black/80 to-black" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#107C58]/10 via-black/80 to-black" />
         </motion.div>
 
         <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col gap-12 md:gap-16">
