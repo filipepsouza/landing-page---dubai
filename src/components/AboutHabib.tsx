@@ -195,9 +195,9 @@ export const AboutHabib: React.FC = () => {
             <svg className="absolute inset-0 w-full h-full pointer-events-none rounded-2xl z-10" fill="none">
               <defs>
                 <linearGradient id="gold-grad-about" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#084732" />
-                  <stop offset="50%" stopColor="#107C58" />
-                  <stop offset="100%" stopColor="#084732" />
+                  <stop offset="0%" stopColor="#0B5D3B" />
+                  <stop offset="50%" stopColor="#12A56B" />
+                  <stop offset="100%" stopColor="#0B5D3B" />
                 </linearGradient>
               </defs>
               
@@ -237,7 +237,7 @@ export const AboutHabib: React.FC = () => {
             
             {/* Stat Item 1 */}
             <div className="flex flex-col border-b border-white/5 pb-6 relative z-20">
-              <span className="font-cinzel text-[36px] md:text-[48px] font-normal leading-none bg-clip-text text-transparent bg-gradient-to-r from-gold to-[#084732] drop-shadow-[0_0_15px_rgba(16, 124, 88,0.2)]">
+              <span className="font-cinzel text-[36px] md:text-[48px] font-normal leading-none bg-clip-text text-transparent bg-gradient-to-r from-gold to-[#0B5D3B] drop-shadow-[0_0_15px_rgba(18, 165, 107,0.2)]">
                 <Counter from={1} to={100} prefix="+" suffix="M" />
               </span>
               <span className="text-[11px] md:text-[12px] text-white/40 uppercase tracking-[0.2em] font-inter font-semibold mt-1 leading-[1.3]">
@@ -247,7 +247,7 @@ export const AboutHabib: React.FC = () => {
 
             {/* Stat Item 2 */}
             <div className="flex flex-col border-b border-white/5 pb-6 relative z-20">
-              <span className="font-cinzel text-[36px] md:text-[48px] font-normal leading-none bg-clip-text text-transparent bg-gradient-to-r from-gold to-[#084732] drop-shadow-[0_0_15px_rgba(16, 124, 88,0.2)]">
+              <span className="font-cinzel text-[36px] md:text-[48px] font-normal leading-none bg-clip-text text-transparent bg-gradient-to-r from-gold to-[#0B5D3B] drop-shadow-[0_0_15px_rgba(18, 165, 107,0.2)]">
                 <Counter from={0} to={100} suffix="%" />
               </span>
               <span className="text-[11px] md:text-[12px] text-white/40 uppercase tracking-[0.2em] font-inter font-semibold mt-1 leading-[1.3]">
@@ -257,7 +257,7 @@ export const AboutHabib: React.FC = () => {
 
             {/* Stat Item 3 */}
             <div className="flex flex-col relative z-20">
-              <span className="font-cinzel text-[36px] md:text-[48px] font-normal leading-none bg-clip-text text-transparent bg-gradient-to-r from-gold to-[#084732] drop-shadow-[0_0_15px_rgba(16, 124, 88,0.2)]">
+              <span className="font-cinzel text-[36px] md:text-[48px] font-normal leading-none bg-clip-text text-transparent bg-gradient-to-r from-gold to-[#0B5D3B] drop-shadow-[0_0_15px_rgba(18, 165, 107,0.2)]">
                 <DoubleCounter fromA={0} toA={24} fromB={0} toB={7} separator="/" />
               </span>
               <span className="text-[11px] md:text-[12px] text-white/40 uppercase tracking-[0.2em] font-inter font-semibold mt-1 leading-[1.3]">

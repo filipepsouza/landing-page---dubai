@@ -58,9 +58,9 @@ const DifferentiatorCard: React.FC<DifferentiatorCardProps> = ({ item, idx }) =>
       <svg className="absolute inset-0 w-full h-full pointer-events-none rounded-2xl z-10" fill="none">
         <defs>
           <linearGradient id={`gold-grad-diff-${idx}`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#084732" />
-            <stop offset="50%" stopColor="#107C58" />
-            <stop offset="100%" stopColor="#084732" />
+            <stop offset="0%" stopColor="#0B5D3B" />
+            <stop offset="50%" stopColor="#12A56B" />
+            <stop offset="100%" stopColor="#0B5D3B" />
           </linearGradient>
         </defs>
         

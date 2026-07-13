@@ -1,14 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap');
 @import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap');
 @import "tailwindcss";
 
 @theme {
   --color-deepBlack: #030303;
-  --color-gold: #107C58;
-  --color-darkGold: #A88A2B;
-  /* Tokens mantêm o nome antigo p/ não quebrar componentes, mas apontam p/ as novas fontes de luxo */
-  --font-cinzel: "PP Editorial New", "Canela", "IvyPresto", "Instrument Serif", serif; /* display / títulos */
-  --font-inter: "Neue Haas Grotesk", "Satoshi", "General Sans", "Inter", sans-serif;         /* corpo / labels / CTA */
+  --color-gold: #12A56B; /* verde esmeralda (nome mantido p/ não quebrar componentes) */
+  --color-darkGold: #0B5D3B;
+  --color-gold2: #C9A227;
+  --color-goldDeep: #8C6A1D;
+  --color-champagne: #F3DF9C;
+  --color-obsidian: #060907;
+  --color-obsidian2: #0A0F0C;
+  --color-abyss: #062119;
+  --color-abyss2: #04180F;
+  --color-emerald: #12B76A;
+  --color-emeraldBright: #3CDA96;
+  --color-emeraldDeep: #0E5A3C;
+  --color-ivory: #F4EFE6;
+  /* Fontes de luxo — display serif Cormorant Garamond (couture); corpo Satoshi */
+  --font-cinzel: "Cormorant Garamond", "Canela", "IvyPresto", serif; /* display / títulos */
+  --font-playfair: "Playfair Display", serif;
+  --font-inter: "Satoshi", "Neue Haas Grotesk", "General Sans", "Inter", sans-serif; /* corpo / labels / CTA */
 }
 
 @layer base {
@@ -65,7 +78,7 @@
   background: rgba(8, 8, 8, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(16, 124, 88, 0.15);
+  border: 1px solid rgba(18, 165, 107, 0.15);
 }
 
 /* Scrollbar thin utility for modal forms */
@@ -78,12 +91,12 @@
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: rgba(16, 124, 88, 0.15);
+  background: rgba(18, 165, 107, 0.15);
   border-radius: 10px;
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: rgba(16, 124, 88, 0.4);
+  background: rgba(18, 165, 107, 0.4);
 }
 
 /* Hide scrollbar utility */

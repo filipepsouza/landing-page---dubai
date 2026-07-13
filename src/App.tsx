@@ -1,29 +1,28 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
-import { LampContainer } from './components/Lamp';
 import { PreQualModal } from './components/PreQualModal';
 import { OrbitalArchitecture } from './components/OrbitalArchitecture';
 import { MetricTabs } from './components/MetricTabs';
-import { ScrollText } from './components/ScrollText';
 import { Hero } from './components/Hero';
 
-// Importando novos componentes para atender as diretrizes da imagem
 import { Scenario } from './components/Scenario';
 import { WhyDubai } from './components/WhyDubai';
+import { Simulator } from './components/Simulator';
 import { StrategyToExecution } from './components/StrategyToExecution';
 import { Solutions } from './components/Solutions';
 import { Differentiators } from './components/Differentiators';
 import { AboutHabib } from './components/AboutHabib';
+import { Testimonials } from './components/Testimonials';
 import { Faq } from './components/Faq';
 import { StrategicMeeting } from './components/StrategicMeeting';
 
 const CTAButton = ({ className = "", onClick, isNavbar = false }: { className?: string; onClick?: () => void; isNavbar?: boolean }) => (
   <button 
     onClick={onClick}
-    className={`relative group font-inter tracking-[0.15em] rounded-full transition-all duration-500 cursor-pointer overflow-hidden text-black bg-gradient-to-r from-[#084732] via-[#107C58] to-[#084732] font-bold
-      ${isNavbar 
-        ? "h-11 px-4 md:px-6 flex items-center justify-center text-[10px] md:text-[12px] shadow-[0_0_15px_rgba(16, 124, 88,0.2)] hover:shadow-[0_0_25px_rgba(16, 124, 88,0.4)]" 
-        : "px-8 py-4 text-xs md:text-[14px] shadow-[0_0_20px_rgba(16, 124, 88,0.3)] hover:shadow-[0_0_40px_rgba(16, 124, 88,0.6)] hover:scale-105"
+    className={`relative group font-inter tracking-[0.15em] rounded-full transition-all duration-500 cursor-pointer overflow-hidden text-black bg-gradient-to-r from-[#B8912A] via-[#F6DE8A] to-[#B8912A] font-bold ring-1 ring-[#F6DE8A]/40
+      ${isNavbar
+        ? "h-11 px-4 md:px-6 flex items-center justify-center text-[10px] md:text-[12px] shadow-[0_0_18px_rgba(214,175,64,0.3)] hover:shadow-[0_0_30px_rgba(214,175,64,0.55)]"
+        : "px-8 py-4 text-xs md:text-[14px] shadow-[0_0_24px_rgba(214,175,64,0.4)] hover:shadow-[0_0_45px_rgba(214,175,64,0.7)] hover:scale-105"
       } ${className}`}
   >
     <div className="absolute inset-0 bg-white/40 translate-x-[-150%] skew-x-[-45deg] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out" />
@@ -66,7 +65,7 @@ const MouseGlow = () => {
         x: glowX,
         y: glowY,
       }}
-      className="pointer-events-none fixed top-0 left-0 w-[300px] h-[300px] rounded-full bg-[radial-gradient(circle,_rgba(16,124,88,0.15)_0%,_rgba(16,124,88,0.04)_45%,_transparent_70%)] z-40 hidden md:block"
+      className="pointer-events-none fixed top-0 left-0 w-[300px] h-[300px] rounded-full bg-[radial-gradient(circle,_rgba(11,93,59,0.12)_0%,_rgba(212,175,55,0.03)_45%,_transparent_70%)] z-40 hidden md:block"
     />
   );
 };
@@ -101,8 +100,8 @@ function App() {
       >
         <div className="w-full flex items-center justify-between px-4 sm:px-8 md:px-16 pointer-events-auto">
           {/* Left Column: Logo */}
-          <div className="bg-black/40 backdrop-blur-md h-11 px-3 rounded-full border border-white/10 flex items-center justify-center">
-            <img src="/logo.png?v=5" alt="Habib Consultancy" className="h-9 w-9 object-cover rounded-full" />
+          <div className="h-16 md:h-[4.5rem] flex items-center justify-center">
+            <img src="/logo.png?v=5" alt="Habib Consultancy" className="h-14 w-14 md:h-16 md:w-16 object-contain drop-shadow-md" />
           </div>
 
           {/* Right Column: CTA Button */}
@@ -115,18 +114,16 @@ function App() {
       {/* SEÇÃO 1: Hero — Video Scrubbing controlado por scroll (ver Hero.tsx) */}
       <Hero onCtaClick={() => setIsModalOpen(true)} />
 
-      {/* SEÇÃO 2: Texto Cinematográfico */}
-      <section id="maquina" className="relative min-h-screen flex items-start justify-center -mt-24 md:-mt-48 z-10 overflow-hidden">
-        <LampContainer className="bg-transparent">
-          <ScrollText />
-        </LampContainer>
-      </section>
-
       {/* SEÇÃO 3: O Cenário Atual (NOVO) */}
-      <Scenario />
+      <div className="-mt-24 md:-mt-48 relative z-20">
+        <Scenario />
+      </div>
 
       {/* SEÇÃO 4: Por que os Emirados Árabes (NOVO) */}
       <WhyDubai />
+
+      {/* SEÇÃO SIMULADOR (NOVO) */}
+      <Simulator onCtaClick={() => setIsModalOpen(true)} />
 
       {/* SEÇÃO 5: As Métricas da Operação */}
       <section id="metricas" ref={metricsSectionRef} className="min-h-screen flex items-center px-4 sm:px-8 md:px-16 py-16 md:py-24 relative z-30">
@@ -158,8 +155,8 @@ function App() {
               transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
               className="flex flex-col items-center"
             >
-              <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-[#107C58] to-transparent"></div>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#107C58" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="mt-2">
+              <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-[#12A56B] to-transparent"></div>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#12A56B" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="mt-2">
                 <path d="M6 9l6 6 6-6" />
               </svg>
             </motion.div>
@@ -193,7 +190,7 @@ function App() {
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           className="absolute inset-0 z-0 pointer-events-none"
         >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#107C58]/10 via-black/80 to-black" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#12A56B]/10 via-black/80 to-black" />
         </motion.div>
 
         <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col gap-12 md:gap-16">
@@ -221,51 +218,115 @@ function App() {
       {/* SEÇÃO 11: Sobre a HABIB (NOVO) */}
       <AboutHabib />
 
+      {/* SEÇÃO 11.5: Resultados (NOVO) */}
+      <Testimonials />
+
       {/* SEÇÃO 12: Perguntas Frequentes (NOVO) */}
       <Faq />
 
       {/* SEÇÃO 13: Reunião Estratégica (NOVO) */}
       <StrategicMeeting onCtaClick={() => setIsModalOpen(true)} />
 
-      {/* FOOTER — `isolate` mantém o vídeo -z-10 dentro do próprio contexto */}
-      <footer className="relative isolate bg-black py-24 px-8 md:px-16 border-t border-white/10 z-20 overflow-hidden">
-        {/* Camada de segurança: gradiente sólido atrás do vídeo */}
-        <div className="absolute inset-0 -z-20 bg-gradient-to-b from-black via-[#0a0a0a] to-black" />
+      {/* FOOTER */}
+      <footer className="relative bg-black py-16 md:py-24 px-6 sm:px-8 md:px-16 border-t border-white/10 z-20 overflow-hidden">
+        {/* Background gradient */}
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black via-[#040906]/50 to-black pointer-events-none" />
 
-        {/* Vídeo de fundo */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover -z-10 opacity-30"
-          src="https://ubnkmtttmvmpminkkasu.supabase.co/storage/v1/object/public/vidd/Dark_ocean_waves_at_night_202606290520.mp4"
-        />
+        <div className="max-w-7xl mx-auto flex flex-col gap-12">
+          {/* Main Footer Content */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+            
+            {/* Left Column: Logo & Description (span 6) */}
+            <div className="col-span-1 md:col-span-6 flex flex-col items-start gap-6 text-left">
+              <div className="flex items-center gap-1.5">
+                {/* Gold Hexagon Cat Logo */}
+                <div className="w-9 h-9 flex items-center justify-center shrink-0 translate-y-[1px]">
+                  <img src="/logo.png?v=5" alt="Habib Consultancy Logo" className="w-full h-full object-contain" />
+                </div>
+                {/* Stacked Text */}
+                <div className="flex flex-col items-start leading-none gap-0.5">
+                  <span className="font-cinzel text-lg font-bold text-white tracking-widest">HABIB</span>
+                  <span className="font-inter text-[9px] font-bold text-emeraldBright tracking-[0.2em]">CONSULTANCY</span>
+                </div>
+              </div>
 
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div className="w-full aspect-video bg-neutral-900 border border-white/5 relative overflow-hidden flex items-center justify-center rounded-xl shadow-[0_0_30px_rgba(0,0,0,0.8)]">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover opacity-80"
-              src="https://ubnkmtttmvmpminkkasu.supabase.co/storage/v1/object/public/vidd/Two_women_walking_warehouse_202606290606.mp4"
-            />
-            <div className="absolute inset-0 border-[0.5px] border-gold/20 m-4 pointer-events-none"></div>
+              {/* Description */}
+              <p className="text-white/60 font-inter text-sm max-w-md font-light leading-relaxed">
+                Engenharia de patrimônio imobiliário em Dubai. Estruturação, blindagem e escala — com presença física nos Emirados e atendimento em português.
+              </p>
+            </div>
+
+            {/* Middle Column: Navigation Links (span 3) */}
+            <div className="col-span-1 md:col-span-3 flex flex-col items-start gap-4 text-left">
+              <span className="font-inter text-[11px] font-bold text-emeraldBright uppercase tracking-[0.25em]">
+                Navegação
+              </span>
+              <ul className="flex flex-col gap-3">
+                <li>
+                  <a href="#cenario" className="text-white/60 hover:text-emeraldBright transition-colors duration-300 font-inter text-sm font-light">
+                    O cenário
+                  </a>
+                </li>
+                <li>
+                  <a href="#por-que-dubai" className="text-white/60 hover:text-emeraldBright transition-colors duration-300 font-inter text-sm font-light">
+                    Por que Dubai
+                  </a>
+                </li>
+                <li>
+                  <a href="#simulador" className="text-white/60 hover:text-emeraldBright transition-colors duration-300 font-inter text-sm font-light">
+                    Simulador
+                  </a>
+                </li>
+                <li>
+                  <a href="#arquitetura" className="text-white/60 hover:text-emeraldBright transition-colors duration-300 font-inter text-sm font-light">
+                    Método
+                  </a>
+                </li>
+                <li>
+                  <a href="#faq" className="text-white/60 hover:text-emeraldBright transition-colors duration-300 font-inter text-sm font-light">
+                    Perguntas frequentes
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Right Column: Contact Details (span 3) */}
+            <div className="col-span-1 md:col-span-3 flex flex-col items-start gap-4 text-left">
+              <span className="font-inter text-[11px] font-bold text-emeraldBright uppercase tracking-[0.25em]">
+                Contato
+              </span>
+              <ul className="flex flex-col gap-3 font-inter text-sm font-light">
+                <li className="text-white/60 leading-relaxed">
+                  Business Bay, Dubai — EAU <span className="italic text-white/30 text-xs block mt-0.5">(endereço completo aqui)</span>
+                </li>
+                <li>
+                  <button onClick={() => setIsModalOpen(true)} className="text-white/60 hover:text-emeraldBright transition-colors duration-300 font-inter text-sm font-light text-left cursor-pointer">
+                    WhatsApp direto
+                  </button>
+                </li>
+                <li>
+                  <a href="mailto:contato@habibconsultancy.com" className="text-white/60 hover:text-emeraldBright transition-colors duration-300 font-inter text-sm font-light">
+                    contato@habibconsultancy.com
+                  </a>
+                </li>
+              </ul>
+            </div>
+
           </div>
-          
-          <div className="flex flex-col items-start md:items-end text-left md:text-right">
-            <h3 className="font-cinzel text-xl md:text-2xl font-normal text-white mb-4">HABIB CONSULTANCY.</h3>
-            <p className="text-white/40 font-inter text-sm md:text-base max-w-sm mb-12">
-              Operação confidencial. Estruturação, blindagem e escala.
+
+          {/* Bottom disclaimer & copyright */}
+          <div className="border-t border-white/10 pt-8 mt-4 flex flex-col gap-6">
+            <p className="text-[11px] sm:text-xs text-white/30 leading-relaxed font-light text-left max-w-full">
+              A Habib Consultancy presta consultoria em estruturação societária e assessoria administrativa nos EAU. Não realiza gestão de recursos de terceiros nem oferta de valores mobiliários. Projeções de crédito e alavancagem são ilustrativas e sujeitas à análise das instituições financeiras locais. Estruturações conduzidas em conformidade com CRS, FATCA e legislação brasileira aplicável.
             </p>
-            
-            <CTAButton onClick={() => setIsModalOpen(true)} />
-            
-            <p className="text-white/20 font-inter text-xs mt-16">
-              © 2026. Todos os direitos reservados.
-            </p>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center text-[11px] sm:text-xs text-white/20 gap-4 mt-2">
+              <span>
+                © 2026 Habib Consultancy. Todos os direitos reservados.
+              </span>
+              <span className="italic">
+                Licença comercial EAU nº 000000 (inserir aqui)
+              </span>
+            </div>
           </div>
         </div>
       </footer>

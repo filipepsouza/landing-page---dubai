@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle2 } from 'lucide-react';
 
 const steps = [
   {
-    phase: "Passo 01",
-    title: "Diagnóstico e Viabilidade",
-    description: "Análise confidencial de seu perfil empresarial, origem de receita e metas tributárias globais para garantir perfeita adequação regulatória."
+    phase: "01",
+    title: "Diagnóstico",
+    description: "Análise confidencial do seu perfil, origem de receita e metas fiscais globais. Você sai com um mapa claro de viabilidade."
   },
   {
-    phase: "Passo 02",
-    title: "Engenharia Arquitetônica",
-    description: "Desenho detalhado da holding ou empresa operacional, selecionando a melhor jurisdição local (Free Zone vs Mainland) e desenhando a estratégia bancária."
+    phase: "02",
+    title: "Engenharia",
+    description: "Desenho da holding ou operacional, escolha de jurisdição (Free Zone vs Mainland) e estratégia bancária sob medida."
   },
   {
-    phase: "Passo 03",
-    title: "Implantação e Setup",
-    description: "Constituição física das entidades societárias, emissão de vistos residenciais e assessoria ativa na abertura de contas bancárias locais corporativas."
+    phase: "03",
+    title: "Implantação",
+    description: "Constituição das entidades, vistos de residência e abertura de contas nos bancos de primeira linha dos Emirados."
   }
 ];
 
@@ -36,15 +35,15 @@ const StepCard: React.FC<StepCardProps> = ({ item, idx }) => {
       transition={{ duration: 0.6, delay: 0.4 + idx * 0.15, ease: "easeOut" }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative bg-[#080808]/75 backdrop-blur-xl border border-white/5 rounded-2xl p-6 sm:p-8 flex flex-col gap-6 shadow-[0_4px_30px_rgba(0,0,0,0.5)] transition-all duration-500 hover:scale-[1.02] z-10 overflow-hidden group cursor-default"
+      className="relative bg-obsidian2/75 backdrop-blur-xl border border-ivory/5 rounded-2xl p-8 sm:p-10 flex flex-col gap-6 shadow-[0_4px_30px_rgba(0,0,0,0.5)] transition-all duration-500 hover:scale-[1.02] z-10 overflow-hidden group cursor-default"
     >
       {/* SVG Animated Gold Border */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none rounded-2xl z-10" fill="none">
         <defs>
           <linearGradient id={`gold-grad-step-${idx}`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#084732" />
-            <stop offset="50%" stopColor="#107C58" />
-            <stop offset="100%" stopColor="#084732" />
+            <stop offset="0%" stopColor="#0E5A3C" />
+            <stop offset="50%" stopColor="#12B76A" />
+            <stop offset="100%" stopColor="#0E5A3C" />
           </linearGradient>
         </defs>
         
@@ -81,33 +80,33 @@ const StepCard: React.FC<StepCardProps> = ({ item, idx }) => {
       </svg>
 
       {/* Step Header */}
-      <div className="flex items-center justify-between relative z-20">
-        <span className="text-[9px] font-semibold text-gold uppercase tracking-widest font-inter transition-colors duration-500 group-hover:text-white">
+      <div className="flex flex-col relative z-20">
+        <span className="font-cinzel italic text-5xl bg-clip-text text-transparent bg-gradient-to-r from-champagne to-goldDeep mb-5 leading-none block">
           {item.phase}
         </span>
-        <div className="w-6 h-6 rounded-full bg-gold/10 flex items-center justify-center border border-gold/20 transition-colors duration-500 group-hover:bg-gold/20 group-hover:border-gold/45">
-          <CheckCircle2 className="w-3.5 h-3.5 text-gold" />
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="flex flex-col gap-2 relative z-20">
-        <h3 className="font-inter text-sm font-bold text-white tracking-wider uppercase transition-colors duration-500 group-hover:text-gold">
+        <h3 className="font-inter text-lg font-bold text-ivory tracking-wider transition-colors duration-500 group-hover:text-gold mb-2">
           {item.title}
         </h3>
-        <p className="text-white/40 text-xs font-light leading-relaxed transition-colors duration-500 group-hover:text-white/60">
+        <p className="text-ivory/70 text-[14.5px] font-normal leading-relaxed transition-colors duration-500 group-hover:text-ivory/90">
           {item.description}
         </p>
       </div>
+      
+      {/* Arrow Indicator for Desktop */}
+      {idx < steps.length - 1 && (
+        <div className="hidden md:block absolute top-[68px] -right-5 text-gold text-lg z-20 pointer-events-none">
+          →
+        </div>
+      )}
     </motion.div>
   );
 };
 
 export const StrategyToExecution: React.FC = () => {
   return (
-    <section id="estrategia-execucao" className="relative py-16 md:py-24 px-4 sm:px-8 md:px-16 z-20 bg-deepBlack overflow-hidden">
+    <section id="estrategia-execucao" className="relative py-16 md:py-24 px-4 sm:px-8 md:px-16 z-20 overflow-hidden" style={{ background: 'linear-gradient(180deg, #060907 0%, #04180F 18%, #062119 55%, #060907 100%)' }}>
       {/* Background glow lines */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gold/[0.01] rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald/[0.015] rounded-full blur-3xl pointer-events-none" />
       
       <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col gap-12 md:gap-16">
         
@@ -118,9 +117,11 @@ export const StrategyToExecution: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-[10px] font-semibold text-gold/60 uppercase tracking-[0.2em] font-inter"
+            className="font-inter text-[11px] font-semibold text-emeraldBright uppercase tracking-[0.38em] flex items-center gap-3"
           >
-            Da Estratégia à Execução
+            <span className="w-[26px] h-[1px] bg-emerald block"></span>
+            O método
+            <span className="w-[26px] h-[1px] bg-emerald block"></span>
           </motion.span>
           
           <motion.h2 
@@ -128,27 +129,20 @@ export const StrategyToExecution: React.FC = () => {
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: false, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-cinzel text-3xl md:text-5xl font-normal text-white tracking-tight max-w-3xl leading-tight"
+            className="font-cinzel text-4xl md:text-5xl font-normal text-ivory tracking-tight max-w-3xl leading-[1.08]"
           >
-            Nenhuma Operação de Sucesso Começa Pelo Fim
+            Nenhuma operação de sucesso<br />
+            começa pelo <span className="italic em-text text-emeraldBright">fim.</span>
           </motion.h2>
-          
-          <motion.div 
-            initial={{ opacity: 0, scaleX: 0 }}
-            whileInView={{ opacity: 1, scaleX: 1 }}
-            viewport={{ once: false, margin: "-50px" }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="w-16 h-[1px] bg-gold/30 mt-2 origin-center"
-          />
           
           <motion.p 
             initial={{ opacity: 0, y: -25 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-white/60 text-xs md:text-sm max-w-xl font-light leading-relaxed"
+            className="text-ivory/70 text-[16px] md:text-[17px] max-w-xl font-normal leading-relaxed mt-2"
           >
-            Uma estruturação internacional de alto nível exige engenharia cuidadosa. Na HABIB, a estratégia antecede cada etapa física, garantindo soluções paramétricas de acordo com a sua necessidade.
+            A estratégia antecede cada etapa física. Três movimentos, uma máquina.
           </motion.p>
         </div>
 
@@ -156,7 +150,7 @@ export const StrategyToExecution: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-stretch relative">
           
           {/* Connecting line on desktop */}
-          <div className="hidden lg:block absolute top-[45px] left-1/6 right-1/6 h-[1px] bg-gradient-to-r from-transparent via-gold/20 to-transparent z-0" />
+          <div className="hidden lg:block absolute top-[78px] left-1/6 right-1/6 h-[1px] bg-gradient-to-r from-transparent via-emerald/20 to-transparent z-0" />
 
           {steps.map((item, idx) => (
             <StepCard key={idx} item={item} idx={idx} />

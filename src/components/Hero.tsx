@@ -3,36 +3,45 @@ import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-mot
 import { LuxReveal } from './LuxReveal';
 
 /**
- * HERO — Video Scrubbing controlado por scroll.
+ * HERO — Frame-Sequence Scrubbing controlado por scroll (canvas).
  *
- * Vídeo: local + re-encodado all-intra (keyframe em todo frame) => seek instantâneo.
- * Duração real: ~15,4s @ 30fps. A "porta" acontece por volta dos 8s (~52% do scroll).
+ * Em vez de "seek" em <video> (que trava/gagueja no iOS Safari), desenhamos
+ * uma sequência de imagens (WebP) num <canvas>. O scroll escolhe o frame.
+ * Isso é fluido em qualquer dispositivo — mobile, iOS e desktop — sem lag.
  *
- * MAPA REAL DO VÍDEO (31,4s @ 30fps): 0-3s corredor · 4-8s porta fechada
- * se aproximando · 9s porta abre · 10-12s nuvens/transição · 13-15s skyline
- * de Dubai · 16-18s janela do jato / interior · 19-24s relógio esmeralda ·
- * 25-30s laptop na mesa.
+ * Fonte: /public/hero-frames/f_0001..f_0470.webp  (1440px, 15fps, ~31,3s)
  *
- * COREOGRAFIA (progresso 0 -> 1 ; ~t/31.4):
+ * MAPA REAL DO VÍDEO (31,33s @ 15fps -> 470 frames):
+ *  0.0-4.5s   corredor de mármore, homem caminhando até a porta
+ *  6.0-8.0s   PORTA FECHADA (emblema esmeralda) — cena limpa
+ *  ~8.5s      a porta ABRE revelando o jato nas nuvens
+ *  9-15s      jato privado voando sobre as nuvens
+ *  16s        transição (sol/nuvens)
+ *  17-23s     skyline aéreo de Dubai (Burj Khalifa)
+ *  24-29.5s   escritório de luxo / laptop com vista da cidade
+ *  30.1-31.3s FADE para PRETO absoluto (último frame = preto) -> 2ª parte da LP
+ *
+ * COREOGRAFIA (progresso de scroll 0 -> 1):
  *  0.00         HABIB (marca d'água) + Zero Imposto / Moeda Forte
- *  ~0.06 (2s)   ao rolar, HABIB some
- *  ~0.10 (3s)   palavras/parágrafo saem — corredor limpo
- *  0.20-0.28 (~7-8s) PORTA FECHADA: CTA limpa, SOMENTE o botão
- *  ~0.29 (9s)   CTA some, logo antes de a porta abrir
- *  0.40-0.50 (~13-15s) copy da 2ª parte (esmeralda) sobre o skyline
- *  0.50-0.80 (~16-24s) jato + relógio esmeralda respiram (sem texto)
- *  0.82-1.0 (~26-31s) fechamento: CTA de conversão sobre o laptop
- *
- * Botões de ajuste: SCROLL_HEIGHT_VH (ritmo) e LERP (suavidade).
+ *  ~0.04 (1.2s) ao rolar, HABIB e as palavras somem — corredor limpo
+ *  0.195-0.265 (~6-8s) PORTA FECHADA: CTA limpa, some quando a porta abre
+ *  0.55-0.71 (~17-22s) copy da 2ª parte (esmeralda) sobre o skyline de Dubai
+ *  0.83-1.0 (~27-31s) fechamento: CTA de conversão sobre o laptop -> preto
  */
 
-const VIDEO_SRC = '/hero-scrub.mp4?v=6';
+// ---- Sequência de frames ----
+const FRAME_COUNT = 470;
+const FPS = 15;
+const framePath = (i: number) => `/hero-frames/f_${String(i + 1).padStart(4, '0')}.webp`;
+// Quantos frames precisam estar prontos antes de liberar a experiência
+// (cobre corredor + porta + 1º CTA). O resto continua carregando em background.
+const REVEAL_AT = Math.min(FRAME_COUNT, 150);
 
-// ~31,4s de vídeo -> ~750vh (≈24vh/s). Sobe = mais lento/contemplativo.
-const SCROLL_HEIGHT_VH = 750;
+// 470 frames -> ~760vh (scrub lento/contemplativo). Sobe = mais lento.
+const SCROLL_HEIGHT_VH = 760;
 
 // Suavização do scrub. Menor = mais deslizante; maior = mais colado no scroll.
-const LERP = 0.25;
+const LERP = 0.22;
 
 interface HeroProps {
   onCtaClick?: () => void;
@@ -40,7 +49,7 @@ interface HeroProps {
 
 export function Hero({ onCtaClick }: HeroProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const watermarkRef = useRef<HTMLDivElement>(null);
   const wordsRef = useRef<HTMLDivElement>(null);
   const hintRef = useRef<HTMLDivElement>(null);
@@ -53,128 +62,184 @@ export function Hero({ onCtaClick }: HeroProps) {
     offset: ['start start', 'end end'],
   });
 
-  // ---- Scrubbing: scroll -> currentTime (com suavização) ----
-  const durationRef = useRef(0);
-  const targetTime = useRef(0);
-  const smoothTime = useRef(0);
-  const appliedTime = useRef(-1);
+  // ---- Frames em memória ----
+  const imagesRef = useRef<HTMLImageElement[]>([]);
+  const loadedRef = useRef<boolean[]>([]);
+
+  // ---- Scrubbing: scroll -> índice de frame (com suavização) ----
+  const targetFrame = useRef(0);
+  const smoothFrame = useRef(0);
+  const lastDrawn = useRef(-1);
 
   useMotionValueEvent(scrollYProgress, 'change', (p) => {
-    if (durationRef.current) {
-      const clamped = Math.min(Math.max(p, 0), 1);
-      targetTime.current = clamped * (durationRef.current - 0.05);
-    }
+    const clamped = Math.min(Math.max(p, 0), 1);
+    targetFrame.current = clamped * (FRAME_COUNT - 1);
   });
 
+  // ---- Preload das imagens ----
   useEffect(() => {
+    imagesRef.current = new Array(FRAME_COUNT);
+    loadedRef.current = new Array(FRAME_COUNT).fill(false);
+    let revealed = false;
+    let loadedCount = 0;
+
+    const maybeReveal = () => {
+      if (revealed) return;
+      // libera quando os primeiros frames (corredor/porta) estão prontos
+      let earlyReady = true;
+      for (let i = 0; i < REVEAL_AT; i++) {
+        if (!loadedRef.current[i]) { earlyReady = false; break; }
+      }
+      if (earlyReady) {
+        revealed = true;
+        setLoadPct(100);
+        setIsLoading(false);
+      }
+    };
+
+    for (let i = 0; i < FRAME_COUNT; i++) {
+      const img = new Image();
+      img.decoding = 'async';
+      const done = () => {
+        if (loadedRef.current[i]) return;
+        loadedRef.current[i] = true;
+        loadedCount++;
+        setLoadPct(Math.round((loadedCount / FRAME_COUNT) * 100));
+        maybeReveal();
+      };
+      img.onload = done;
+      img.onerror = done; // não trava o loader por um frame que falhe
+      img.src = framePath(i);
+      imagesRef.current[i] = img;
+    }
+
+    // Failsafe: libera mesmo em conexões lentas (frames faltantes usam o vizinho)
+    const failSafe = window.setTimeout(() => {
+      if (!revealed) {
+        revealed = true;
+        setIsLoading(false);
+      }
+    }, 20000);
+
+    return () => window.clearTimeout(failSafe);
+  }, []);
+
+  // ---- Canvas: dimensionamento responsivo (DPR) + desenho object-cover ----
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+    if (!ctx) return;
+
+    const drawCover = (img: HTMLImageElement) => {
+      const cw = canvas.width;
+      const ch = canvas.height;
+      const ir = img.width / img.height;
+      const cr = cw / ch;
+      let dw: number, dh: number;
+      if (cr > ir) {
+        dw = cw;
+        dh = cw / ir;
+      } else {
+        dh = ch;
+        dw = ch * ir;
+      }
+      const dx = (cw - dw) / 2;
+      const dy = (ch - dh) / 2;
+      ctx.drawImage(img, dx, dy, dw, dh);
+    };
+
+    const nearestLoaded = (idx: number): HTMLImageElement | null => {
+      const imgs = imagesRef.current;
+      const loaded = loadedRef.current;
+      if (loaded[idx]) return imgs[idx];
+      for (let d = 1; d < FRAME_COUNT; d++) {
+        if (idx - d >= 0 && loaded[idx - d]) return imgs[idx - d];
+        if (idx + d < FRAME_COUNT && loaded[idx + d]) return imgs[idx + d];
+      }
+      return null;
+    };
+
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      canvas.width = Math.max(1, Math.round(w * dpr));
+      canvas.height = Math.max(1, Math.round(h * dpr));
+      lastDrawn.current = -1; // força redesenho no próximo tick
+    };
+    resize();
+    window.addEventListener('resize', resize);
+    window.addEventListener('orientationchange', resize);
+
     let raf = 0;
     const tick = () => {
-      const v = videoRef.current;
-      if (v && durationRef.current) {
-        smoothTime.current += (targetTime.current - smoothTime.current) * LERP;
-        if (Math.abs(targetTime.current - smoothTime.current) < 0.004) {
-          smoothTime.current = targetTime.current;
-        }
-        if (!v.seeking && Math.abs(smoothTime.current - appliedTime.current) > 0.001) {
-          try {
-            v.currentTime = smoothTime.current;
-            appliedTime.current = smoothTime.current;
-          } catch {
-            /* ignora seeks inválidos durante carga */
-          }
-        }
+      // suaviza o índice de frame
+      smoothFrame.current += (targetFrame.current - smoothFrame.current) * LERP;
+      if (Math.abs(targetFrame.current - smoothFrame.current) < 0.01) {
+        smoothFrame.current = targetFrame.current;
+      }
+      const idx = Math.min(
+        FRAME_COUNT - 1,
+        Math.max(0, Math.round(smoothFrame.current)),
+      );
 
-        // --- Controle direto da opacidade e exibição (display: 'none') p/ evitar fantasmas ---
-        const t = smoothTime.current;
-
-        // Watermark HABIB
-        if (watermarkRef.current) {
-          const opacity = t < 1.2 ? 0.9 * (1 - t / 1.2) : 0;
-          watermarkRef.current.style.opacity = opacity.toString();
-          watermarkRef.current.style.display = opacity === 0 ? 'none' : 'flex';
-          const scale = t < 1.2 ? 1 - (t / 1.2) * 0.05 : 0.95;
-          watermarkRef.current.style.transform = `translate(-50%, -50%) scale(${scale})`;
-        }
-
-        // Palavras-âncora (Zero Imposto / Moeda Forte) + Parágrafo
-        if (wordsRef.current) {
-          const opacity = t < 1.2 ? 1 - t / 1.2 : 0;
-          wordsRef.current.style.opacity = opacity.toString();
-          wordsRef.current.style.display = opacity === 0 ? 'none' : 'block';
-          const y = t < 1.2 ? (t / 1.2) * 60 : 60;
-          wordsRef.current.style.transform = `translateY(${y}px)`;
-        }
-
-        // Hint "role para entrar"
-        if (hintRef.current) {
-          const opacity = t < 0.5 ? 1 - t / 0.5 : 0;
-          hintRef.current.style.opacity = opacity.toString();
-          hintRef.current.style.display = opacity === 0 ? 'none' : 'flex';
+      if (idx !== lastDrawn.current) {
+        const img = nearestLoaded(idx);
+        if (img && img.complete && img.naturalWidth) {
+          drawCover(img);
+          lastDrawn.current = idx;
         }
       }
+
+      // ---- Overlays de abertura (baseados no tempo de vídeo em segundos) ----
+      const t = smoothFrame.current / FPS;
+
+      if (watermarkRef.current) {
+        const opacity = t < 1.2 ? 0.9 * (1 - t / 1.2) : 0;
+        watermarkRef.current.style.opacity = opacity.toString();
+        watermarkRef.current.style.display = opacity === 0 ? 'none' : 'flex';
+        const scale = t < 1.2 ? 1 - (t / 1.2) * 0.05 : 0.95;
+        watermarkRef.current.style.transform = `translate(-50%, -50%) scale(${scale})`;
+      }
+
+      if (wordsRef.current) {
+        const opacity = t < 1.2 ? 1 - t / 1.2 : 0;
+        wordsRef.current.style.opacity = opacity.toString();
+        wordsRef.current.style.display = opacity === 0 ? 'none' : 'block';
+        const y = t < 1.2 ? (t / 1.2) * 60 : 60;
+        wordsRef.current.style.transform = `translateY(${y}px)`;
+      }
+
+      if (hintRef.current) {
+        const opacity = t < 0.5 ? 1 - t / 0.5 : 0;
+        hintRef.current.style.opacity = opacity.toString();
+        hintRef.current.style.display = opacity === 0 ? 'none' : 'flex';
+      }
+
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, []);
-
-  // ---- Loading screen ----
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-
-    const onMeta = () => {
-      durationRef.current = v.duration || 0;
-    };
-    const onProgress = () => {
-      try {
-        if (v.buffered.length && v.duration) {
-          const end = v.buffered.end(v.buffered.length - 1);
-          setLoadPct(Math.min(100, Math.round((end / v.duration) * 100)));
-        }
-      } catch {
-        /* buffered pode falhar cedo */
-      }
-    };
-    const onReady = () => {
-      setLoadPct(100);
-      setIsLoading(false);
-      // Unlock iOS Safari video decoder by playing and pausing immediately
-      if (v) {
-        v.play().then(() => {
-          v.pause();
-        }).catch(err => {
-          console.log("Video autoplay/play blocked or failed:", err);
-        });
-      }
-    };
-
-    v.addEventListener('loadedmetadata', onMeta);
-    v.addEventListener('progress', onProgress);
-    v.addEventListener('canplaythrough', onReady);
-    const failSafe = window.setTimeout(onReady, 15000);
-    if (v.readyState >= 4) onReady();
 
     return () => {
-      v.removeEventListener('loadedmetadata', onMeta);
-      v.removeEventListener('progress', onProgress);
-      v.removeEventListener('canplaythrough', onReady);
-      window.clearTimeout(failSafe);
+      cancelAnimationFrame(raf);
+      window.removeEventListener('resize', resize);
+      window.removeEventListener('orientationchange', resize);
     };
   }, []);
 
-  // ---- Timing dos overlays (calibrado p/ o vídeo de 15,4s) ----
-  // CTA na PORTA FECHADA (~7-8s): SOMENTE o botão, some antes de a porta abrir (9s).
-  const ctaOpacity = useTransform(scrollYProgress, [0.2, 0.235, 0.26, 0.28], [0, 1, 1, 0]);
-  const ctaScale = useTransform(scrollYProgress, [0.2, 0.235], [0.96, 1]);
+  // ---- Timing dos overlays (calibrado p/ o vídeo de 31,33s) ----
+  // CTA na PORTA FECHADA (~6-8s): SOMENTE o botão, some antes de a porta abrir (~8.5s).
+  const ctaOpacity = useTransform(scrollYProgress, [0.195, 0.225, 0.25, 0.265], [0, 1, 1, 0]);
+  const ctaScale = useTransform(scrollYProgress, [0.195, 0.225], [0.96, 1]);
 
-  // Copy da 2ª parte (esmeralda) sobre o skyline (~13-15s); sai antes do jato (16s).
-  const endOpacity = useTransform(scrollYProgress, [0.4, 0.44, 0.48, 0.5], [0, 1, 1, 0]);
-  const endY = useTransform(scrollYProgress, [0.4, 0.44], [50, 0]);
+  // Copy da 2ª parte (esmeralda) sobre o skyline de Dubai (~17-22s).
+  const endOpacity = useTransform(scrollYProgress, [0.55, 0.59, 0.67, 0.71], [0, 1, 1, 0]);
+  const endY = useTransform(scrollYProgress, [0.55, 0.59], [50, 0]);
 
-  // Fechamento sobre o laptop (~26-31s): CTA de conversão.
-  const finalOpacity = useTransform(scrollYProgress, [0.82, 0.88, 1], [0, 1, 1]);
-  const finalY = useTransform(scrollYProgress, [0.82, 0.9], [40, 0]);
+  // Fechamento sobre o laptop (~27-31s): CTA de conversão -> fade p/ preto.
+  const finalOpacity = useTransform(scrollYProgress, [0.83, 0.89, 1], [0, 1, 1]);
+  const finalY = useTransform(scrollYProgress, [0.83, 0.9], [40, 0]);
 
   // Vinheta: presente no corredor (leitura), leve no meio/fim p/ não "abafar" as cenas.
   const vignetteOpacity = useTransform(scrollYProgress, [0, 0.1, 0.4, 1], [1, 0.85, 0.5, 0.45]);
@@ -190,17 +255,10 @@ export function Hero({ onCtaClick }: HeroProps) {
         {/* fundo de segurança */}
         <div className="absolute inset-0 -z-20 bg-gradient-to-b from-black via-[#0a0a0a] to-black" />
 
-        {/* VÍDEO — controlado por scroll */}
-        <video
-          ref={videoRef}
-          muted
-          playsInline
-          preload="auto"
-          webkit-playsinline="true"
-          x5-playsinline="true"
-          className="absolute inset-0 h-full w-full object-cover -z-10"
-          src={VIDEO_SRC}
-          poster="/hero-poster.jpg?v=6"
+        {/* CANVAS — sequência de frames controlada por scroll */}
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 h-full w-full -z-10 block"
         />
 
         {/* Vinheta de leitura — leve, controlada por scroll (não "abafa" a imagem no fim) */}
@@ -212,63 +270,56 @@ export function Hero({ onCtaClick }: HeroProps) {
         {/* Watermark HABIB */}
         <div
           ref={watermarkRef}
-          className="absolute top-1/2 left-1/2 w-full flex justify-center items-center pointer-events-none z-0 px-4"
+          className="absolute top-[58%] left-1/2 w-full flex justify-center items-center pointer-events-none z-0 px-4"
           style={{ opacity: 0.9, transform: 'translate(-50%, -50%) scale(1)' }}
         >
-          <h1 className="font-cinzel text-[12vw] md:text-[8vw] font-normal bg-clip-text text-transparent bg-gradient-to-r from-white via-gold to-white tracking-[0.15em] select-none text-center leading-[1]">
+          <h1 className="font-playfair text-[7.5vw] md:text-[5vw] font-normal bg-clip-text text-transparent bg-gradient-to-r from-white via-emeraldBright to-white tracking-[0.12em] select-none text-center leading-[1.1]">
             HABIB
             <br />
             CONSULTANCY
           </h1>
         </div>
 
-        {/* ABERTURA: palavras-âncora + parágrafo (copy existente, reposicionada) */}
+        {/* ABERTURA: palavras-âncora (Blindagem Patrimonial / Dolarização de Patrimônio) */}
         <div
           ref={wordsRef}
-          className="absolute bottom-[14vh] md:bottom-[10vh] left-0 right-0 px-6 sm:px-10 md:px-16 z-10 pointer-events-none"
+          className="absolute bottom-[14vh] md:bottom-[11vh] left-0 right-0 px-6 sm:px-10 md:px-16 z-10 pointer-events-none"
           style={{ opacity: 1, transform: 'translateY(0px)' }}
         >
-          <div className="grid grid-cols-2 md:flex md:flex-row items-end justify-between w-full max-w-7xl mx-auto gap-y-8">
-            <div className="order-1 col-span-1 flex flex-col items-start text-left shrink-0">
-              <h1 className="font-cinzel text-[8vw] sm:text-[6vw] md:text-[5.5vw] font-normal italic tracking-tight leading-[0.9] text-white whitespace-nowrap drop-shadow-[0_2px_20px_rgba(0,0,0,0.6)]">
-                <LuxReveal delay={0.2}>Zero</LuxReveal>
+          <div className="flex flex-row items-end justify-between w-full max-w-7xl mx-auto gap-4">
+            <div className="flex flex-col items-start text-left shrink-0">
+              <h1 className="font-cinzel text-[4.4vw] sm:text-[3.6vw] md:text-[2.8vw] font-normal tracking-tight leading-[1] text-white whitespace-nowrap drop-shadow-[0_2px_24px_rgba(0,0,0,0.7)]">
+                <LuxReveal delay={0.2}>Blindagem</LuxReveal>
                 <br />
-                <LuxReveal delay={0.4}>Imposto</LuxReveal>
+                <LuxReveal delay={0.4}>Patrimonial</LuxReveal>
               </h1>
             </div>
 
-            <div className="order-3 md:order-2 col-span-2 md:col-auto w-full max-w-xs sm:max-w-md md:max-w-lg md:mb-3 md:mx-10 text-center md:text-left mx-auto">
-              <p className="font-inter text-white/70 text-[11px] sm:text-sm md:text-[15px] font-normal leading-relaxed tracking-wide">
-                A engenharia definitiva do patrimônio. Estruturas paramétricas em
-                Dubai que destravam acesso irrestrito a capital em moeda forte.
-              </p>
-            </div>
-
-            <div className="order-2 md:order-3 col-span-1 flex flex-col items-end text-right shrink-0">
-              <h1 className="font-cinzel text-[8vw] sm:text-[6vw] md:text-[5.5vw] font-normal italic tracking-tight leading-[0.9] text-white whitespace-nowrap drop-shadow-[0_2px_20px_rgba(0,0,0,0.6)]">
-                <LuxReveal delay={0.6}>Moeda</LuxReveal>
+            <div className="flex flex-col items-end text-right shrink-0">
+              <h1 className="font-cinzel text-[4.4vw] sm:text-[3.6vw] md:text-[2.8vw] font-normal tracking-tight leading-[1] text-white whitespace-nowrap drop-shadow-[0_2px_24px_rgba(0,0,0,0.7)]">
+                <LuxReveal delay={0.6}>Dolarização</LuxReveal>
                 <br />
-                <LuxReveal delay={0.8}>Forte</LuxReveal>
+                <LuxReveal delay={0.8}>de Patrimônio</LuxReveal>
               </h1>
             </div>
           </div>
         </div>
 
-        {/* PORTA (~52%): CTA limpa — SOMENTE o botão (posicionado abaixo da porta) */}
+        {/* PORTA FECHADA (~6-8s): CTA limpa — SOMENTE o botão (posicionado abaixo da porta) */}
         <motion.div
           style={{ opacity: ctaOpacity, scale: ctaScale }}
           className="absolute inset-x-0 bottom-[12vh] flex justify-center z-10 pointer-events-none"
         >
           <button
             onClick={onCtaClick}
-            className="pointer-events-auto relative group font-inter tracking-[0.15em] text-[11px] md:text-[13px] uppercase rounded-full transition-all duration-500 cursor-pointer overflow-hidden text-black bg-gradient-to-r from-[#C6A02E] via-[#F0D67A] to-[#C6A02E] font-bold px-10 py-4 shadow-[0_0_40px_rgba(16, 124, 88,0.35)] hover:shadow-[0_0_60px_rgba(16, 124, 88,0.6)] hover:scale-[1.04]"
+            className="pointer-events-auto relative group font-inter tracking-[0.18em] text-[12px] md:text-[15px] uppercase rounded-full transition-all duration-500 cursor-pointer overflow-hidden text-black bg-gradient-to-r from-[#B8912A] via-[#F6DE8A] to-[#B8912A] font-bold px-12 py-5 ring-1 ring-[#F6DE8A]/50 shadow-[0_8px_50px_rgba(214,175,64,0.55),0_0_0_1px_rgba(0,0,0,0.2)_inset] hover:shadow-[0_10px_70px_rgba(214,175,64,0.85)] hover:scale-[1.06]"
           >
             <div className="absolute inset-0 bg-white/50 translate-x-[-150%] skew-x-[-45deg] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out" />
             <span className="relative z-10">Solicitar Diagnóstico Patrimonial</span>
           </button>
         </motion.div>
 
-        {/* FIM: copy da 2ª parte sobreposta — com respiro, sem abafar */}
+        {/* MEIO: copy da 2ª parte sobreposta ao skyline — com respiro, sem abafar */}
         <motion.div
           style={{ opacity: endOpacity, y: endY }}
           className="absolute inset-0 flex flex-col items-center justify-center text-center px-8 z-10 pointer-events-none"
@@ -279,13 +330,13 @@ export function Hero({ onCtaClick }: HeroProps) {
             <h2 className="font-inter font-semibold uppercase text-xl md:text-[32px] leading-[1.15] tracking-[0.03em] text-white/90 drop-shadow-[0_2px_30px_rgba(0,0,0,0.5)]">
               Não vendemos empresas.
             </h2>
-            <h2 className="font-cinzel text-[36px] md:text-[clamp(48px,6.2vw,82px)] font-normal text-white tracking-[-0.02em] leading-[0.98] bg-clip-text text-transparent bg-gradient-to-r from-[#6EE7B7] via-[#10B981] to-[#34D399] drop-shadow-[0_2px_45px_rgba(16,185,129,0.45)] max-w-4xl mx-auto">
+            <h2 className="font-cinzel italic text-[40px] md:text-[clamp(52px,6.6vw,88px)] font-semibold tracking-[-0.01em] leading-[0.98] bg-clip-text text-transparent bg-gradient-to-b from-[#9FF3D2] via-[#17C57E] to-[#0A6E47] drop-shadow-[0_2px_50px_rgba(20,200,126,0.5)] max-w-4xl mx-auto">
               Construímos máquinas de <br className="hidden md:inline" /> bancabilidade em Dubai.
             </h2>
           </div>
         </motion.div>
 
-        {/* FECHAMENTO: CTA de conversão sobre o laptop (~26-31s) */}
+        {/* FECHAMENTO: CTA de conversão sobre o laptop (~27-31s) */}
         <motion.div
           style={{ opacity: finalOpacity, y: finalY }}
           className="absolute inset-0 flex flex-col items-center justify-center text-center px-8 z-10 pointer-events-none"
@@ -296,7 +347,7 @@ export function Hero({ onCtaClick }: HeroProps) {
           </p>
           <button
             onClick={onCtaClick}
-            className="pointer-events-auto relative group font-inter tracking-[0.15em] text-[11px] md:text-[13px] uppercase rounded-full transition-all duration-500 cursor-pointer overflow-hidden text-black bg-gradient-to-r from-[#C6A02E] via-[#F0D67A] to-[#C6A02E] font-bold px-10 py-4 shadow-[0_0_40px_rgba(16, 124, 88,0.35)] hover:shadow-[0_0_60px_rgba(16, 124, 88,0.6)] hover:scale-[1.04]"
+            className="pointer-events-auto relative group font-inter tracking-[0.18em] text-[12px] md:text-[15px] uppercase rounded-full transition-all duration-500 cursor-pointer overflow-hidden text-black bg-gradient-to-r from-[#B8912A] via-[#F6DE8A] to-[#B8912A] font-bold px-12 py-5 ring-1 ring-[#F6DE8A]/50 shadow-[0_8px_50px_rgba(214,175,64,0.55),0_0_0_1px_rgba(0,0,0,0.2)_inset] hover:shadow-[0_10px_70px_rgba(214,175,64,0.85)] hover:scale-[1.06]"
           >
             <div className="absolute inset-0 bg-white/50 translate-x-[-150%] skew-x-[-45deg] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out" />
             <span className="relative z-10">Solicitar Diagnóstico Patrimonial</span>
@@ -319,7 +370,7 @@ export function Hero({ onCtaClick }: HeroProps) {
       {/* LOADING SCREEN */}
       {isLoading && (
         <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-deepBlack">
-          <img src="/logo.png?v=5" alt="Habib Consultancy Logo" className="w-12 h-12 object-contain rounded-full mb-8 animate-pulse shadow-[0_0_20px_rgba(16, 124, 88,0.3)]" />
+          <img src="/logo.png?v=5" alt="Habib Consultancy Logo" className="w-12 h-12 object-contain rounded-full mb-8 animate-pulse shadow-[0_0_20px_rgba(214,175,64,0.3)]" />
           <div className="w-40 h-[2px] bg-white/10 overflow-hidden rounded-full">
             <div
               className="h-full bg-gradient-to-r from-darkGold to-gold transition-[width] duration-300"
