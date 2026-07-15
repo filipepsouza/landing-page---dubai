@@ -10,7 +10,7 @@ const steps = [
     icon: Building2,
     description: "Constituição societária na Zona Franca ou Mainland de Dubai com emissão de vistos de investidor e residência fiscal permanente em tempo recorde.",
     metricLabel: "Prazo Médio",
-    metricValue: "15 Dias",
+    metricValue: "30 Dias",
     progress: 100,
   },
   {
@@ -30,7 +30,7 @@ const steps = [
     icon: TrendingUp,
     description: "Alavancagem estruturada junto aos principais bancos dos Emirados Árabes para aquisição de ativos imobiliários com taxas locais.",
     metricLabel: "Custo de Crédito",
-    metricValue: "3.99% a.a.",
+    metricValue: "a partir de 3.99% a.a.",
     progress: 85,
   },
   {

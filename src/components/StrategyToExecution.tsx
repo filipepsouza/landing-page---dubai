@@ -132,7 +132,7 @@ export const StrategyToExecution: React.FC = () => {
             className="font-cinzel text-4xl md:text-5xl font-normal text-ivory tracking-tight max-w-3xl leading-[1.08]"
           >
             Nenhuma operação de sucesso<br />
-            começa pelo <span className="italic em-text text-emeraldBright">fim.</span>
+            começa pelo <span className="italic em-text text-emeraldBright">FIM.</span>
           </motion.h2>
           
           <motion.p 

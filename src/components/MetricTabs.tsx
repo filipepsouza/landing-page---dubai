@@ -13,12 +13,12 @@ const metricsData = [
     statLabel: "IMPOSTO PF"
   },
   {
-    tabTitle: "3.99% Custo",
+    tabTitle: "A partir de 3.99% Custo",
     icon: TrendingDown,
     badge: "Alavancagem Corporativa",
     title: "Custo de Crédito Sob Medida",
-    description: "Desbloqueie o acesso a linhas de financiamento imobiliário e corporativo locais com taxas que iniciam em 3.99% ao ano, vinculadas a moedas fortes (AED/USD). Um patamar de juros extremamente competitivo e fora da realidade da América Latina.",
-    statValue: "3.99%",
+    description: "Desbloqueie o acesso a linhas de financiamento imobiliário e corporativo locais com taxas que iniciam a partir de 3.99% ao ano, vinculadas a moedas fortes (AED/USD). Um patamar de juros extremamente competitivo e fora da realidade da América Latina.",
+    statValue: "A partir de 3.99%",
     statLabel: "TAXA AO ANO"
   },
   {
@@ -27,8 +27,8 @@ const metricsData = [
     badge: "Escala Patrimonial",
     title: "Alavancagem Estruturada",
     description: "Utilize estruturas de garantias cruzadas e depósitos remunerados para alavancar seu poder de compra em até 84 vezes. Transformamos aportes iniciais estruturados em múltiplos ativos imobiliários geradores de fluxo de caixa recorrente.",
-    statValue: "84x",
-    statLabel: "ALAVANCAGEM"
+    statValue: "Até 84 vezes",
+    statLabel: "DE ALAVANCAGEM"
   },
   {
     tabTitle: "31.7M Crédito",
@@ -129,7 +129,8 @@ export const MetricTabs = ({ onCtaClick }: { onCtaClick: () => void }) => {
                 <div className="absolute inset-8 border border-gold/5 pointer-events-none rounded-lg border-dashed" />
 
                 {/* Big Stat Value */}
-                <h1 className="text-6xl md:text-7xl font-black bg-clip-text text-transparent bg-gradient-to-b from-gold via-[#12A56B] to-[#0B5D3B] drop-shadow-[0_0_35px_rgba(18, 165, 107,0.4)] tracking-tighter">
+                <h1 className={`font-black bg-clip-text text-transparent bg-gradient-to-b from-gold via-[#12A56B] to-[#0B5D3B] drop-shadow-[0_0_35px_rgba(18, 165, 107,0.4)] tracking-tighter text-center leading-none
+                  ${activeData.statValue.length > 6 ? "text-2xl md:text-4xl" : "text-6xl md:text-7xl"}`}>
                   {activeData.statValue}
                 </h1>
 

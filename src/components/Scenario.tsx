@@ -106,7 +106,7 @@ const ChallengeCard: React.FC<ChallengeCardProps> = ({ item, idx }) => {
 
 export const Scenario: React.FC = () => {
   return (
-    <section id="cenario" className="relative py-16 md:py-24 px-4 sm:px-8 md:px-16 z-20 bg-obsidian">
+    <section id="cenario" className="relative pt-32 pb-16 md:pt-40 md:pb-24 px-4 sm:px-8 md:px-16 z-20 bg-obsidian">
       {/* Background ambient light */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-emerald/[0.015] rounded-full blur-3xl pointer-events-none" />
 
@@ -121,7 +121,7 @@ export const Scenario: React.FC = () => {
           </span>
           <h2 className="font-cinzel text-[32px] md:text-[clamp(42px,4.8vw,56px)] font-normal text-ivory tracking-[-0.02em] max-w-3xl leading-[1.08]">
             Seu patrimônio trabalha<br />
-            <span className="italic em-text text-emeraldBright">contra você</span> no Brasil.
+            <span className="italic em-text text-emeraldBright">CONTRA VOCÊ</span> no Brasil.
           </h2>
           <p className="text-ivory/70 text-[14px] md:text-[17px] font-normal leading-[1.65] max-w-2xl mt-2">
             Quatro forças corroem, todos os anos, o que você levou décadas para construir.

@@ -37,11 +37,8 @@ const framePath = (i: number) => `/hero-frames/f_${String(i + 1).padStart(4, '0'
 // (cobre corredor + porta + 1º CTA). O resto continua carregando em background.
 const REVEAL_AT = Math.min(FRAME_COUNT, 150);
 
-// 470 frames -> ~760vh (scrub lento/contemplativo). Sobe = mais lento.
-const SCROLL_HEIGHT_VH = 760;
-
-// Suavização do scrub. Menor = mais deslizante; maior = mais colado no scroll.
-const LERP = 0.22;
+// 470 frames -> ~280vh (resolvido em 3 scrolls com transição super compacta).
+const SCROLL_HEIGHT_VH = 280;
 
 interface HeroProps {
   onCtaClick?: () => void;
@@ -50,9 +47,10 @@ interface HeroProps {
 export function Hero({ onCtaClick }: HeroProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const watermarkRef = useRef<HTMLDivElement>(null);
   const wordsRef = useRef<HTMLDivElement>(null);
   const hintRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const endRef = useRef<HTMLDivElement>(null);
 
   const [isLoading, setIsLoading] = useState(true);
   const [loadPct, setLoadPct] = useState(0);
@@ -71,9 +69,40 @@ export function Hero({ onCtaClick }: HeroProps) {
   const smoothFrame = useRef(0);
   const lastDrawn = useRef(-1);
 
+  const hasAutoScrolled = useRef(false);
+
   useMotionValueEvent(scrollYProgress, 'change', (p) => {
     const clamped = Math.min(Math.max(p, 0), 1);
-    targetFrame.current = clamped * (FRAME_COUNT - 1);
+    
+    // Se o usuário voltar 100% ao topo da página (clamped === 0), reseta a animação para o início
+    if (clamped === 0 && window.scrollY < 10) {
+      targetFrame.current = 0;
+      smoothFrame.current = 0;
+      hasAutoScrolled.current = false;
+      return;
+    }
+
+    // Mapeamento em 4 estágios (SCROLL_HEIGHT_VH = 280):
+    // Un-stick ocorre em p = 0.642.
+    // O 3º estágio (target = 469) é ativado antes (p >= 0.58) para que o zoom
+    // para a tela preta seja concluído exatamente antes de a página destravar.
+    let target = 0;
+    if (clamped < 0.12) {
+      target = 0;
+    } else if (clamped < 0.42) {
+      target = 105;
+    } else if (clamped < 0.58) {
+      target = 320;
+    } else {
+      target = 469;
+    }
+
+    targetFrame.current = target;
+
+    // Reseta o controle do auto-scroll caso o usuário volte para o estágio 2 (Burj Khalifa)
+    if (clamped < 0.50 && hasAutoScrolled.current) {
+      hasAutoScrolled.current = false;
+    }
   });
 
   // ---- Preload das imagens ----
@@ -173,12 +202,23 @@ export function Hero({ onCtaClick }: HeroProps) {
     window.addEventListener('orientationchange', resize);
 
     let raf = 0;
-    const tick = () => {
-      // suaviza o índice de frame
-      smoothFrame.current += (targetFrame.current - smoothFrame.current) * LERP;
-      if (Math.abs(targetFrame.current - smoothFrame.current) < 0.01) {
+    let lastTime = performance.now();
+
+    const tick = (now: number) => {
+      // Diferença de tempo em segundos, limitada a 50ms para evitar saltos bruscos
+      const dt = Math.min(50, now - lastTime) / 1000;
+      lastTime = now;
+
+      const diff = targetFrame.current - smoothFrame.current;
+      const dist = Math.abs(diff);
+      if (dist > 0.05) {
+        // Velocidade em frames por segundo: máximo de 30 FPS, desacelera suavemente ao chegar perto
+        const speedFps = Math.min(dist * 4, 30);
+        smoothFrame.current += Math.sign(diff) * speedFps * dt;
+      } else {
         smoothFrame.current = targetFrame.current;
       }
+
       const idx = Math.min(
         FRAME_COUNT - 1,
         Math.max(0, Math.round(smoothFrame.current)),
@@ -192,16 +232,24 @@ export function Hero({ onCtaClick }: HeroProps) {
         }
       }
 
+      // Dispara o scroll suave quando o zoom-in no laptop (tela preta, frame >= 468) estiver concluído
+      if (idx >= 468 && !hasAutoScrolled.current) {
+        hasAutoScrolled.current = true;
+        const targetEl = document.getElementById('cenario');
+        if (targetEl) {
+          // Rola exatamente para o topo do contêiner da seção (0px no topo da janela)
+          // Isso elimina a faixa preta superior, enquanto o padding-top maior da seção garante a folga abaixo do header fixo.
+          const rect = targetEl.getBoundingClientRect();
+          const targetY = rect.top + window.scrollY;
+          window.scrollTo({
+            top: targetY,
+            behavior: 'smooth'
+          });
+        }
+      }
+
       // ---- Overlays de abertura (baseados no tempo de vídeo em segundos) ----
       const t = smoothFrame.current / FPS;
-
-      if (watermarkRef.current) {
-        const opacity = t < 1.2 ? 0.9 * (1 - t / 1.2) : 0;
-        watermarkRef.current.style.opacity = opacity.toString();
-        watermarkRef.current.style.display = opacity === 0 ? 'none' : 'flex';
-        const scale = t < 1.2 ? 1 - (t / 1.2) * 0.05 : 0.95;
-        watermarkRef.current.style.transform = `translate(-50%, -50%) scale(${scale})`;
-      }
 
       if (wordsRef.current) {
         const opacity = t < 1.2 ? 1 - t / 1.2 : 0;
@@ -217,6 +265,37 @@ export function Hero({ onCtaClick }: HeroProps) {
         hintRef.current.style.display = opacity === 0 ? 'none' : 'flex';
       }
 
+      // 4. CTA na PORTA FECHADA (~6s - 8.3s, ou seja, frames 90 a 125)
+      if (ctaRef.current) {
+        let opacity = 0;
+        if (t >= 5.5 && t <= 8.3) {
+          if (t < 6.2) opacity = (t - 5.5) / 0.7;
+          else if (t < 7.8) opacity = 1;
+          else opacity = (8.3 - t) / 0.5;
+        }
+        ctaRef.current.style.opacity = opacity.toString();
+        ctaRef.current.style.display = opacity === 0 ? 'none' : 'flex';
+        const scale = 0.96 + opacity * 0.04;
+        ctaRef.current.style.transform = `scale(${scale})`;
+      }
+
+      // 5. Copy da 2ª parte sobre o skyline (~17s - 22.5s, ou seja, frames 255 a 338)
+      // Ajustado de t >= 18.2 para que surja somente depois que o avião passar as nuvens (como nas primeiras versões)
+      if (endRef.current) {
+        let opacity = 0;
+        if (t >= 18.2 && t <= 23.0) {
+          if (t < 19.8) opacity = (t - 18.2) / 1.6;
+          else if (t < 21.5) opacity = 1;
+          else opacity = (23.0 - t) / 1.5;
+        }
+        endRef.current.style.opacity = opacity.toString();
+        endRef.current.style.display = opacity === 0 ? 'none' : 'flex';
+        const y = 40 * (1 - opacity);
+        endRef.current.style.transform = `translateY(${y}px)`;
+      }
+
+
+
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
@@ -227,19 +306,6 @@ export function Hero({ onCtaClick }: HeroProps) {
       window.removeEventListener('orientationchange', resize);
     };
   }, []);
-
-  // ---- Timing dos overlays (calibrado p/ o vídeo de 31,33s) ----
-  // CTA na PORTA FECHADA (~6-8s): SOMENTE o botão, some antes de a porta abrir (~8.5s).
-  const ctaOpacity = useTransform(scrollYProgress, [0.195, 0.225, 0.25, 0.265], [0, 1, 1, 0]);
-  const ctaScale = useTransform(scrollYProgress, [0.195, 0.225], [0.96, 1]);
-
-  // Copy da 2ª parte (esmeralda) sobre o skyline de Dubai (~17-22s).
-  const endOpacity = useTransform(scrollYProgress, [0.55, 0.59, 0.67, 0.71], [0, 1, 1, 0]);
-  const endY = useTransform(scrollYProgress, [0.55, 0.59], [50, 0]);
-
-  // Fechamento sobre o laptop (~27-31s): CTA de conversão -> fade p/ preto.
-  const finalOpacity = useTransform(scrollYProgress, [0.83, 0.89, 1], [0, 1, 1]);
-  const finalY = useTransform(scrollYProgress, [0.83, 0.9], [40, 0]);
 
   // Vinheta: presente no corredor (leitura), leve no meio/fim p/ não "abafar" as cenas.
   const vignetteOpacity = useTransform(scrollYProgress, [0, 0.1, 0.4, 1], [1, 0.85, 0.5, 0.45]);
@@ -267,18 +333,7 @@ export function Hero({ onCtaClick }: HeroProps) {
           className="absolute inset-0 -z-10 bg-gradient-to-b from-black/25 via-transparent to-black/70 pointer-events-none"
         />
 
-        {/* Watermark HABIB */}
-        <div
-          ref={watermarkRef}
-          className="absolute top-[58%] left-1/2 w-full flex justify-center items-center pointer-events-none z-0 px-4"
-          style={{ opacity: 0.9, transform: 'translate(-50%, -50%) scale(1)' }}
-        >
-          <h1 className="font-playfair text-[7.5vw] md:text-[5vw] font-normal bg-clip-text text-transparent bg-gradient-to-r from-white via-emeraldBright to-white tracking-[0.12em] select-none text-center leading-[1.1]">
-            HABIB
-            <br />
-            CONSULTANCY
-          </h1>
-        </div>
+
 
         {/* ABERTURA: palavras-âncora (Blindagem Patrimonial / Dolarização de Patrimônio) */}
         <div
@@ -286,19 +341,21 @@ export function Hero({ onCtaClick }: HeroProps) {
           className="absolute bottom-[14vh] md:bottom-[11vh] left-0 right-0 px-6 sm:px-10 md:px-16 z-10 pointer-events-none"
           style={{ opacity: 1, transform: 'translateY(0px)' }}
         >
-          <div className="flex flex-row items-end justify-between w-full max-w-7xl mx-auto gap-4">
-            <div className="flex flex-col items-start text-left shrink-0">
-              <h1 className="font-cinzel text-[4.4vw] sm:text-[3.6vw] md:text-[2.8vw] font-normal tracking-tight leading-[1] text-white whitespace-nowrap drop-shadow-[0_2px_24px_rgba(0,0,0,0.7)]">
+          <div className="flex flex-col md:flex-row items-center md:items-end justify-center md:justify-between w-full max-w-7xl mx-auto gap-6 md:gap-4 text-center md:text-left">
+            <div className="flex flex-col items-center md:items-start shrink-0">
+              <h1 className="font-cinzel text-[22px] sm:text-[28px] md:text-[2.8vw] font-normal tracking-tight leading-[1.1] text-white whitespace-nowrap drop-shadow-[0_2px_24px_rgba(0,0,0,0.7)]">
                 <LuxReveal delay={0.2}>Blindagem</LuxReveal>
-                <br />
+                <br className="hidden md:inline" />
+                <span className="md:hidden"> </span>
                 <LuxReveal delay={0.4}>Patrimonial</LuxReveal>
               </h1>
             </div>
 
-            <div className="flex flex-col items-end text-right shrink-0">
-              <h1 className="font-cinzel text-[4.4vw] sm:text-[3.6vw] md:text-[2.8vw] font-normal tracking-tight leading-[1] text-white whitespace-nowrap drop-shadow-[0_2px_24px_rgba(0,0,0,0.7)]">
+            <div className="flex flex-col items-center md:items-end shrink-0">
+              <h1 className="font-cinzel text-[22px] sm:text-[28px] md:text-[2.8vw] font-normal tracking-tight leading-[1.1] text-white whitespace-nowrap drop-shadow-[0_2px_24px_rgba(0,0,0,0.7)] md:text-right">
                 <LuxReveal delay={0.6}>Dolarização</LuxReveal>
-                <br />
+                <br className="hidden md:inline" />
+                <span className="md:hidden"> </span>
                 <LuxReveal delay={0.8}>de Patrimônio</LuxReveal>
               </h1>
             </div>
@@ -306,64 +363,50 @@ export function Hero({ onCtaClick }: HeroProps) {
         </div>
 
         {/* PORTA FECHADA (~6-8s): CTA limpa — SOMENTE o botão (posicionado abaixo da porta) */}
-        <motion.div
-          style={{ opacity: ctaOpacity, scale: ctaScale }}
-          className="absolute inset-x-0 bottom-[12vh] flex justify-center z-10 pointer-events-none"
+        <div
+          ref={ctaRef}
+          className="absolute inset-x-0 bottom-[12vh] flex justify-center z-10 pointer-events-none px-4"
+          style={{ opacity: 0, display: 'none' }}
         >
           <button
             onClick={onCtaClick}
-            className="pointer-events-auto relative group font-inter tracking-[0.18em] text-[12px] md:text-[15px] uppercase rounded-full transition-all duration-500 cursor-pointer overflow-hidden text-black bg-gradient-to-r from-[#B8912A] via-[#F6DE8A] to-[#B8912A] font-bold px-12 py-5 ring-1 ring-[#F6DE8A]/50 shadow-[0_8px_50px_rgba(214,175,64,0.55),0_0_0_1px_rgba(0,0,0,0.2)_inset] hover:shadow-[0_10px_70px_rgba(214,175,64,0.85)] hover:scale-[1.06]"
+            className="pointer-events-auto relative group font-inter tracking-[0.18em] text-[11px] md:text-[15px] uppercase rounded-full transition-all duration-500 cursor-pointer overflow-hidden text-black bg-gradient-to-r from-[#B8912A] via-[#F6DE8A] to-[#B8912A] font-bold px-8 md:px-12 py-4 md:py-5 ring-1 ring-[#F6DE8A]/50 shadow-[0_8px_50px_rgba(214,175,64,0.55),0_0_0_1px_rgba(0,0,0,0.2)_inset] hover:shadow-[0_10px_70px_rgba(214,175,64,0.85)] hover:scale-[1.06]"
           >
             <div className="absolute inset-0 bg-white/50 translate-x-[-150%] skew-x-[-45deg] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out" />
             <span className="relative z-10">Solicitar Diagnóstico Patrimonial</span>
           </button>
-        </motion.div>
+        </div>
 
         {/* MEIO: copy da 2ª parte sobreposta ao skyline — com respiro, sem abafar */}
-        <motion.div
-          style={{ opacity: endOpacity, y: endY }}
+        <div
+          ref={endRef}
           className="absolute inset-0 flex flex-col items-center justify-center text-center px-8 z-10 pointer-events-none"
+          style={{ opacity: 0, display: 'none' }}
         >
           {/* scrim localizado só atrás do texto (radial) — dá contraste sem abafar a cena */}
           <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_50%_45%_at_center,_rgba(0,0,0,0.55),_transparent_70%)]" />
           <div className="max-w-4xl mx-auto flex flex-col gap-6 md:gap-8">
-            <h2 className="font-inter font-semibold uppercase text-xl md:text-[32px] leading-[1.15] tracking-[0.03em] text-white/90 drop-shadow-[0_2px_30px_rgba(0,0,0,0.5)]">
+            <h2 className="font-inter font-semibold uppercase text-lg md:text-[32px] leading-[1.15] tracking-[0.03em] text-white/90 drop-shadow-[0_2px_30px_rgba(0,0,0,0.5)]">
               Não vendemos empresas.
             </h2>
-            <h2 className="font-cinzel italic text-[40px] md:text-[clamp(52px,6.6vw,88px)] font-semibold tracking-[-0.01em] leading-[0.98] bg-clip-text text-transparent bg-gradient-to-b from-[#9FF3D2] via-[#17C57E] to-[#0A6E47] drop-shadow-[0_2px_50px_rgba(20,200,126,0.5)] max-w-4xl mx-auto">
+            <h2 className="font-cinzel italic text-[28px] sm:text-[36px] md:text-[clamp(52px,6.6vw,88px)] font-semibold tracking-[-0.01em] leading-[1.1] md:leading-[0.98] bg-clip-text text-transparent bg-gradient-to-b from-[#9FF3D2] via-[#17C57E] to-[#0A6E47] drop-shadow-[0_2px_50px_rgba(20,200,126,0.5)] max-w-4xl mx-auto">
               Construímos máquinas de <br className="hidden md:inline" /> bancabilidade em Dubai.
             </h2>
           </div>
-        </motion.div>
+        </div>
 
-        {/* FECHAMENTO: CTA de conversão sobre o laptop (~27-31s) */}
-        <motion.div
-          style={{ opacity: finalOpacity, y: finalY }}
-          className="absolute inset-0 flex flex-col items-center justify-center text-center px-8 z-10 pointer-events-none"
-        >
-          <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_55%_50%_at_center,_rgba(0,0,0,0.6),_transparent_70%)]" />
-          <p className="font-inter font-semibold text-white/60 text-[11px] md:text-xs tracking-[0.35em] uppercase mb-6">
-            O acesso começa aqui
-          </p>
-          <button
-            onClick={onCtaClick}
-            className="pointer-events-auto relative group font-inter tracking-[0.18em] text-[12px] md:text-[15px] uppercase rounded-full transition-all duration-500 cursor-pointer overflow-hidden text-black bg-gradient-to-r from-[#B8912A] via-[#F6DE8A] to-[#B8912A] font-bold px-12 py-5 ring-1 ring-[#F6DE8A]/50 shadow-[0_8px_50px_rgba(214,175,64,0.55),0_0_0_1px_rgba(0,0,0,0.2)_inset] hover:shadow-[0_10px_70px_rgba(214,175,64,0.85)] hover:scale-[1.06]"
-          >
-            <div className="absolute inset-0 bg-white/50 translate-x-[-150%] skew-x-[-45deg] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out" />
-            <span className="relative z-10">Solicitar Diagnóstico Patrimonial</span>
-          </button>
-        </motion.div>
+
 
         {/* Hint de scroll */}
         <div
           ref={hintRef}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center z-20 pointer-events-none"
-          style={{ opacity: 1 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center z-20 pointer-events-none animate-bounce"
+          style={{ opacity: 1, animationDuration: '2.2s' }}
         >
-          <span className="font-inter font-semibold text-white/40 text-[10px] tracking-[0.35em] uppercase mb-2">
+          <span className="font-inter font-semibold text-white/70 text-[11px] tracking-[0.35em] uppercase mb-2 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
             Role para entrar
           </span>
-          <div className="w-[1px] h-10 bg-gradient-to-b from-gold to-transparent" />
+          <div className="w-[1px] h-10 bg-gradient-to-b from-[#C9A227] to-transparent" />
         </div>
       </div>
 

@@ -99,9 +99,13 @@ function App() {
         className="fixed top-0 left-0 w-full z-50 py-6 bg-gradient-to-b from-black/80 via-black/30 to-transparent pointer-events-none"
       >
         <div className="w-full flex items-center justify-between px-4 sm:px-8 md:px-16 pointer-events-auto">
-          {/* Left Column: Logo */}
-          <div className="h-16 md:h-[4.5rem] flex items-center justify-center">
-            <img src="/logo.png?v=5" alt="Habib Consultancy" className="h-14 w-14 md:h-16 md:w-16 object-contain drop-shadow-md" />
+          {/* Left Column: Logo & Text */}
+          <div className="h-16 md:h-[4.5rem] flex items-center gap-3 md:gap-4">
+            <img src="/logo.png?v=5" alt="Habib Consultancy Logo" className="h-11 w-11 md:h-14 md:w-14 object-contain drop-shadow-md" />
+            <div className="flex flex-col items-start justify-center border-l border-white/10 pl-3 md:pl-4 py-0.5">
+              <span className="font-cinzel text-sm sm:text-base md:text-lg font-medium text-[#C9A227] tracking-[0.25em] leading-none">HABIB</span>
+              <span className="font-cinzel text-[7px] sm:text-[8px] md:text-[9px] font-bold text-white/70 tracking-[0.3em] leading-none mt-1">CONSULTANCY</span>
+            </div>
           </div>
 
           {/* Right Column: CTA Button */}
@@ -238,15 +242,15 @@ function App() {
             
             {/* Left Column: Logo & Description (span 6) */}
             <div className="col-span-1 md:col-span-6 flex flex-col items-start gap-6 text-left">
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-3">
                 {/* Gold Hexagon Cat Logo */}
-                <div className="w-9 h-9 flex items-center justify-center shrink-0 translate-y-[1px]">
+                <div className="w-9 h-9 flex items-center justify-center shrink-0">
                   <img src="/logo.png?v=5" alt="Habib Consultancy Logo" className="w-full h-full object-contain" />
                 </div>
                 {/* Stacked Text */}
-                <div className="flex flex-col items-start leading-none gap-0.5">
-                  <span className="font-cinzel text-lg font-bold text-white tracking-widest">HABIB</span>
-                  <span className="font-inter text-[9px] font-bold text-emeraldBright tracking-[0.2em]">CONSULTANCY</span>
+                <div className="flex flex-col items-start justify-center border-l border-white/10 pl-3 py-0.5">
+                  <span className="font-cinzel text-sm sm:text-base font-medium text-[#C9A227] tracking-[0.25em] leading-none">HABIB</span>
+                  <span className="font-cinzel text-[7px] sm:text-[8px] font-bold text-white/70 tracking-[0.3em] leading-none mt-1">CONSULTANCY</span>
                 </div>
               </div>
 

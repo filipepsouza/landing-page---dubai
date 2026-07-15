@@ -10,11 +10,11 @@ interface PreQualModalProps {
 export const PreQualModal: React.FC<PreQualModalProps> = ({ isOpen, onClose }) => {
   const [nome, setNome] = useState('');
   const [telefone, setTelefone] = useState('');
-  const [renda, setRenda] = useState('');
-  const [parcela, setParcela] = useState('');
-  const [vinculo, setVinculo] = useState('');
-  const [composicao, setComposicao] = useState('');
-  const [experiencia, setExperiencia] = useState('');
+  const renda = null;
+  const parcela = null;
+  const vinculo = null;
+  const composicao = null;
+  const experiencia = null;
 
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -162,81 +162,6 @@ export const PreQualModal: React.FC<PreQualModalProps> = ({ isOpen, onClose }) =
                       onChange={handlePhoneChange}
                       className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-gold/50 focus:shadow-[0_0_10px_rgba(18, 165, 107,0.1)] transition-all duration-300 font-light"
                     />
-                  </div>
-                </div>
-              </div>
-
-              {/* Seção 2: Perfil Financeiro */}
-              <div className="flex flex-col gap-3">
-                <span className="text-[10px] font-semibold text-gold/60 uppercase tracking-[0.15em] border-b border-gold/10 pb-1 font-inter">02. Parametrização Patrimonial</span>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-bold text-white/50 uppercase tracking-wider">Renda Mensal Estimada (R$)</label>
-                    <input 
-                      type="number"
-                      placeholder="Ex: 25000"
-                      value={renda}
-                      onChange={e => setRenda(e.target.value)}
-                      className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-gold/50 focus:shadow-[0_0_10px_rgba(18, 165, 107,0.1)] transition-all duration-300 font-light"
-                    />
-                  </div>
-
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-bold text-white/50 uppercase tracking-wider">Aporte / Parcela Mensal (R$)</label>
-                    <input 
-                      type="number"
-                      placeholder="Ex: 5000"
-                      value={parcela}
-                      onChange={e => setParcela(e.target.value)}
-                      className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-gold/50 focus:shadow-[0_0_10px_rgba(18, 165, 107,0.1)] transition-all duration-300 font-light"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-bold text-white/50 uppercase tracking-wider">Vínculo Profissional</label>
-                    <select
-                      value={vinculo}
-                      onChange={e => setVinculo(e.target.value)}
-                      className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-xs text-white/70 focus:outline-none focus:border-gold/50 transition-all duration-300 font-light"
-                    >
-                      <option value="" disabled className="bg-[#080808]">Selecione...</option>
-                      <option value="CLT" className="bg-[#080808]">CLT / Cargo Privado</option>
-                      <option value="Autônomo" className="bg-[#080808]">Profissional Liberal</option>
-                      <option value="Empresário" className="bg-[#080808]">Sócio / Empresário</option>
-                      <option value="Servidor Público" className="bg-[#080808]">Servidor Público</option>
-                      <option value="Aposentado/Pensionista" className="bg-[#080808]">Rentista / Aposentado</option>
-                    </select>
-                  </div>
-
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-bold text-white/50 uppercase tracking-wider">Composição de Renda</label>
-                    <select
-                      value={composicao}
-                      onChange={e => setComposicao(e.target.value)}
-                      className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-xs text-white/70 focus:outline-none focus:border-gold/50 transition-all duration-300 font-light"
-                    >
-                      <option value="" disabled className="bg-[#080808]">Selecione...</option>
-                      <option value="Individual" className="bg-[#080808]">Apenas Individual</option>
-                      <option value="Com Cônjuge" className="bg-[#080808]">Com Cônjuge</option>
-                      <option value="Familiar" className="bg-[#080808]">Familiar / Sócio</option>
-                    </select>
-                  </div>
-
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-bold text-white/50 uppercase tracking-wider">Experiência Imobiliária</label>
-                    <select
-                      value={experiencia}
-                      onChange={e => setExperiencia(e.target.value)}
-                      className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-xs text-white/70 focus:outline-none focus:border-gold/50 transition-all duration-300 font-light"
-                    >
-                      <option value="" disabled className="bg-[#080808]">Selecione...</option>
-                      <option value="Primeira compra" className="bg-[#080808]">Primeiro Imóvel</option>
-                      <option value="Já possuo imóveis" className="bg-[#080808]">Já possuo imóveis</option>
-                      <option value="Investidor ativo" className="bg-[#080808]">Investidor ativo</option>
-                    </select>
                   </div>
                 </div>
               </div>

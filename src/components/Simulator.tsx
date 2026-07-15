@@ -45,7 +45,7 @@ export const Simulator: React.FC<SimulatorProps> = ({ onCtaClick }) => {
           </span>
           <h2 className="font-cinzel text-4xl md:text-5xl font-normal leading-tight tracking-tight text-ivory">
             Quanto crédito o seu<br />
-            aporte <span className="italic em-text text-emeraldBright">destrava?</span>
+            aporte <span className="italic em-text text-emeraldBright">DESTRAVA?</span>
           </h2>
           <p className="text-ivory/70 text-[17px] font-light leading-relaxed max-w-xl">
             Mova o valor e veja o potencial da estrutura. A simulação completa, com prazos e custos, chega no seu WhatsApp.

@@ -139,7 +139,7 @@ export const WhyDubai: React.FC = () => {
           </span>
           <h2 className="font-cinzel text-4xl md:text-5xl font-normal text-ivory tracking-[-0.02em] max-w-3xl leading-[1.08]">
             O capital do mundo<br />
-            mudou de <span className="italic em-text text-emeraldBright">endereço.</span>
+            mudou de <span className="italic em-text text-emeraldBright">ENDEREÇO.</span>
           </h2>
           <p className="text-ivory/70 text-[16px] md:text-[18px] max-w-xl font-normal leading-[1.65] mt-2">
             Não é tendência: é a jurisdição que os maiores patrimônios do planeta já escolheram.

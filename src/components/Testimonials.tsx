@@ -316,15 +316,15 @@ const Carousel = ({ items, initialScroll = 0 }: iCarouselProps) => {
 
   return (
     <div className="relative w-full mt-4">
+      {/* Soft Right Gradient Blur to blend into dark background */}
+      <div className="absolute right-0 top-0 bottom-0 z-30 w-16 bg-gradient-to-l from-deepBlack to-transparent pointer-events-none" />
+
       <div
         className="flex w-full overflow-x-scroll overscroll-x-auto scroll-smooth [scrollbar-width:none] py-5 relative"
         ref={carouselRef}
         onScroll={checkScrollability}
         style={{ msOverflowStyle: 'none' }}
       >
-        {/* Soft Right Gradient Blur to blend into dark background */}
-        <div className="absolute right-0 top-0 bottom-0 z-30 w-16 bg-gradient-to-l from-deepBlack to-transparent pointer-events-none" />
-
         <div className="flex flex-row justify-start gap-6 md:gap-8 pl-1 pr-16 max-w-7xl mx-auto">
           {items.map((item, index) => (
             <motion.div
@@ -445,7 +445,7 @@ export const Testimonials: React.FC = () => {
           </span>
           <h2 className="font-cinzel text-[36px] md:text-5xl font-normal text-white tracking-[-0.02em] leading-tight">
             Confiança se constrói<br />
-            com <span className="italic em-text text-emeraldBright">casos reais.</span>
+            com <span className="italic em-text text-emeraldBright">CASOS REAIS.</span>
           </h2>
           <p className="text-white/50 text-xs md:text-sm max-w-xl font-normal leading-relaxed mt-1">
             Operações conduzidas sob sigilo. Nomes preservados, números verificáveis em diligência.

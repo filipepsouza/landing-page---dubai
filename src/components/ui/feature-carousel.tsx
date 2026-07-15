@@ -85,9 +85,9 @@ const steps: readonly Step[] = [
   },
   {
     id: "2",
-    name: "3.99% Custo",
+    name: "A partir de 3.99% Custo",
     title: "Custo de Crédito Sob Medida",
-    description: "Desbloqueie o acesso a linhas de financiamento imobiliário e corporativo locais com taxas que iniciam em 3.99% ao ano, vinculadas a moedas fortes (AED/USD). Um patamar de juros extremamente competitivo e fora da realidade da América Latina.",
+    description: "Desbloqueie o acesso a linhas de financiamento imobiliário e corporativo locais com taxas que iniciam a partir de 3.99% ao ano, vinculadas a moedas fortes (AED/USD). Um patamar de juros extremamente competitivo e fora da realidade da América Latina.",
   },
   {
     id: "3",
